@@ -1,0 +1,5 @@
+{
+  "configure": "Configuring `pclientd`",
+  "rpc": "Making RPC requests",
+  "build_transaction": "Building Transactions"
+}

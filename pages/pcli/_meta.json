@@ -1,0 +1,8 @@
+{
+  "install": "Installing `pcli`",
+  "wallet": "Generating a Wallet",
+  "update": "Updating to the latest testnet",
+  "balance": "Viewing Balances",
+  "transaction": "Sending Transactions",
+  "governance": "Using Governance"
+}

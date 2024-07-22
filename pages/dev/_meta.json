@@ -1,0 +1,11 @@
+{
+  "build": "Compiling from source",
+  "devnet-quickstart": "Devnet Quickstart",
+  "sql": "Working with SQLite",
+  "docs": "Building documentation",
+  "protobuf": "Building protobuf",
+  "metrics": "Metrics",
+  "parameter_setup": "Zero Knowledge Proofs",
+  "rpc": "RPC access",
+  "ibc": "Testing IBC"
+}
