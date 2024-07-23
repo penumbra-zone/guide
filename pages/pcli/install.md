@@ -5,7 +5,7 @@ match the software currently running on the network.
 Make sure choose the correct platform for your machine. Or, you can use a one-liner install script:
 
 ```shell
-curl --proto '=https' --tlsv1.2 -LsSf https://github.com/penumbra-zone/penumbra/releases/download/{{ #include ../penumbra_version.md }}/pcli-installer.sh | sh
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/penumbra-zone/penumbra/releases/latest/download/pcli-installer.sh | sh
 
 # confirm the pcli binary is installed by running:
 pcli --version
