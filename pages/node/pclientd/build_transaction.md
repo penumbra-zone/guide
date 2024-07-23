@@ -1,3 +1,5 @@
+# Building Transactions
+
 Using the view and custody services to construct a transaction has four steps.
 
 ## Plan the Transaction

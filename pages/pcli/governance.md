@@ -106,8 +106,8 @@ from being slashed. This is usually used when a proposal has been superseded by 
 alternative.
 
 <picture>
-  <source srcset="../governance-dark.png" media="(prefers-color-scheme: dark)" />
-  <img src="../governance-light.png" />
+  <source srcset="../images/governance-dark.png" media="(prefers-color-scheme: dark)" />
+  <img src="../images/governance-light.png" />
 </picture>
 
 In the above, rounded grey boxes are actions submitted by the proposal author, rectangular colored

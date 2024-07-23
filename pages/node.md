@@ -1,3 +1,5 @@
+# Running a node
+
 Running a node is not necessary to use the protocol. Both the web extension and
 `pcli` are designed to operate with any RPC endpoint. However, we've tried to
 make it as easy as possible to run nodes so that users can host their own RPC.

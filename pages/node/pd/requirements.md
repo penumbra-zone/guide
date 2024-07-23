@@ -1,3 +1,5 @@
+# Requirements for running a node
+
 In order to run a Penumbra fullnode, you'll need a machine
 with sufficient resources. See specifics below.
 

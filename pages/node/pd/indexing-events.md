@@ -1,3 +1,5 @@
+# Indexing ABCI events
+
 The `pd` software emits ABCI events while processing blocks. By default,
 these blocks are stored in CometBFT's key-value database locally, but node operators
 can opt-in to writing the events to an external PostgreSQL database.

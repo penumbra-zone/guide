@@ -1,3 +1,5 @@
+# Joining a network
+
 We provide instructions for running both fullnode deployments and validator deployments. A
 fullnode will sync with the network but will not have any voting power, and will
 not be eligible for staking or funding stream rewards. For more information on

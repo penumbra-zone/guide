@@ -1,3 +1,5 @@
+# Local RPC with `pclientd`
+
 Penumbra's architecture separates public shared state from private per-user
 state.  Each user's state is known only to them and other parties they disclose
 it to.  While this provides many advantages -- and enables the core features of
