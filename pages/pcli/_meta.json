@@ -1,5 +1,5 @@
 {
-  "install": "Installing `pcli`",
+  "install": "Installing pcli",
   "wallet": "Generating a Wallet",
   "update": "Updating to the latest testnet",
   "balance": "Viewing Balances",

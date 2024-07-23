@@ -1,4 +1,4 @@
 {
-  "pd": "Full node: `pd`",
-  "pclientd": "Ultralight node: `pclientd`"
+  "pd": "Full node: pd",
+  "pclientd": "Ultralight node: pclientd"
 }

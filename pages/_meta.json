@@ -1,9 +1,9 @@
 {
-  "index": "Penumbra Guide",
+  "index": "Overview",
   "web": "Using Penumbra on the web",
   "pcli": "Using Penumbra from the command line",
   "node": "Running a node",
+  "frontend": "Running a frontend",
   "dev": "Development",
-  "resources": "Resources",
-  "tutorials": "Tutorials"
+  "resources": "Resources"
 }

@@ -1,22 +1,13 @@
-# Running a frontend
-
-In order to use the [Prax] wallet web extension, users must visit a trusted
-website that leverages the web extension in order to interact with the [Penumbra] network.
-While users can choose to grant access to website run by a party they trust,
-this guide demonstrates how a user can self-host a frontend for use by themselves and others.
-
-## About minifront
-
 [Minifront] is minimal frontend for interacting with the [Penumbra] chain.
 A number of technical decisions were made to ensure minifront is maximally client side and does not leak
 information unnecessarily:
 
-- Client-side biased js framework ✅ Hash routing ✅
-- Pre-load all static assets ⚠️ (in progress...)
-- Server rendering ❌
-- Route-based code splitting ❌
-- Idiomatic urls & query params ❌
-- Build-time pre-rendering ❌
+- ✅ Client-side biased js framework with hash routing
+- ⚠ Pre-load all static assets  (in progress...)
+- ❌ Server rendering
+- ❌ Route-based code splitting
+- ❌ Idiomatic urls & query params
+- ❌ Build-time pre-rendering
 
 [Read more](https://x.com/grod220/status/1760217326245285923) about how this frontend embraces censorship resistance and
 privacy.
