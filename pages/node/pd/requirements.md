@@ -83,7 +83,7 @@ declaration. Node operators should set this value system-wide, by editing `/etc/
 
 We expect node operators to manage the lifecycle of their Penumbra deployments.
 Some example configs for systemd can be found in the Penumbra repo's
-[`deployments/`](https://github.com/penumbra-zone/penumbra/tree/{{ #include ../../penumbra_version.md }}/deployments) directory.
+[`deployments/`](https://github.com/penumbra-zone/penumbra/tree/main/deployments) directory.
 Other community solutions include:
 
 * [Cosmos Operator] by [Strangelove] for Kubernetes

@@ -1,3 +1,5 @@
+import { PENUMBRA_VERSION } from '../../penumbra_versions.js';
+
 Penumbra is written in [Rust]. To build it, you will need a recent
 stable version of Rust, as well as a few OS-level dependencies.
 We don't support building on Windows. If you need to use Windows,
@@ -64,11 +66,12 @@ git clone https://github.com/penumbra-zone/penumbra
 
 To build the versions of `pcli`, `pd`, etc. compatible with the current testnet,
 navigate to the `penumbra/` folder, fetch the latest from the repository, and check out the
-latest tag for the current
-[testnet](https://github.com/penumbra-zone/penumbra/releases):
+latest tag from the [releases page](https://github.com/penumbra-zone/penumbra/releases).
+Currently, that tag is <code>{PENUMBRA_VERSION}</code>. Substitute that value for `<TAG>`
+below:
 
 ```bash
-cd penumbra && git fetch && git checkout {{ #include ../penumbra_version.md }}
+cd penumbra && git fetch && git checkout <TAG>
 ```
 
 If you want to build the most recent version compatible with the "preview" environment,
