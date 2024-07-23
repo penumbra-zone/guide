@@ -1,11 +1,9 @@
-# Running a fullnode
-
 In order to interact with the Penumbra network, users must provide an RPC URL
 so that client software can read chain state and submit transactions.
 This is true of the [Prax wallet], and of [pcli], as well as any other client.
 While users can select a publicly available RPC URL from a party they trust,
 this guide demonstrates how a user can self-host an RPC URL for use by themselves and others.
-For a more generalized description of running pd, see the [pd overview](../node/pd.md).
+For a more generalized description of running pd, see the [other sections in this chapter](../pd.md).
 
 ## Renting a server
 

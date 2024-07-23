@@ -1,5 +1,3 @@
-# Using pcli
-
 This section describes how to use `pcli`, the command line client for Penumbra:
 
 - [Installation](./pcli/install.md) describes how to compile and run `pcli`;

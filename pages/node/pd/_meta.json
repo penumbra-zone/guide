@@ -1,9 +1,10 @@
 {
+  "running-node": "Tutorial",
   "requirements": "Requirements",
-  "install": "Installing `pd`",
+  "install": "Installing pd",
   "join-network": "Joining a network",
   "validator": "Becoming a validator",
   "chain-upgrade": "Performing a chain upgrade",
   "indexing-events": "Indexing ABCI events",
-  "debugging": "Debugging"
+  "debugging": "FAQs"
 }

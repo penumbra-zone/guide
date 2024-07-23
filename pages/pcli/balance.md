@@ -1,5 +1,3 @@
-# Viewing Balances
-
 Once you've received your first tokens, you can scan the chain to import them
 into your local wallet (this may take a few minutes the first time you run it):
 

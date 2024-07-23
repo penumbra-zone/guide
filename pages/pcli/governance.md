@@ -1,5 +1,3 @@
-# Governance
-
 Penumbra features on-chain governance similar to Cosmos Hub, with the simplification that there are
 only 3 kinds of vote: yes, no, and abstain.
 

@@ -1,5 +1,3 @@
-# Debugging a Penumbra node
-
 Below are a list of FAQs about running a Penumbra node.
 
 ## How do I check whether my node is connected to other peers?

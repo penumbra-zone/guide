@@ -1,5 +1,3 @@
-# Compiling from source
-
 Penumbra is written in Rust. To build it, you will need a recent
 stable version of Rust, as well as a few OS-level dependencies.
 We don't support building on Windows. If you need to use Windows,

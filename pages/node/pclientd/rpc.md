@@ -1,5 +1,3 @@
-# Making RPC requests
-
 `pclientd` exposes a GRPC and GRPC-web endpoint at its `bind_addr`. Several
 services are available.
 

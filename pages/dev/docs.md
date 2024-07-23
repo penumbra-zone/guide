@@ -1,5 +1,3 @@
-# Building documentation
-
 ## mdBook docs
 The [protocol docs] and the [guide] (this document) are built using
 [mdBook] and auto-deployed on pushes to `main`. To build locally:

@@ -1,5 +1,3 @@
-# Generating a Wallet
-
 On first [installation of `pcli`](./install.md), you will need to generate a fresh wallet to use with Penumbra.
 
 The `pcli init` command will generate a configuration file, depending on the

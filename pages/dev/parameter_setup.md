@@ -1,7 +1,3 @@
-# Zero-Knowledge Proofs
-
-## Test Parameter Setup
-
 Penumbra's zero-knowledge proofs require circuit-specific parameters to be
 generated in a preprocessing phase. There are two
 keys generated for each circuit, the *Proving Key* and *Verifying Key* - used by the

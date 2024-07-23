@@ -1,5 +1,3 @@
-# Devnet Quickstart
-
 This page describes a quickstart method for running `pd`+`cometbft` to test
 changes during development.
 

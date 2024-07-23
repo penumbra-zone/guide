@@ -1,5 +1,3 @@
-# Testing IBC
-
 This guide explains how to work with IBC functionality
 while developing Penumbra.
 

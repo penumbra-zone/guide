@@ -1,5 +1,3 @@
-# Requirements for running a node
-
 In order to run a Penumbra fullnode, you'll need a machine
 with sufficient resources. See specifics below.
 
@@ -10,6 +8,11 @@ We recommend using a machine with at least:
 * 8GB RAM
 * 2-4 vCPUS
 * ~200GB persistent storage (~20GB/week)
+* Non-virtualized SSD storage
+
+Virtualized SSDs found on many cloud providers have poor IOPS and will cause
+unpredictable performance. This may be fine for personal use, but RPC nodes
+should use non-virtualized storage.
 
 You can host your node on hardware, or on your cloud provider of choice.
 

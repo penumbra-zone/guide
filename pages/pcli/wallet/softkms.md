@@ -1,5 +1,3 @@
-# Software Custody Backend
-
 The `softkms` custody backend stores the spending key unencrypted in the pcli configuration file.
 
 To generate a new wallet, try:
