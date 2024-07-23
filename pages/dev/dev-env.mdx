@@ -8,40 +8,53 @@ Nix, and instead configure your environment manually, see the docs on
 You'll need `git` and `git-lfs` to clone the Penumbra protocol repository.
 Install these via your package manager of choice:
 
-```bash
-# for macos
-brew install git-lfs
-# for linux debian/ubuntu
-sudo apt install -y git-lfs
-# for linux fedora
-sudo dnf install -y git-lfs
-```
+import { Tabs } from 'nextra/components';
+
+<Tabs items={['macOS', 'Debian', 'Fedora']}>
+  <Tabs.Tab>
+  ```shell
+  brew install git-lfs
+  ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+  ```shell
+  sudo apt install -y git-lfs
+  ```
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+  ```shell
+  sudo dnf install -y git-lfs
+  ```
+  </Tabs.Tab>
+</Tabs>
 
 Then, for all platforms, make sure to run `git lfs install`. Now you're ready to clone the
 Penumbra protocol repo:
 
-```
+```shell
 git clone https://github.com/penumbra-zone/penumbra
 ```
 
 ## Using `nix develop` for project dependencies
 
-<!--
+{/*
 The Informal Systems team has a Nix setup at https://github.com/informalsystems/cosmos.nix,
 which recommends using the NixOS installer, which is why we recommend using that installer, too.
--->
+*/}
 
 Install [Nix]. After restarting your shell, create a config file to enable
 Nix flakes:
 
-```
+```shell
 mkdir -p ~/.config/nix
 echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
 ```
 
 Now hop into the Penumbra directory and activate the env:
 
-```
+```shell
 cd penumbra
 nix develop
 ```
@@ -56,7 +69,7 @@ You can run `exit` to return to your normal shell, without those tools, which ha
 If you use [direnv], you can copy the example `.envrc` file to automatically activate
 the Penumbra nix environment when you cd to the repository:
 
-```
+```shell
 cp .envrc.example .envrc
 direnv allow
 ```
