@@ -33,8 +33,8 @@ The image files will become out of data quickly, requiring maintenance, and bloa
 -->
 
 <picture>
-  <source srcset="web-extension-sync-progress.png" media="(prefers-color-scheme: dark)" />
-  <img src="web-extension-sync-progress.png" />
+  <source srcset="images/web-extension-sync-progress.png" media="(prefers-color-scheme: dark)" />
+  <img src="images/web-extension-sync-progress.png" />
 </picture>
 
 ## Obtaining funds
@@ -63,10 +63,6 @@ transaction.  Navigate to the dApp website:
 click **Connect**, then authorize the extension to work with the site. After
 doing so, you'll see buttons for actions such as **Receive**, **Send**, and
 **Exchange**.
-
-As of Testnet 53, only the **Send** action is supported. Check back on
-subsequent versions to follow progress as we implement more advanced
-functionality in the web wallet.
 
 ## Upgrading to a new testnet
 

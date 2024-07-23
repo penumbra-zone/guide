@@ -1,3 +1,5 @@
+# Working with SQLite
+
 The view server uses [SQLite3](https://sqlite.org) to store client state locally.
 During debugging, you may wish to interact with the sqlite db directly.
 To do so:

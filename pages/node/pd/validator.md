@@ -1,3 +1,5 @@
+# Becoming a validator
+
 After [starting your node](./join-network.md), you should now be participating in the
 network as a fullnode. If you wish to run a validator, you'll need to perform additional
 steps.

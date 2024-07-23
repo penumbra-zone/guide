@@ -1,3 +1,5 @@
+# Performing chain upgrades
+
 When consensus-breaking changes are made to the Penumbra protocol,
 node operators must coordinate upgrading to the new version of the software
 at the same time. Penumbra uses a governance proposal for scheduling upgrades

@@ -1,7 +1,11 @@
-Penumbra is written in Rust. To build it, you will need a recent
+Penumbra is written in [Rust]. To build it, you will need a recent
 stable version of Rust, as well as a few OS-level dependencies.
 We don't support building on Windows. If you need to use Windows,
 consider using [WSL] instead.
+
+This page aims to describe the steps necessary to work on Penumbra when
+settings up the build environment manually, without using [Nix].
+If you want an easy-to-use setup, see the docs on [developer environments](./dev-env.md).
 
 ### Installing the Rust toolchain
 
@@ -119,7 +123,7 @@ git submodule update --init
 
 # Build snappy using cmake.
 mkdir build
-cd build && cmake .. && make
+cd build && cmake ../ -DSNAPPY_BUILD_BENCHMARKS=OFF && make
 
 # Add an environment variable pointing to the build/ directory.
 SNAPPY_LIB_DIR=`pwd`
@@ -130,6 +134,8 @@ SNAPPY_LIB_DIR=`pwd`
 Once you've built rocksdb and set the environment variable, the `librocksdb-sys` crate will search
 in that directory for the compiled `librocksdb.a` static library when it is rebuilt.
 
+[Rust]: https://www.rust-lang.org/
 [snappy-build]: https://github.com/google/snappy?tab=readme-ov-file#building
 [protoc-install]: https://grpc.io/docs/protoc-installation/
 [WSL]: https://learn.microsoft.com/en-us/windows/wsl/install
+[Nix]: https://nixos.org/
