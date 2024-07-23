@@ -7,6 +7,12 @@ export default {
     text: ''
   },
   docsRepositoryBase: 'https://github.com/penumbra-zone/guide',
+
+  useNextSeoProps() {
+    return {
+      titleTemplate: '%s - Penumbra Guide'
+    }
+  }
   // ... other theme options
   useNextSeoProps() {
     return {

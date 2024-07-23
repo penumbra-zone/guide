@@ -1,9 +1,17 @@
 {
-  "index": "Overview",
+  "index": "Welcome to Penumbra",
+  "interchain-privacy": "Interchain Privacy",
+  "shielded-dex": "The Penumbra DEX",
+  "shielded-staking": "Shielded Staking",
+  "gov": "Decentralized Governance",
+  "disclosure": "Selective Disclosure",
   "web": "Using Penumbra on the web",
   "pcli": "Using Penumbra from the command line",
   "node": "Running a node",
   "frontend": "Running a frontend",
+  "relayers": "Running relayers",
+  "lp": "Providing Liquidity",
   "dev": "Development",
+  "risks": "Risks",
   "resources": "Resources"
 }
