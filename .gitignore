@@ -24,6 +24,8 @@ yarn-error.log*
 
 # Local env files
 .env*.local
+.envrc
+.direnv/
 
 # Vercel
 .vercel
@@ -63,3 +65,6 @@ Thumbs.db
 
 # Nextra specific
 .nextra
+
+# Firebase static site hosting
+.firebase/
