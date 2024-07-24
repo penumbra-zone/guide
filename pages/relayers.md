@@ -1,8 +1,15 @@
-# Hermes and Penumbra
+In order for Penumbra to interact with the broader [Cosmos] ecosystem, the community must
+run [IBC] relaying software, to transmit packets between chains. Relaying is by design
+permissionless. Some examples of relayer software are:
 
-## Using a compatible Hermes version
+  * [hermes], maintained by [Informal Systems][Informal]
+  * the Go [relayer], maintained by [Strangelove]
+
+This guide provides a tutorial for setting up Hermes for use with Penumbra.
+
 Penumbra-compatibility exists in a fork of the Hermes software, available at:
 [https://github.com/penumbra-zone/hermes](https://github.com/penumbra-zone/hermes).
+To build and install it:
 
 ```shell
 git clone https://github.com/penumbra-zone/hermes
@@ -71,4 +78,9 @@ Consult the official Hermes docs for [running in production](https://hermes.info
 as well as the [telemetry guide](https://hermes.informal.systems/documentation/telemetry/index.html).
 You'll need to communicate the channels that you maintain to the community. How you do so is up to you.
 
+[Cosmos]: https://cosmos.network
+[IBC]: https://ibc.cosmos.network
 [hermes]: https://hermes.informal.systems
+[relayer]: https://github.com/cosmos/relayer
+[Informal]: https://informal.systems
+[Strangelove]: https://strange.love

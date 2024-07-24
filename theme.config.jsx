@@ -10,12 +10,6 @@ export default {
 
   useNextSeoProps() {
     return {
-      titleTemplate: '%s - Penumbra Guide'
-    }
-  }
-  // ... other theme options
-  useNextSeoProps() {
-    return {
       // Set "Penumbra Guide" in page titles, rather than default "Nextra".
       // The `%s` is the title of the markdown document being displayed.
       titleTemplate: '%s – Penumbra Guide'

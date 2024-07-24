@@ -1,0 +1,101 @@
+---
+title: 'Providing Liquidity'
+---
+
+import { Callout, Steps } from 'nextra/components'
+ 
+<Callout type="warning" emoji="⚠️">
+  Liquidity provision involves risk. This section describes how to use software tools, but your trading strategies are solely up to you.
+</Callout>
+
+Penumbra's DEX is built around order-book-style concentrated liquidity.
+Liquidity positions are constant-sum AMMs, offering to trade between assets at a
+fixed price.  Each position is its own independent AMM with its own fee tier,
+and as described in the [DEX chapter](./dex.mdx), the DEX engine indexes active
+liquidity positions and sorts them by price, then traverses the liquidity graph
+to optimally fill trades. 
+
+Liquidity positions are public, but are created out of and withdrawn back to
+Penumbra's shielded pool. Thus, while everyone can see the aggregate state of
+the market, they cannot see which positions are controlled by which accounts, or
+view an account's trading history or strategy (unless they have access to that
+account's viewing key).
+
+The lifecycle of a liquidity position is:
+<Steps>
+
+### Opened
+
+On creation (by a [`PositionOpen` action][poa]), the position is in the "opened" state, in which it is actively
+providing liquidity to the DEX engine. Trade executions against the position
+update its reserves.
+
+### Closed
+
+An opened position can be closed explicitly, by a user-submitted
+[`PositionClose` action][pca], or implicitly by the chain, if the [`Position`][position_proto]'s
+`close_on_fill` field is set to `true` and the position's reserves were completely consumed by a trade.
+
+When a position is closed, it no longer provides liquidity to the DEX and becomes "inert".
+
+### Withdrawn
+
+Closing a position does not immediately withdraw funds, because Penumbra
+transactions (like any ZK transaction model) are early-binding: the prover must
+know the state transition they prove knowledge of, and they cannot know the
+final reserves with certainty until after the position has been deactivated.
+
+Instead, reserves are explicitly withdrawn following closure. 
+
+</Steps>
+
+Control over liquidity positions is recorded using LPNFTs that track both the
+position ID and its state. This allows using the transaction's value balance mechanism to
+track the state machine:
+
+- the `PositionOpen` action consumes the initial reserves and produces an "opened-LPNFT";
+- the `PositionClose` action consumes an opened-LPNFT and produces a "closed-LPNFT";
+- the `PositionWithdraw` action consumes a closed- or withdrawn-LPNFT and produces a withdrawn-LPNFT with an incremented withdrawal sequence number and any reserves withdrawn from the position.
+
+The protocol supports withdrawing from a position multiple times, though there
+is currently no reason to do this as the reserves are consumed on the first
+withdrawal.  
+
+This design opens interesting possibilities not possible on a conventional DEX:
+
+- **Block-scoped JIT liquidity**: a position can be opened and closed in the same transaction. As the opening is processed in a batch in the first phase of the DEX `EndBlock` handler and the closure is processed in a batch following all trade executions, this allows a liquidity provider to quote a price and be guaranteed that it will only be valid for a single block's batch executions.
+
+- **Replicating Market Makers**: the payoff function of any CFMM can be approximated via constant-sum AMMs, allowing market makers to replicate whatever trading function they want. This functionality is implemented in `pcli` for approximating the payoff of an `xy=k` (UniV2) curve.
+
+[poa]: https://buf.build/penumbra-zone/penumbra/docs/main:penumbra.core.component.dex.v1#penumbra.core.component.dex.v1.PositionOpen
+[pca]: https://buf.build/penumbra-zone/penumbra/docs/main:penumbra.core.component.dex.v1#penumbra.core.component.dex.v1.PositionClose
+[position_proto]: https://buf.build/penumbra-zone/penumbra/docs/main:penumbra.core.component.dex.v1#penumbra.core.component.dex.v1.Position
+
+## Managing Liquidity Positions
+<Callout type="info" emoji="ℹ️">
+  There is currently no GUI support for managing liquidity positions.
+</Callout>
+
+### Individual limit orders with `pcli`
+
+<Callout emoji="💡">
+This section is incomplete. You can help by expanding it!
+</Callout>
+
+### Payoff replication with `pcli`
+
+<Callout emoji="💡">
+This section is incomplete. You can help by expanding it!
+</Callout>
+
+### Programmatic access with `pclientd`
+
+<Callout emoji="💡">
+This section is incomplete. You can help by expanding it!
+</Callout>
+
+### Managing liquidity with Hummingbot
+
+<Callout emoji="💡">
+This section is incomplete. You can help by expanding it!
+</Callout>
