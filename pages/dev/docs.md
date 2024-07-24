@@ -1,3 +1,5 @@
+# Building documentation
+
 ## Penumbra guide
 The [guide] (i.e. this document) is build using [Nextra],
 and the source config lives in the [guide repo]. See that repo's README

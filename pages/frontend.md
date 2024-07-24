@@ -1,3 +1,5 @@
+# Running a frontend
+
 Penumbra's web tooling is designed to support a decentralized ecosystem of
 frontends.  This allows different frontend codebases to focus on different user
 profiles and ensures that no single frontend deployment or codebase has control

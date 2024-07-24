@@ -1,3 +1,5 @@
+# Sending Transactions
+
 Now, for the fun part: sending transactions. If you have someone else's testnet address, you can
 send them any amount of any asset you have.
 

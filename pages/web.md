@@ -1,3 +1,5 @@
+# Using Penumbra on the web
+
 This section describes how to use the Penumbra Wallet web extension, a GUI client for Penumbra.
 
 Currently, the web extension only supports a subset of functionality of the

@@ -1,3 +1,5 @@
+# Full node: pd
+
 This section describes how to build and run `pd`, the node implementation for
 Penumbra.  This is not necessary to use Penumbra, but promotes decentralization
 and allows deeper interactions with network data.

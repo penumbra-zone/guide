@@ -1,3 +1,5 @@
+# Installing pcli
+
 Download prebuilt binaries from the [Penumbra releases page on Github](https://github.com/penumbra-zone/penumbra/releases).
 Make sure to use the most recent version available, as the version of `pcli` must
 match the software currently running on the network.

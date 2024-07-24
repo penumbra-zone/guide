@@ -1,3 +1,5 @@
+# Resources
+
 This page links to various resources that are helpful for working with and
 understanding Penumbra.
 
