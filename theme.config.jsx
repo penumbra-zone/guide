@@ -7,7 +7,7 @@ export default {
     text: ''
   },
   docsRepositoryBase: 'https://github.com/penumbra-zone/guide',
-  // ... other theme options
+
   useNextSeoProps() {
     return {
       // Set "Penumbra Guide" in page titles, rather than default "Nextra".
