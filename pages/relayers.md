@@ -1,3 +1,5 @@
+# Running relayers
+
 In order for Penumbra to interact with the broader [Cosmos] ecosystem, the community must
 run [IBC] relaying software, to transmit packets between chains. Relaying is by design
 permissionless. Some examples of relayer software are:

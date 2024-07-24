@@ -1,3 +1,5 @@
+# Minifront
+
 [Minifront] is minimal frontend for interacting with the [Penumbra] chain.
 A number of technical decisions were made to ensure minifront is maximally client side and does not leak
 information unnecessarily:

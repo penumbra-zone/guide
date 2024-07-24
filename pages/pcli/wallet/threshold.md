@@ -1,3 +1,5 @@
+# Threshold Custody Backend
+
 This backend allows splitting the spend authority (the ability to *spend* funds) among multiple parties.
 Each of these parties will have full viewing authority (the ability to decrypt and view the wallet's on-chain activity).
 

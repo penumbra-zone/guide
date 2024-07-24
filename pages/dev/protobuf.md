@@ -1,4 +1,4 @@
-# Maintaining protobuf specs
+# Building protobuf
 
 The Penumbra project dynamically generates code for interfacing
 with [gRPC]. The following locations within the repository

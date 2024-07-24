@@ -1,3 +1,5 @@
+# Metrics
+
 Metrics are an important part of observability, allowing us to understand what
 the Penumbra software is doing.
 
