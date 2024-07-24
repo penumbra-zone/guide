@@ -5,6 +5,8 @@
 
 name: Deploy to Firebase Hosting on merge
 on:
+  # Permit manual deploys via GHA web UI.
+  workflow_dispatch:
   push:
     branches:
       - main
