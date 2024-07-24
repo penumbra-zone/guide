@@ -1,17 +1,67 @@
 {
-  "index": "Welcome to Penumbra",
-  "interchain-privacy": "Interchain Privacy",
-  "dex": "The Penumbra DEX",
-  "staking": "Shielded Staking",
-  "gov": "Decentralized Governance",
-  "disclosure": "Selective Disclosure",
+  "index": {
+    "title": "Welcome to Penumbra",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "interchain-privacy": {
+    "title": "Interchain Privacy",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "dex": {
+    "title": "The Penumbra DEX",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "staking": {
+    "title": "Shielded Staking",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "gov": {
+    "title": "Decentralized Governance",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "disclosure": {
+    "title": "Selective Disclosure",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
   "web": "Using Penumbra on the web",
   "pcli": "Using Penumbra from the command line",
   "node": "Running a node",
   "frontend": "Running a frontend",
-  "relayers": "Running relayers",
-  "lp": "Providing Liquidity",
+  "relayers": {
+    "title": "Running relayers",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "lp": {
+    "title": "Providing Liquidity",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
   "dev": "Development",
-  "resources": "Resources",
-  "risks": "Risks"
+  "resources": {
+    "title": "Resources",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "risks": {
+    "title": "Risks",
+    "theme": {
+      "breadcrumb": false
+    }
+  }
 }
