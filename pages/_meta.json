@@ -57,11 +57,5 @@
     "theme": {
       "breadcrumb": false
     }
-  },
-  "risks": {
-    "title": "Risks",
-    "theme": {
-      "breadcrumb": false
-    }
   }
 }
