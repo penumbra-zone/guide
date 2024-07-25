@@ -19,6 +19,41 @@ the market, they cannot see which positions are controlled by which accounts, or
 view an account's trading history or strategy (unless they have access to that
 account's viewing key).
 
+## Liquidity Positions
+
+The data of a liquidity position is contained in the [`Position`
+message](https://buf.build/penumbra-zone/penumbra/docs/main:penumbra.core.component.dex.v1#penumbra.core.component.dex.v1.Position).
+At a high level, this consists of:
+
+- the position's _trading function_, which specifies:
+  - the trading pair (order-independent, as assets 1 and 2 are ordered by asset ID);
+  - the trading function, via parameters `p` and `q`;
+  - the percentage fee applied to trades;
+- the position's reserves, `R_1` and `R_2`;
+- a `close_on_fill` boolean, controlling whether the position is closed when a trade completely consumes either `R_1` or `R_2`.
+
+The trading function for the CFMM is:
+```
+phi(R_1, R_2) = p * R_1 + q * R_2
+```
+
+A trade is accepted when `phi(R_1, R_2) = phi(R_1', R_2')`, so the ratio of `p`
+and `q` determines the trading price. For instance, if the position is
+initialized with reserves `(0, R_2)`, the position will accept a trade that
+updates its reserves to `R_1 = (q/p)*R_2`. In other words, the position is
+offering up to `R_2` of asset 2 at price `q/p`. More details can be found in the
+[Concentrated
+Liquidity](https://protocol.penumbra.zone/main/dex/concentrated_liquidity.html)
+section of the protocol specification.
+
+The DEX engine indexes positions by pair and by effective price (inclusive of
+fee tier) and routes trades across the liquidity graph. More details on routing
+can be found in the [On-chain
+Routing](https://protocol.penumbra.zone/main/dex/routing.html) section of the
+protocol specification.
+
+## Position Lifecycle
+
 The lifecycle of a liquidity position is:
 <Steps>
 
@@ -76,15 +111,51 @@ This design opens interesting possibilities not possible on a conventional DEX:
 
 ### Individual limit orders with `pcli`
 
-<Callout emoji="💡">
-This section is incomplete. You can help by expanding it!
-</Callout>
+`pcli` can create positions replicating limit order behavior using `pcli tx lp order buy` and `pcli tx lp order sell`. For instance:
+```
+pcli tx lp order sell 100gm@1gn # sells 100 gm at 1 gn per gm
+pcli tx lp order sell 100gm@1gn/50bps # sells 100gm at 1 gn per gm, with 50bps fee
+```
+These positions will remain open following execution. For instance, if a user traded `100gn` to `gm` against the first position, its new reserves would be `100gn`, which it would offer at `1gm/gn`. If this is not desired, the `--auto-close` parameter can be used:
+```
+pcli tx lp order sell 100gm@1gn --auto-close # sells 100 gm at 1 gn per gm, closing on fill
+```
+A "buy" order can also be expressed using `lp order buy`:
+```
+pcli tx lp order buy 100gm@2gn --auto-close # sells 200gn at 0.5gm per gn, closing on fill
+```
+There is no actual distinction at the protocol level between "buy" and "sell"
+orders; this command will create a position with initial reserves of `200gn`,
+equivalent to
+```
+pcli tx lp order sell 200gn@0.5gm --auto-close
+```
+Owned positions can be queried with `pcli v balance`.
+Positions can be closed and withdrawn individually or all at once:
+```
+pcli tx lp close plpid1tvj0vpdxhuu0tjxsskgf05f6l6dp0xqjqvywptrs0flvvvhvecjqtaxvf7
+pcli tx lp withdraw plpid1tvj0vpdxhuu0tjxsskgf05f6l6dp0xqjqvywptrs0flvvvhvecjqtaxvf7
+pcli tx lp close-all
+pcli tx lp withdraw-all
+```
 
 ### Payoff replication with `pcli`
 
-<Callout emoji="💡">
-This section is incomplete. You can help by expanding it!
+<Callout type="warning" emoji="⚠️">
+Payoff replication is experimental. Payoff computations could be incorrect. Use at your own risk!
 </Callout>
+
+`pcli` also has support for synthetically replicating the payoffs of other CFMMs. Currently, only `xy=k` (UniV2) liquidity is supported:
+```
+pcli tx lp replicate xyk penumbra:gn 100penumbra
+```
+This command will create a sequence of liquidity positions which, in combination, synthetically replicate the portfolio value function of an `xy=k` AMM:
+<picture>
+  <img src="./images/pvf-xyk.png" />
+</picture>
+
+See the [Replicating Market Makers](https://arxiv.org/abs/2103.14769) paper for
+details.
 
 ### Programmatic access with `pclientd`
 
@@ -92,8 +163,19 @@ This section is incomplete. You can help by expanding it!
 This section is incomplete. You can help by expanding it!
 </Callout>
 
+Programmatic access to a wallet's private state and transaction construction is
+possible using `pclientd`. See the [`pclientd` section](./node/pclientd.md) of
+the guide for details. This allows client software to work only with a local
+GRPC endpoint and not have to worry about any Penumbra-specific cryptography or
+ZK proving.
+
 ### Managing liquidity with Hummingbot
 
 <Callout emoji="💡">
 This section is incomplete. You can help by expanding it!
 </Callout>
+
+A work-in-progress Hummingbot connector backed by `pclientd` exists
+[here](https://github.com/Se7en-Seas/hummingbot/tree/penunumbra-integration).
+Notes on configuration exist
+[here](https://github.com/Se7en-Seas/hummingbot/blob/penunumbra-integration/README_Penumbra_Osiris.md).
