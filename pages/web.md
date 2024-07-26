@@ -1,63 +1,11 @@
 # Using Penumbra on the web
 
-This section describes how to use the Penumbra Wallet web extension, a GUI client for Penumbra.
+This section describes how to use the [Prax Wallet](https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe) web extension, a GUI client for Penumbra.
 
-Currently, the web extension only supports a subset of functionality of the
-command-line client, [`pcli`](./pcli.md).
-
-## Installing the extension
-
-The Penumbra Wallet web extension only supports the Google Chrome browser.
-You must run Chrome in order to follow the instructions below.
-
-1. Visit the Web Store page for the [Prax Wallet](https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe),
-   and click **Add to Chrome** to install it.
-2. Navigate to the dApp website for the extension: [https://app.testnet.penumbra.zone/](https://app.testnet.penumbra.zone/),
-   or [self-host your own frontend](./tutorials/running-frontend.md) and click **Connect** in the top-right corner.
-3. Click **Get started** to proceed with wallet configuration.
-
-## Generating a wallet
-
-You'll be offered to import a pre-existing wallet. If you don't already have one, choose **Create a new wallet**.
-During the guided tutorial, you'll need to set a passphrase to protect your wallet. The passphrase
-is *not* the same as the recovery phrase. The passphrase is used to restrict access to the web wallet
-on your computer. The recovery phrase can be used to import your wallet on a fresh installation, or
-on a different machine. Make sure to store both the passphrase and the recovery phrase
-securely, for example in a password manager.
-
-Re-enter portions of the recovery phrase when prompted, to confirm that you've saved it properly.
-Then you'll be taken to a screen that shows an initial synchronization process with the selected network:
-
-<!--
-Do we want to maintain screenshots inside the web extension docs?
-The image files will become out of data quickly, requiring maintenance, and bloat the repo.
--->
-
-<picture>
-  <source srcset="images/web-extension-sync-progress.png" media="(prefers-color-scheme: dark)" />
-  <img src="images/web-extension-sync-progress.png" />
-</picture>
-
-## Creating transactions
-
-Now that you've got the web wallet configured, let's use it to send a
-transaction.  Navigate to the dApp website:
-[https://app.testnet.penumbra.zone/](https://app.testnet.penumbra.zone/) and
-click **Connect**, then authorize the extension to work with the site. After
-doing so, you'll see buttons for actions such as **Receive**, **Send**, and
-**Exchange**.
-
-## Updating to a new version of the extension
-
-The extension should be automatically updated every time a new version is released.
-You can view the latest version of the extension on the [Prax Wallet] page at the
-Chrome Web Store. To force a check for updates:
-
-1. Click the three-dot icon in the top right corner of the browser.
-2. From the drop-down menu, choose **Extensions -> Manage Extensions**.
-3. Select **Update** on the top panel.
-
-After updating the extension manually, it may be helpful to clear the local cache,
-as described above.
-
-[Prax Wallet]: https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe
+- [Prax Wallet](./web/prax.md) describes how to use Prax to generate a wallet.
+- [Viewing Balances](./web/balances.md) describes how to view balances.
+- [Shielding Funds](./web/ibc-transfers.md) describes how to shield transactions via IBC transfers.
+- [Sending Funds](./web/send.md) describes how to send funds.
+- [Swapping Tokens](./web/swap.md) describes how to perform token swaps.
+- [Staking](./web/stake.md) describes how to stake tokens.
+- [Governance](./web/vote.md) describes how to participate in governance.
