@@ -7,8 +7,7 @@ what a fullnode is, see the [CometBFT
 documentation](https://docs.cometbft.com/v0.37/core/using-cometbft#adding-a-non-validator).
 
 A regular validator will participate in voting and rewards, if it becomes part
-of the consensus set.  Of course, these rewards, like all other testnet tokens,
-have no value.
+of the consensus set.
 
 ## Generating configs
 

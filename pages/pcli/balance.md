@@ -11,7 +11,7 @@ Syncing is performed automatically, but running the `sync` subcommand will
 ensure that the client state is synced to a recent state, so that future
 invocations of `pcli` commands don't need to wait.
 
-If someone sent you testnet assets, you should be able to see them now by running:
+If someone sent you assets, you should be able to see them now by running:
 
 ```bash
 pcli view balance

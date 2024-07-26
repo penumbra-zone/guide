@@ -26,8 +26,7 @@ on a different machine. Make sure to store both the passphrase and the recovery 
 securely, for example in a password manager.
 
 Re-enter portions of the recovery phrase when prompted, to confirm that you've saved it properly.
-Then you'll be taken to a screen that shows an initial synchronization process with the most
-recent testnet:
+Then you'll be taken to a screen that shows an initial synchronization process with the selected network:
 
 <!--
 Do we want to maintain screenshots inside the web extension docs?
@@ -39,24 +38,6 @@ The image files will become out of data quickly, requiring maintenance, and bloa
   <img src="images/web-extension-sync-progress.png" />
 </picture>
 
-## Obtaining funds
-
-In order to use the testnet, it's first necessary for you to get some testnet
-tokens.  To obtain your address, click on the extension icon. The drop-down
-should display your wallet address and a button to copy it to the clipboard.
-Next, join our [Discord](https://discord.gg/hKvkrqa3zC) and post your address in
-the `#testnet-faucet` channel.  We'll send your address some tokens on the
-testnet for you to send to your friends! :)
-
-In addition, addresses posted to the testnet faucet are periodically rolled into
-the testnet genesis file, so that in future testnets your address will have
-testnet tokens pre-loaded.
-
-Just keep in mind: **testnet tokens do not have monetary value**, and in order
-to keep the signal-to-noise ratio high on the server, requests for tokens in
-other channels will be deleted without response. Please do not DM Penumbra Labs
-employees asking for testnet tokens; the correct venue is the dedicated channel.
-
 ## Creating transactions
 
 Now that you've got the web wallet configured, let's use it to send a
@@ -65,22 +46,6 @@ transaction.  Navigate to the dApp website:
 click **Connect**, then authorize the extension to work with the site. After
 doing so, you'll see buttons for actions such as **Receive**, **Send**, and
 **Exchange**.
-
-## Upgrading to a new testnet
-
-When a new testnet is released, you'll need to clear the existing state
-from the extension, much like running `pcli view reset` is required
-on the command-line. To synchronize with a new testnet:
-
-1. Click the *Penumbra Wallet* option in the extensions drop-down menu,
-   next to the URL bar.
-2. Unlock the wallet by providing your passphrase, if prompted.
-3. Click the gear icon in the top right corner of the overlay.
-4. Choose **Advanced -> Clear Cache -> Confirm**.
-
-Then navigate to [https://app.testnet.penumbra.zone/](https://app.testnet.penumbra.zone/)
-again and reauthorize the connection. The extension will automatically sync
-with the new chain.
 
 ## Updating to a new version of the extension
 
