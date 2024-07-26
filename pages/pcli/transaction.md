@@ -1,6 +1,6 @@
 # Sending Transactions
 
-Now, for the fun part: sending transactions. If you have someone else's testnet address, you can
+Now, for the fun part: sending transactions. If you have someone else's address, you can
 send them any amount of any asset you have.
 
 First, use balance to find the amount of assets you have:
@@ -154,7 +154,7 @@ enough liquidity available to perform the swap.
 
 ## Replicating a UniswapV2 (`x*y=k`) pool
 
-Penumbra's constant-price pool is a versatile market primitive, allowing users extensive control over their trading strategies. It's not solely for active DEX quoters; with our AMM replication tool, users can emulate any passive AMM of their choice. The testnet comes with a built-in UniswapV2 replicator that is utilized as such:
+Penumbra's constant-price pool is a versatile market primitive, allowing users extensive control over their trading strategies. It's not solely for active DEX quoters; with our AMM replication tool, users can emulate any passive AMM of their choice. The protocol comes with a built-in UniswapV2 replicator that is utilized as such:
 
 ```bash
 pcli tx lp replicate xyk <TRADING_PAIR> <QUANTITY> [--current-price AMT] [--fee-bps AMT]
