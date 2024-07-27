@@ -1,1 +1,142 @@
 # Decentralized Governance
+
+Penumbra has a decentralized governance system which allows users to submit
+and vote on proposals.
+Proposals can be used to gather opinions about issues related to Penumbra,
+to enact changes to the configuration of the network, or to halt the chain
+for planned or emergency upgrades to the network, among other things.
+
+In general, proposals have a title, containing a brief summary of what that proposal is for,
+and a full description containing the context of the proposal, what it intends to do,
+arguments for why one should vote for it, etc.
+
+Proposals can be voted on for a given period specified by a chain parameter (as of writing this in July,
+about 2 days).
+Eligible voters (see later in this page for eligibility) can vote yes (to accept the proposal),
+no (to reject the proposal), or abstain, which records them as voting,
+but not in favor or in opposition.
+The power of each vote is based on its stake.
+Submitting a proposal requires posting a bond (the amount is a chain parameter),
+which will be slashed if enough voting power is against the proposal ("enough" being a chain parameter),
+destroying this bond.
+
+Validators and delegators can vote on proposals, with the voting power that they had at the moment
+the proposal voting period stated.
+Using a snapshot prevents chicanery related to creating an influx of funds to sway a vote, among other issues.
+When voting as a delegator, that transaction reveals that the entity voting
+was in posession of a note containing the specified amount of delegated staking tokens
+when voting started, but not which of those notes it was.
+
+## What Proposals Can Do
+
+What exactly a proposal can do depends on the type of proposal:
+
+### Signaling Proposals
+
+These have no effect on the chain when enacted.
+Instead, they serve only to gather votes on the opinions
+expressed in the proposal: that is to say, to signal opinions
+to other network participants.
+
+### Upgrade Proposals
+
+This is like a signaling proposal, except that if a sufficient amount of voting power agrees
+(as decided by a chain parameter, conventialy 2/3 + 1 of voting power)
+the chain will be halted at a particular height.
+This halt is intended to be used to conduct a chain upgrade, migrating to a new version of the protocol.
+
+### Emergency Proposals
+
+This is like an upgrade proposal, except that it only requires 1/3 + 1 of voting power to pass.
+This is intended for upgrades which need to pass quickly, for example to resolve a security issue.
+
+### CommunityPoolSpend Proposals
+
+When enacted, this proposal will execute a transaction plan which allows spending funds
+from the community pool.
+
+### Parameter Change Proposals
+
+This proposal specifies a set of parameter changes to the network,
+along with a set of parameter checks for those changes to be considered valid.
+When enacted, this proposal will change the chain parameters to the new values,
+but only if all of the parameter checks pass.
+
+As an example, one could use this to change a particular kind of gas cost,
+but would only apply if that cost were already, say, `42`.
+
+This mechanism is intended to prevent multiple parameter change proposals from being
+in conflict with each-other.
+
+### Freeze IBC Client Proposals
+
+When enacted, this will prevent activity along an existing IBC connection.
+
+### UnFreeze IBC Client Proposals
+
+When enacted, this will undo a freeze, as enacted by a Freeze IBC Client proposal.
+
+## Who Can Vote on Proposals
+
+Two kinds of entities can vote on proposals:
+- Validators, using the stake they've bonded themselves, and the stake delegated to them.
+- Delegators, using the stake they've delegated.
+
+The voting power is taken as a snapshot when the voting period for a proposal starts.
+
+When a validator votes, their entire voting power is counted towards whatever vote
+they cast (yes, no, or abstain).
+However, as their delegators vote, they can remove some of this vote
+and redirect it to their own choice.
+
+For example, if a validator has 10 people staking the equivalent of 10um each to them,
+for 100 in total, when they vote "yes" on a proposal, initially that will be worth 100.
+But, if a delegator votes "no" on the proposal, instead the tally will become 90 for "yes",
+and 10 for "no".
+In other words, when a validator votes, they're voting on behalf of all their delegators,
+but delegators are free to then change what their share of that validator's stake
+is voting on.
+
+## The Lifecycle of a Proposal
+
+Here's a diagram providing an overview of the lifecycle of a proposal:
+<picture>
+  <source srcset="../images/governance-dark.png" media="(prefers-color-scheme: dark)" />
+  <img src="../images/governance-light.png" />
+</picture>
+
+### Submission
+
+First a proposer posts a bond, and then creates the proposal.
+
+### Voting
+
+Then, for a certain period of time, participants can vote
+on the proposal.
+After voting ends, the proposal is either:
+- passed, if sufficient "yes" votes are recorded,
+- failed, if insufficient "yes" votes are recorded,
+- or slashed, if sufficient "no" votes are recorded.
+
+### Withdrawal
+
+The proposer 
+
+### Claim
+
+After voting has ended, the proposer can then claim their bond
+back, as long as the proposal has not been slashed, by virtue
+of their being too many "no" votes.
+
+## Proposal-Related Tokens
+
+Ownership of a proposal is attested to using the shielded pool.
+The proposer gets an NFT they can use to either withdraw
+the proposal, or to claim the deposit if the proposal is not slashed or withdrawn.
+When the proposer withdraws the proposal, they get an NFT
+allowing them to claim the deposit after voting is over,
+as long as the proposal isn't slashed.
+
+In addition, when voting on a proposal, voters receive a `voted_on_X` token
+for that proposal, in proportion to the voting power they used.
+This is regardless of whether the voter cast a "yes", "no" or "abstain" vote.
