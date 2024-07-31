@@ -1,1 +1,99 @@
+import { Callout, Steps } from 'nextra/components'
+
 # Interchain privacy
+
+Penumbra stores all value in a single _interchain shielded pool_ that can record
+any asset from any IBC-connected chain. Penumbra's shielded pool was inspired by
+the Zcash design, but with modifications that allow seamless interoperability
+across chains.
+
+<Steps>
+
+### Deposit
+
+To deposit tokens into Penumbra's shielded pool, users initiate an ordinary IBC
+transfer from any connected chain, with a Penumbra address as the receiver. 
+
+### Transact Privately
+
+Once tokens are held in Penumbra's shielded pool, users can transact privately
+on Penumbra: transfer, trade, swap, stake, or vote.  Transactions within Penumbra
+are shielded, and don't reveal a user's information to the world.
+
+### Withdraw
+
+To withdraw tokens from Penumbra's shielded pool, users initiate an outbound IBC
+transfer to any connected chain.  Their activity on the other chain is public,
+as they have left the shielded pool.
+
+</Steps>
+
+Penumbra is designed to align the privacy boundary with the IBC boundary:
+transfers into Penumbra shield funds, and transfers out of Penumbra unshield
+funds.  To maximize privacy, users should store their funds on Penumbra, then
+withdraw as needed to perform actions on other chains.
+
+## Penumbra is Built Different
+
+Achieving end-user privacy required reimagining how blockchains should be built.
+Here's what you need to know:
+
+### End-to-End and Local-First
+
+Penumbra transactions are end-to-end encrypted, visible only to the sender and
+receiver (and anyone they choose to disclose to), but not to the public.  Instead of executing transactions on-chain, user data like an account balance is
+updated locally, then submitted to the chain encrypted, with client-side ZK
+proving to ensure the encrypted updates are correct.  
+
+But this means there's no RPC that can tell you what your balance is, as that
+information is visible only to you.  So Penumbra is designed to enable
+_ultralight nodes_ that scan, sync, decrypt and locally index the data visible
+to a specific wallet.  These are lightweight enough to run on any device, like a
+browser or a phone, and are embedded in wallet software like [Prax
+Wallet](./web/prax.mdx) or [`pcli`](./pcli.md).  Imagine a personal indexer,
+just for your own transactions, embedded in every wallet. This is a Penumbra
+ultralight node.
+
+### Wallets, Accounts, Addresses
+
+On a transparent chain, each signing key controls one account with one address.
+This means that giving out an address doesn't just let someone send you funds.
+It also means giving them the ability to view all of your token balances and all
+of your past and future transaction history.
+
+Instead, Penumbra separates these concepts:
+
+* An **address**, `penumbra1...`, only allows _sending_ funds to a receiver, not viewing their balances.
+* An **account** is a logical bucket of funds with its own balance. Each account has a default address, and many randomized _IBC deposit addresses_, all pointing at the same balances.
+* A **wallet** is a group of accounts, all controlled by the same signing key.
+
+Each seed phrase generates a single wallet, controlling many numbered accounts,
+each with many addresses.  To allow users to keep track, Penumbra addresses
+include encrypted metadata visible only to the wallet that controls them.  From
+the outside, all Penumbra addresses are indistinguishable from each other. But
+the user who controls the address can decrypt the metadata and learn about the
+account information.  This provides better UX than existing systems, where each
+account must be generated sequentially.
+
+**IBC deposit addresses** allow increased privacy when making IBC transfers into
+and out of Penumbra.  Because an IBC deposit is initiated on the (public)
+counterparty chain, it reveals the destination address.  This could allow
+linking different inbound transfers if the same address was used multiple times.
+Instead, Penumbra clients should automatically generate a new IBC deposit
+address for each transfer to ensure deposits are not linkable.  This is not a
+problem for transfers _within_ Penumbra, where addresses are not revealed
+anyways.
+
+#### Inspecting Addresses
+
+Users can inspect any address using their wallet software to see whether they
+control it.  Penumbra frontends should render address views by default, but this
+may be useful when inspecting transactions elsewhere.
+
+For example, using Prax:
+
+<div style={{ display: 'flex', marginTop: '1em' }}>
+  <img src="./images/inspect-1.png" style={{ width: '33.33%' }} />
+  <img src="./images/inspect-3.png" style={{ width: '33.33%' }} />
+  <img src="./images/inspect-2.png" style={{ width: '33.33%' }} />
+</div>
