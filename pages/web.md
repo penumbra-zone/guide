@@ -1,6 +1,18 @@
 # Using Penumbra on the web
 
-This section describes how to use the [Prax Wallet](https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe) web extension, a GUI client for Penumbra.
+Penumbra's web tooling is designed to support a decentralized ecosystem of
+frontends.  This allows different frontends to focus on different user
+profiles and ensures that no single frontend deployment or codebase has control
+over users' access to the protocol.
+
+Penumbra wallets like [Prax] sync, scan, decrypt, and locally index user data.
+When users connect to a frontend, the wallet acts as a "personal RPC", granting
+that frontend access to the user's private data.  Prax is the first browser
+wallet for Penumbra, and is open-source software that runs entirely on your
+computer.
+
+This chapter has guides on using Prax together with a Penumbra frontend to
+perform various actions:
 
 - [Prax Wallet](./web/prax.md) describes how to use Prax to generate a wallet.
 - [Viewing Balances](./web/balances.md) describes how to view balances.
@@ -9,3 +21,5 @@ This section describes how to use the [Prax Wallet](https://chromewebstore.googl
 - [Swapping Tokens](./web/swap.md) describes how to perform token swaps.
 - [Staking](./web/stake.md) describes how to stake tokens.
 - [Governance](./web/vote.md) describes how to participate in governance.
+
+[Prax]: https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe
