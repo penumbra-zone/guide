@@ -1,4 +1,4 @@
-import { PENUMBRA_VERSION, COMETBFT_VERSION } from '../../../penumbra_versions.js';
+import { COMETBFT_VERSION } from '../../../penumbra_versions.js';
 
 # Installing pd
 There are many ways to configure and run Penumbra. The easiest is to download
@@ -21,7 +21,6 @@ sudo mv pd-x86_64-unknown-linux-gnu/pd /usr/local/bin/
 # confirm the pd binary is installed by running:
 pd --version
 ```
-Make sure the version that's installed is at least <code>{PENUMBRA_VERSION}</code>.
 There's also a one-liner install script available on the release page, which will install `pd` to `$HOME/.cargo/bin/`.
 
 ### Installing CometBFT
