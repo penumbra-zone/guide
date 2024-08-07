@@ -18,7 +18,7 @@ The format for `DATABASE_URL` is specified in the [Postgres docs](https://www.po
 After the node is running, check the logs for errors. Query the database with `SELECT height FROM blocks ORDER BY height DESC LIMIT 10;` and confirm
 you're seeing the latest blocks being added to the database.
 
-## Rebuilding an index database from scratch
+## Running an archive node
 
 If you are joining the network after a chain upgrade, the events behind the upgrade boundary
 will not be available to your node for syncing while catching up to current height. To emit
@@ -28,8 +28,9 @@ planned upgrade. The process then becomes:
 1. Restore node state from backup.
 2. Ensure you're using the appropriate `pd` and `cometbft` versions for the associated state.
 3. Run `pd migrate --ready-to-start` to permit `pd` to start up.
-4. Run CometBFT with extra options: `--p2p.pex=false --p2p.seeds='' --moniker archive-node-1`
-5. Run `pd` and `cometbft` as normal, taking care to use the appropriate versions.
+4. Move aside the the archive node's CometBFT addressbook, if present: `mv ~/.penumbra/node0/cometbft/config/addrbook.json{,.bak}`.
+5. Run CometBFT with extra options: `--p2p.pex=false --p2p.seeds='' --p2p.persistent_peers='' --p2p.laddr="tcp://127.0.0.1:26656" --moniker archive-node-1`
+6. Run `pd` and `cometbft` as normal, taking care to use the appropriate versions.
 
 Then configure another node with indexing support, as described above, and join the second
 node to the archive node. As it streams blocks, the ABCI events will be recorded in the database.
