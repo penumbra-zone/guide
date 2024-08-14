@@ -98,7 +98,7 @@ This design opens interesting possibilities not possible on a conventional DEX:
 
 - **Block-scoped JIT liquidity**: a position can be opened and closed in the same transaction. As the opening is processed in a batch in the first phase of the DEX `EndBlock` handler and the closure is processed in a batch following all trade executions, this allows a liquidity provider to quote a price and be guaranteed that it will only be valid for a single block's batch executions.
 
-- **Replicating Market Makers**: the payoff function of any CFMM can be approximated via constant-sum AMMs, allowing market makers to replicate whatever trading function they want. This functionality is implemented in `pcli` for approximating the payoff of an `xy=k` (UniV2) curve.
+- **Replicating Market Makers**: the payoff function of any CFMM can be approximated via constant-sum AMMs, allowing market makers to replicate whatever trading function they want. This functionality is implemented in `pcli` for two strategies: a linear spread across a range, and an approximation of the payoff of an `xy=k` (UniV2) curve.
 
 [poa]: https://buf.build/penumbra-zone/penumbra/docs/main:penumbra.core.component.dex.v1#penumbra.core.component.dex.v1.PositionOpen
 [pca]: https://buf.build/penumbra-zone/penumbra/docs/main:penumbra.core.component.dex.v1#penumbra.core.component.dex.v1.PositionClose
@@ -139,23 +139,79 @@ pcli tx lp close-all
 pcli tx lp withdraw-all
 ```
 
-### Payoff replication with `pcli`
+### Range liquidity with `pcli`
 
-<Callout type="warning" emoji="⚠️">
-Payoff replication is experimental. Payoff computations could be incorrect. Use at your own risk!
-</Callout>
+As of `v0.80.1`, `pcli` can compute a set of positions that spread liquidity
+across a price range.  To do this, use
+```
+pcli tx lp replicate linear --help
+```
+This strategy takes a number of parameters (see `--help` for details), most importantly:
 
-`pcli` also has support for synthetically replicating the payoffs of other CFMMs. Currently, only `xy=k` (UniV2) liquidity is supported:
+- the trading pair
+- the lower bound of the price range
+- the upper bound of the price range
+- the fee tier for the positions
+
+For example, the following invocation will create 5 positions spread across the range `1.8` to `2.2` USDC per UM:
 ```
-pcli tx lp replicate xyk penumbra:gn 100penumbra
+$ pcli tx lp replicate linear upenumbra:transfer/channel-2/uusdc 100000000transfer/channel-2/uusdc --lower-price 1.8 --upper-price 2.2 --fee-bps 100 --num-positions 5
+#################################################################################
+########################### LIQUIDITY SUMMARY ###################################
+#################################################################################
+
+You want to provide liquidity on the pair upenumbra:transfer/channel-2/uusdc
+You will need:
+ -> 50252144upenumbra
+ -> 0transfer/channel-2/uusdc
+You will create the following positions:
+ ID                                                                State      Fee                       Sell Price           Reserves
+ plpid1klkeg9ve0mu5hu4v5afrg8qaneh3tmhzjww9c4yd7203v89qv90q0ruva3  opened  100bps  1.800001transfer/channel-2/usdc  11.111111penumbra
+ plpid1d5dmxgtaf34k3846kw858wqzyamg40ks20tprzxe0sgdyqcqdfzqj580m7  opened  100bps  1.900001transfer/channel-2/usdc  10.526315penumbra
+ plpid1vynfad7qzccl0p3zlqjttfv9smpdlxw86w0c7hxq2fcll9qqlpdqaqhjwv  opened  100bps         2transfer/channel-2/usdc         10penumbra
+ plpid1kn5y806w98n0gnr28vq79r0fx7nd0dlclzzsktrla47efhxy87usuzxnae  opened  100bps  2.100001transfer/channel-2/usdc   9.523809penumbra
+ plpid1c95eyegaeganw25c79q0etrryneg0ppgy5c9jxv5vh0e0p4yxeqs9a4dtr  opened  100bps  2.200001transfer/channel-2/usdc   9.090909penumbra
+Do you want to open those liquidity positions on-chain? [y/n]
 ```
-This command will create a sequence of liquidity positions which, in combination, synthetically replicate the portfolio value function of an `xy=k` AMM:
+
+The portfolio value function of this strategy (not accounting for fees) can be visualized as follows:
 <picture>
-  <img src="./images/pvf-xyk.png" />
+  <img src="./images/pvf-linear.png" />
 </picture>
 
-See the [Replicating Market Makers](https://arxiv.org/abs/2103.14769) paper for
-details.
+The x-axis shows the price of `UM` in terms of `USDC`, and the y-axis shows the
+value of the position in the presence of traders (i.e., assuming the portfolio
+always holds the less valuable asset, as a trader will trade away the more
+valuable asset).  The lower part of the chart shows the value of each individual
+liquidity position. When the market price is less than the position's price, the
+position holds UM, so the position's value increases with the price of UM up to
+its sell price, at which point the position's value is constant. The upper part
+of the chart shows the combined PVF of the portfolio of positions (in blue), as
+well as the PVF of a UniV3 position in the same range for reference. Notice that
+even with only 5 positions, the portfolio value fairly closely approximates the
+UniV3 curve.
+
+This can be understood as a special case of some of the contents of the
+[Replicating Market Makers](https://arxiv.org/abs/2103.14769) paper.
+
+<Callout type="warning" emoji="⚠️">
+`pcli` currently has limited support for external asset metadata, **including denom exponents**. Double-check proposed positions to be sure they're not mispriced by a factor of 1,000,000.
+</Callout>
+
+<Callout type="info" emoji="ℹ️">
+`pcli` can load an external registry of asset metadata, placed in `$PCLI_HOME/registry.json`. The Prax wallet registry can be downloaded via
+```
+wget -O PATH/TO/PCLI_HOME/registry.json https://raw.githubusercontent.com/prax-wallet/registry/main/registry/chains/penumbra-1.json
+```
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+Even using an external registry, `pcli` cannot use it to parse command-line arguments, due to limitations that will be removed in a future release.  
+
+Thus it is necessary to specify `upenumbra:transfer/channel-2/uusdc` (the base denom for both assets, so that the specified prices are 1.8 `upenumbra` per `uusdc`, not 1.8 `penumbra` per `uusdc`, a _very_ different price) and `100000000transfer/channel-2/uusdc`.
+
+This limitation will be removed in a future release.
+</Callout>
 
 ### Programmatic access with `pclientd`
 
