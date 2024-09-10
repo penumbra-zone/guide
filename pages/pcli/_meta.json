@@ -3,5 +3,6 @@
   "wallet": "Generating a Wallet",
   "balance": "Viewing Balances",
   "transaction": "Sending Transactions",
-  "governance": "Using Governance"
+  "governance": "Using Governance",
+  "migrating": "Migrating wallets"
 }
