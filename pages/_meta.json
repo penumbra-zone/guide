@@ -5,6 +5,12 @@
       "breadcrumb": false
     }
   },
+  "quest": {
+    "title": "Quest",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
   "interchain-privacy": {
     "title": "Interchain Privacy",
     "theme": {

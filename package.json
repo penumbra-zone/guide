@@ -3,19 +3,31 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start"
-},
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "type": "module",
   "dependencies": {
+    "@connectrpc/connect": "^1.5.0",
+    "@penumbra-zone/client": "^18.1.0",
+    "@penumbra-zone/protobuf": "^6.0.0",
+    "@penumbra-zone/transport-dom": "^7.5.0",
+    "@penumbra-zone/ui": "file:/Users/vanishmax/Desktop/penumbra/web/packages/ui/penumbra-zone-ui-9.1.1.tgz",
     "next": "^14.2.5",
     "nextra": "^2.13.4",
     "nextra-theme-docs": "^2.13.4",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "styled-components": "^6.1.13"
+  },
+  "packageManager": "pnpm@9.7.0+sha512.dc09430156b427f5ecfc79888899e1c39d2d690f004be70e05230b72cb173d96839587545d09429b55ac3c429c801b4dc3c0e002f653830a420fa2dd4e3cf9cf",
+  "devDependencies": {
+    "@types/node": "22.5.5",
+    "typescript": "5.6.2"
   }
 }
