@@ -3,6 +3,8 @@
 The `pd` software emits ABCI events while processing blocks. By default,
 these blocks are stored in CometBFT's key-value database locally, but node operators
 can opt-in to writing the events to an external PostgreSQL database.
+Furthermore, the `pindexer` software can be used to take these raw ABCI events,
+and produce penumbra-specific "app views" with rich formatted data.
 
 ## Configuring a Penumbra node to write events to postgres
 
@@ -17,6 +19,54 @@ can opt-in to writing the events to an external PostgreSQL database.
 The format for `DATABASE_URL` is specified in the [Postgres docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
 After the node is running, check the logs for errors. Query the database with `SELECT height FROM blocks ORDER BY height DESC LIMIT 10;` and confirm
 you're seeing the latest blocks being added to the database.
+
+## Using Pindexer
+
+`pindexer` reads from a raw Postgres database, as produced in the section above,
+and produces a derived database with rich tables for penumbra-specific views.
+This is useful because the raw events database isn't easily or efficientl queryable
+for specific use cases, like seeing the current status of the DEX,
+or the total amount of fees paid so far, etc.
+
+To run `pindexer`, you'll need to have configured the penumbra node to index events into postgres, then you'll:
+1. Create a Postgres database for the output of `pindexer`, say `$PINDEXER_DB`.
+2. Run `pindexer -c <CHAIN_ID> -g <ORIGINAL_GENESIS_FILE> -s postgresql://localhost:5432/$DATABASE_NAME -d postgresql://localhost:5432/$PINDEXER_DB`
+
+This assumes that Postgres is running locally on port 5432; for another setup the URL should change.
+
+The `<ORIGINAL_GENESIS_FILE>` must be the `genesis.json` file for the chain, BEFORE ANY UPGRADES.
+Note, in particular, that after an upgrade, there will be a new genesis file containing only a checkpoint.
+`pindexer` specifically needs the original genesis file, because it needs to read information
+about the start of the chain, like initial allocations, state, etc.
+
+### Example: Total Supply Indexing
+
+For example, after running pindexer, here's a query to get the total amount of the native
+staking token up to the current height:
+
+```sql
+SELECT (staked_um + unstaked_um + auction + dex)::NUMERIC / 10^6 as total
+FROM (
+  SELECT SUM(um) as staked_um
+  FROM (
+    SELECT * 
+    FROM supply_validators
+  ) validators
+  LEFT JOIN LATERAL (
+    SELECT um  
+    FROM supply_total_staked
+    WHERE validator_id = id 
+    ORDER BY height DESC 
+    LIMIT 1
+  ) ON TRUE
+) staked
+LEFT JOIN LATERAL (
+  SELECT um as unstaked_um, auction, dex 
+  FROM supply_total_unstaked
+  ORDER BY height DESC
+  LIMIT 1
+) on TRUE
+```
 
 ## Running an archive node
 
