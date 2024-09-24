@@ -3,7 +3,7 @@
 The `pd` software emits ABCI events while processing blocks. By default,
 these blocks are stored in CometBFT's key-value database locally, but node operators
 can opt-in to writing the events to an external PostgreSQL database.
-Furthermore, the `pindexer` software can be used to take these raw ABCI events,
+Furthermore, the [`pindexer`](#using-pindexer) software can be used to take these raw ABCI events,
 and produce penumbra-specific "app views" with rich formatted data.
 
 ## Configuring a Penumbra node to write events to postgres
@@ -22,26 +22,27 @@ you're seeing the latest blocks being added to the database.
 
 ## Using Pindexer
 
-`pindexer` reads from a raw Postgres database, as produced in the section above,
-and produces a derived database with rich tables for penumbra-specific views.
-This is useful because the raw events database isn't easily or efficientl queryable
-for specific use cases, like seeing the current status of the DEX,
-or the total amount of fees paid so far, etc.
+`pindexer` reads from a Postgres ABCI event database, as described in the section above,
+and produces a derived database with rich tables for Penumbra-specific views.
+This is useful because the raw events database isn't easily or efficiently queryable
+for Penumbra-specific use cases, such as seeing the current status of the DEX,
+or the total amount of fees paid so far on the life of the chain.
 
-To run `pindexer`, you'll need to have configured the penumbra node to index events into postgres, then you'll:
+To run `pindexer`, you'll need to have configured the Penumbra node to index events into Postgres. Then:
+
 1. Create a Postgres database for the output of `pindexer`, say `$PINDEXER_DB`.
-2. Run `pindexer -c <CHAIN_ID> -g <ORIGINAL_GENESIS_FILE> -s postgresql://localhost:5432/$DATABASE_NAME -d postgresql://localhost:5432/$PINDEXER_DB`
+2. Run `pindexer --chain-id <CHAIN_ID> --genesis-json <ORIGINAL_GENESIS_FILE> --src-database-url postgresql://localhost:5432/$DATABASE_NAME --dst-database-url postgresql://localhost:5432/$PINDEXER_DB`
 
 This assumes that Postgres is running locally on port 5432; for another setup the URL should change.
 
-The `<ORIGINAL_GENESIS_FILE>` must be the `genesis.json` file for the chain, BEFORE ANY UPGRADES.
+The `<ORIGINAL_GENESIS_FILE>` must be the `genesis.json` file for the chain, **before any upgrades.**
 Note, in particular, that after an upgrade, there will be a new genesis file containing only a checkpoint.
 `pindexer` specifically needs the original genesis file, because it needs to read information
-about the start of the chain, like initial allocations, state, etc.
+about the start of the chain, such as initial allocations, to track changes over time accurately.
 
 ### Example: Total Supply Indexing
 
-For example, after running pindexer, here's a query to get the total amount of the native
+For example, after running `pindexer`, here's a query to get the total amount of the native
 staking token up to the current height:
 
 ```sql
