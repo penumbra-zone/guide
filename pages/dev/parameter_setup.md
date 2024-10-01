@@ -23,7 +23,7 @@ directly in git since they are small (around ~1 KB each).
 ### Adding a new Proof
 
 To add a _new_ circuit to the parameter setup, you should modify
-`tools/parameter-setup/src/main.rs` before running `cargo run`. 
+`tools/parameter-setup/src/main.rs` before running `cargo run`.
 
 Then edit `penumbra-proof-params` to reference the new parameters created in
 `proof-params/src/gen`.
@@ -36,17 +36,17 @@ We have benchmarks for all proofs in the `penumbra-bench` crate. You can run the
 cargo bench
 ```
 
-Performance as of commit `ce2d319bd5534fd28600227b28506e32b8504493` benchmarked on a 2023 Macbook Pro M2 (12 core CPU) with 32 GB memory and the `parallel` feature enabled:
+Performance as of commit `772fc69034907cddfca5e68b08ef92b016968d89` benchmarked on a 2023 Macbook Pro M2 (12 core CPU) with 32 GB memory and the `parallel` feature enabled:
 
 | Proof    | Number of constraints | Proving time |
 | -------- | ------- | ----- |
-| Spend  | 34,630    | 388ms
-| Output | 13,875    | 130ms
-| Delegator vote    | 36,723  | 389ms
-| Undelegate claim | 14,776 | 139ms
-| Swap | 25,700 | 237ms
-| SwapClaim | 37,061 | 379ms
-| Nullifier derivation | 394  | 15ms
+| Spend  | 35,978    | 433ms
+| Output | 13,875    | 142ms
+| Delegator vote    | 38,071  | 443ms
+| Undelegate claim (`ConvertCircuit`) | 14,423 | 179ms
+| Swap | 25,704 | 272ms
+| SwapClaim | 46,656 | 456ms
+| Nullifier derivation | 394  | 17ms
 
 ## zk-SNARK Ceremony Benchmarks
 
