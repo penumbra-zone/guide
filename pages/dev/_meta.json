@@ -1,6 +1,7 @@
 {
   "dev-env": "Developer environment",
   "devnet-quickstart": "Devnet quickstart",
+  "testnet": "Testnet",
   "sql": "Working with SQLite",
   "docs": "Building documentation",
   "protobuf": "Building protobuf",
