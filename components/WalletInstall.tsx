@@ -1,11 +1,10 @@
-// import { CompleteQuest } from '@/src/components/CompleteQuest.tsx';
 import {
   Alert,
   AlertIcon,
   Box,
   Button,
   Heading,
-  Link, useColorMode,
+  Link,
   VStack,
 } from '@chakra-ui/react';
 
@@ -13,16 +12,15 @@ import type {
   AddressView,
   AddressView_Decoded,
 } from '@penumbra-zone/protobuf/penumbra/core/keys/v1/keys_pb';
-import {AddressViewComponent} from '@penumbra-zone/ui/AddressViewComponent';
-import {useAddresses, useConnect, useWalletManifests} from './hooks';
-
+import { AddressViewComponent } from '@penumbra-zone/ui/AddressViewComponent';
+import type React from 'react';
+import { useAddresses, useConnect, useWalletManifests } from './hooks';
 
 const WalletInstall: React.FC = () => {
-
-  const {data: wallets, isLoading} = useWalletManifests();
-  const {connectionLoading, connected, onConnect, onDisconnect} =
+  const { data: wallets, isLoading } = useWalletManifests();
+  const { connectionLoading, connected, onConnect, onDisconnect } =
     useConnect();
-  const {data: addresses} = useAddresses(3);
+  const { data: addresses } = useAddresses(3);
   const isPraxInstalled =
     wallets &&
     Object.values(wallets).some((manifest) => manifest.name.includes('Prax'));
@@ -110,19 +108,21 @@ const WalletInstall: React.FC = () => {
           >
             <Heading size={'md'}>Here are your first 3 accounts:</Heading>
             {addresses?.map((address) => (
-              <AddressViewComponent
-                key={address?.toBinary().toString()}
-                addressView={
-                  {
-                    addressView: {
-                      value: {
-                        address: address.address,
-                      } as AddressView_Decoded,
-                      case: 'decoded',
-                    },
-                  } as AddressView
-                }
-              />
+              <Box bg={'gray.700'} p={3} key={address.toJsonString()}>
+                <AddressViewComponent
+                  key={address?.toBinary().toString()}
+                  addressView={
+                    {
+                      addressView: {
+                        value: {
+                          address: address.address,
+                        } as AddressView_Decoded,
+                        case: 'decoded',
+                      },
+                    } as AddressView
+                  }
+                />
+              </Box>
             ))}
             {!connected && (
               <div>
@@ -132,12 +132,10 @@ const WalletInstall: React.FC = () => {
           </VStack>
 
           {connected && (
-            <>
-              <Alert status="success">
-                <AlertIcon/>
-                Quest complete!
-              </Alert>
-            </>
+            <Alert status="success">
+              <AlertIcon />
+              Quest complete!
+            </Alert>
           )}
         </>
       )}

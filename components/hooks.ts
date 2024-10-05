@@ -1,22 +1,22 @@
-import {client} from './penumbra';
-import {useQuestStore} from './store';
-import {ChainRegistryClient} from '@penumbra-labs/registry';
+import { ChainRegistryClient } from '@penumbra-labs/registry';
 import {
   PenumbraClient,
   type PenumbraManifest,
   PenumbraRequestFailure,
   PenumbraState,
 } from '@penumbra-zone/client';
-import {TendermintProxyService, ViewService} from '@penumbra-zone/protobuf';
+import { TendermintProxyService, ViewService } from '@penumbra-zone/protobuf';
 import {
   type AssetId,
   type Metadata,
   ValueView,
 } from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
-import type {TransactionView} from '@penumbra-zone/protobuf/penumbra/core/transaction/v1/transaction_pb';
-import {useQuery} from '@tanstack/react-query';
-import {uniqBy} from 'es-toolkit';
-import {useEffect, useState} from 'react';
+import type { TransactionView } from '@penumbra-zone/protobuf/penumbra/core/transaction/v1/transaction_pb';
+import { useQuery } from '@tanstack/react-query';
+import { uniqBy } from 'es-toolkit';
+import { useEffect, useState } from 'react';
+import { client } from './penumbra';
+import { useQuestStore } from './store';
 
 export const useWalletManifests = () => {
   return useQuery<Record<string, PenumbraManifest>>({
@@ -105,7 +105,7 @@ export const useConnect = () => {
 };
 
 export function useBalances() {
-  const {connected} = useConnect();
+  const { connected } = useConnect();
   return useQuery({
     queryKey: ['balances', connected],
     staleTime: 0,
@@ -119,7 +119,7 @@ export function useBalances() {
 }
 
 export function useDelegations() {
-  const {connected} = useConnect();
+  const { connected } = useConnect();
   return useQuery({
     queryKey: ['delegations', connected],
     staleTime: 0,
@@ -137,7 +137,7 @@ export function useDelegations() {
 }
 
 export function useNotes() {
-  const {connected} = useConnect();
+  const { connected } = useConnect();
   return useQuery({
     queryKey: ['notes', connected],
     staleTime: 0,
@@ -154,8 +154,8 @@ export function useNotes() {
 }
 
 export function useAddressesWithBalance() {
-  const {connected} = useConnect();
-  const {data: balances} = useBalances();
+  const { connected } = useConnect();
+  const { data: balances } = useBalances();
   return useQuery({
     queryKey: ['addressesWithBalance', balances, connected],
     staleTime: 0,
@@ -169,7 +169,7 @@ export function useAddressesWithBalance() {
 }
 
 export function useAddresses(count: number) {
-  const {connected} = useConnect();
+  const { connected } = useConnect();
 
   return useQuery({
     queryKey: ['addresses', connected],
@@ -190,8 +190,8 @@ export function useAddresses(count: number) {
   });
 }
 
-export function useEphemeralAddress({index}: { index: number }) {
-  const {connected} = useConnect();
+export function useEphemeralAddress({ index }: { index: number }) {
+  const { connected } = useConnect();
   return useQuery({
     queryKey: ['ephemeralAddress', connected],
     staleTime: 0,
@@ -206,7 +206,7 @@ export function useEphemeralAddress({index}: { index: number }) {
 }
 
 export function useCurrentChainStatus() {
-  const {connected} = useConnect();
+  const { connected } = useConnect();
   return useQuery({
     queryKey: ['blockNumber', connected],
     staleTime: 0,
@@ -222,7 +222,7 @@ type BlockRange = {
 };
 
 export function useSwaps(blockRange: BlockRange) {
-  const {connected} = useConnect();
+  const { connected } = useConnect();
   return useQuery({
     queryKey: ['swaps', connected],
     staleTime: 0,
@@ -249,8 +249,8 @@ export function useSwaps(blockRange: BlockRange) {
 }
 
 export function useSetScanSinceBlock() {
-  const {scanSinceBlockHeight, setScanSinceBlockHeight} = useQuestStore();
-  const {data: status} = useCurrentChainStatus();
+  const { scanSinceBlockHeight, setScanSinceBlockHeight } = useQuestStore();
+  const { data: status } = useCurrentChainStatus();
   const latestBlockHeight = Number(status?.syncInfo?.latestBlockHeight ?? 0n);
   useEffect(() => {
     if (
@@ -278,7 +278,7 @@ export const useFeeMetadata = (
     new ValueView({
       valueView: {
         case: 'unknownAssetId',
-        value: {amount},
+        value: { amount },
       },
     }),
   );
@@ -290,13 +290,13 @@ export const useFeeMetadata = (
     const chainId = txv.bodyView?.transactionParameters?.chainId;
     const assetId = txv.bodyView?.transactionParameters?.fee?.assetId;
     setIsLoading(true);
-    void getMetadata({chainId, assetId})
+    void getMetadata({ chainId, assetId })
       .then((metadata) => {
         if (metadata) {
           const feeValueView = new ValueView({
             valueView: {
               case: 'knownAssetId',
-              value: {amount, metadata},
+              value: { amount, metadata },
             },
           });
           setFeeValueView(feeValueView);
@@ -306,16 +306,16 @@ export const useFeeMetadata = (
       .catch((e: unknown) => setError(e));
   }, [txv, getMetadata, amount]);
 
-  return {feeValueView, isLoading, error};
+  return { feeValueView, isLoading, error };
 };
 
-export const getMetadata: MetadataFetchFn = async ({assetId}) => {
+export const getMetadata: MetadataFetchFn = async ({ assetId }) => {
   const feeAssetId = assetId
     ? assetId
     : new ChainRegistryClient().bundled.globals().stakingAssetId;
 
-  const {denomMetadata} = await client
+  const { denomMetadata } = await client
     .service(ViewService)
-    .assetMetadataById({assetId: feeAssetId});
+    .assetMetadataById({ assetId: feeAssetId });
   return denomMetadata;
 };

@@ -13,19 +13,22 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "@biomejs/biome": "^1.9.3",
+    "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^2.10.1",
     "@connectrpc/connect": "^1.5.0",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@penumbra-labs/registry": "^11.3.1",
+    "@penumbra-zone/bech32m": "^8.0.0",
     "@penumbra-zone/client": "^18.1.0",
-    "@penumbra-zone/protobuf": "^6.0.0",
+    "@penumbra-zone/protobuf": "^6.1.0",
     "@penumbra-zone/transport-dom": "^7.5.0",
     "@penumbra-zone/ui": "^10.0.2",
     "@tanstack/react-query": "^5.59.0",
     "es-toolkit": "^1.23.0",
     "framer-motion": "^11.11.1",
-    "next": "^14.2.5",
+    "next": "^14.2.14",
     "nextra": "^2.13.4",
     "nextra-theme-docs": "^2.13.4",
     "react": "^18.3.1",
@@ -35,7 +38,7 @@
   },
   "packageManager": "pnpm@9.7.0+sha512.dc09430156b427f5ecfc79888899e1c39d2d690f004be70e05230b72cb173d96839587545d09429b55ac3c429c801b4dc3c0e002f653830a420fa2dd4e3cf9cf",
   "devDependencies": {
-    "@types/node": "22.5.5",
+    "@types/node": "22.7.4",
     "@types/react": "^18.3.11",
     "typescript": "5.6.2"
   }
