@@ -1,3 +1,8 @@
+import WalletInstall from '@/components/WalletInstall';
+
+
+
+
 # Prax Wallet
 
 This section describes how to use the Prax Wallet web extension, a browser
@@ -6,6 +11,8 @@ that runs entirely on your computer.
 
 Currently, the web extension only supports a subset of functionality of the
 command-line client, [`pcli`](./pcli.md).
+
+<WalletInstall />
 
 ## Installing the extension
 
@@ -27,7 +34,7 @@ Re-enter portions of the recovery phrase when prompted, to confirm that you've s
 
 ## Select your preferred RPC endpoint
 
-Once you import or generate a wallet, you will be prompted to select an RPC endpoint, which is the URL the extension uses to sync with the network. 
+Once you import or generate a wallet, you will be prompted to select an RPC endpoint, which is the URL the extension uses to sync with the network.
 These are hosted by the community (including yourself, if you like), and those provided in the UI are typically offered by known validators.
 You may also provide your own custom endpoint, whether that is a community provider not provided as a default option, or hosted on a node you run yourself.
 
@@ -35,7 +42,7 @@ You may also provide your own custom endpoint, whether that is a community provi
 
 The extension will prompt you to select a frontend app to use with the wallet. This is a web interface that you will use to interact with the blockchain.
 The provided options are community-hosted frontends, and you may also provide your own custom frontend URL.
-Connecting a frontend to your wallet grants the frontend provider a full viewing key for your wallet in order to decrypt and display relevant information, such as your wallet balance. 
+Connecting a frontend to your wallet grants the frontend provider a full viewing key for your wallet in order to decrypt and display relevant information, such as your wallet balance.
 *This means that the front-end provider has read access (only) to your wallet and all of its activity.* This is necessary for the encrypted data on-chain to be parsed and rendered in a human-readable format.
 However, this means that you should only connect to frontend providers that you trust, because they can see any actions taken by the connected wallet by using the provided full viewing key.
 If you desire greater privacy than this provides, you can always run your own frontend, or utilize the command-line client, [`pcli`](./pcli.md), to interact with the blockchain directly.

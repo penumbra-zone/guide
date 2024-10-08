@@ -1,21 +1,3 @@
-import { ChevronRightIcon } from '@chakra-ui/icons';
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  Box,
-  Card,
-  CardBody,
-  Flex,
-  Heading,
-  Link,
-  Spinner,
-} from '@chakra-ui/react';
 import type {
   ValueView,
   ValueView_KnownAssetId,
@@ -29,6 +11,7 @@ import type {
 import { AddressViewComponent } from '@penumbra-zone/ui/AddressViewComponent';
 import { ValueViewComponent } from '@penumbra-zone/ui/ValueViewComponent';
 import { capitalize } from 'es-toolkit';
+import { ChevronRightIcon } from 'lucide-react';
 import type React from 'react';
 import {
   useBalances,
@@ -71,7 +54,7 @@ const Deposit: React.FC = () => {
   });
 
   return (
-    <Box py={3} display={'flex'} flexDir={'column'} gap={'2rem'}>
+    <div className="py-3 flex flex-col gap-8">
       <div>
         Now it's time to shield your funds and transfer them into Penumbra.
         We've displayed one of your IBC Deposit addresses for you convenience
@@ -93,88 +76,108 @@ const Deposit: React.FC = () => {
         />
       )}
 
-      <Alert status={'info'}>
-        <AlertIcon />
-        <AlertDescription>
+      <div
+        className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4"
+        role="alert"
+      >
+        <p className="font-bold">Info</p>
+        <p>
           IBC Deposit addresses exist because source chains record the deposit
           address. They serve as an additional layer of anonymity to not link
           your deposit and actual addresses.
-        </AlertDescription>
-      </Alert>
-      <Box>
+        </p>
+      </div>
+
+      <div>
         We will use&nbsp;
-        <Link
-          textDecor={'underline'}
-          href={'https://go.skip.build/'}
-          className={'font-medium underline'}
+        <a
+          href="https://go.skip.build/"
+          className="font-medium underline"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Skip Protocol
-        </Link>
+        </a>
         &nbsp; to bridge funds into Penumbra. Go to the Skip app, and input your
         IBC Deposit address. Select your source chain and asset (we recommend
         USDC, but any common asset is fine) and select Penumbra and USDC as the
         destination chain. Then initiate the deposit and come back to this page.
-      </Box>
-      <Alert status={'info'}>
-        <AlertIcon />
-        <AlertDescription>
+      </div>
+
+      <div
+        className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4"
+        role="alert"
+      >
+        <p className="font-bold">Info</p>
+        <p>
           Penumbra supports paying fees in multiple tokens, including USDC. Prax
           will always choose the best token to pay fees with depending on your
           balances.
-        </AlertDescription>
-      </Alert>
+        </p>
+      </div>
 
       {depositedBalances.length === 0 && (
-        <Card w={'full'}>
-          <CardBody gap={3} flexDir={'row'} display={'flex'}>
-            <Box>Waiting for a deposit to occur</Box>
-            <Spinner />
-          </CardBody>
-        </Card>
+        <div className="w-full bg-white shadow-md rounded-lg p-4">
+          <div className="flex flex-row gap-3 items-center">
+            <div>Waiting for a deposit to occur</div>
+            <div className="animate-spin h-5 w-5 border-2 border-blue-500 rounded-full border-t-transparent" />
+          </div>
+        </div>
       )}
 
       {depositedBalances.length > 0 &&
         depositedBalances.map(({ balance, note }) => (
-          <Alert key={note.toJsonString()} status="success">
-            <AlertIcon />
-            Deposit completed succesfully! Received
-            <Flex direction={'column'} gap={3} px={3}>
+          <div
+            key={note.toJsonString()}
+            className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4"
+            role="alert"
+          >
+            <p className="font-bold">
+              Deposit completed successfully! Received
+            </p>
+            <div className="flex flex-col gap-3 px-3">
               <ValueViewComponent
                 key={balance.toJsonString()}
                 valueView={balance.balanceView as ValueView}
               />
-            </Flex>
-          </Alert>
+            </div>
+          </div>
         ))}
 
       {depositsWithNotes.length > 0 && (
-        <Accordion
-          allowToggle
-          borderWidth={'0'}
-          css={'* { border-width: 0!important;}'}
-        >
-          <AccordionItem>
-            <AccordionButton color={'grey'}>
-              <Box as="span" flex="1" textAlign="left">
-                Show old deposits
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel>
+        <div className="border-0">
+          <details className="group">
+            <summary className="flex justify-between items-center font-medium cursor-pointer list-none text-gray-500">
+              <span>Show old deposits</span>
+              <span className="transition group-open:rotate-180">
+                <svg
+                  fill="none"
+                  height="24"
+                  shape-rendering="geometricPrecision"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  width="24"
+                >
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </span>
+            </summary>
+            <div className="text-neutral-600 mt-3 group-open:animate-fadeIn">
               {depositsWithNotes.length > 0 &&
-                depositsWithNotes?.map((balanceWithNote) => {
-                  return (
-                    <DepositRow
-                      key={JSON.stringify(balanceWithNote)}
-                      balanceWithNote={balanceWithNote}
-                    />
-                  );
-                })}
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
+                depositsWithNotes?.map((balanceWithNote) => (
+                  <DepositRow
+                    key={JSON.stringify(balanceWithNote)}
+                    balanceWithNote={balanceWithNote}
+                  />
+                ))}
+            </div>
+          </details>
+        </div>
       )}
-    </Box>
+    </div>
   );
 };
 
@@ -194,22 +197,23 @@ function DepositRow({
 
   const chainName = capitalize(source.sender.replace(/^(\D+).*$/, '$1'));
   return (
-    <Flex mt={3} gap={3} alignItems={'center'} key={balance.toJsonString()}>
+    <div className="mt-3 flex gap-3 items-center" key={balance.toJsonString()}>
       Deposited
       <ValueViewComponent
         key={balance.toJsonString()}
         valueView={balance.balanceView as ValueView}
       />
       from {chainName}
-      <ChevronRightIcon />
-      <Link
-        textDecoration={'underline'}
-        target={'_blank'}
+      <ChevronRightIcon className="h-4 w-4" />
+      <a
+        className="underline"
+        target="_blank"
+        rel="noopener noreferrer"
         href={`https://ibc.range.org/ibc/status?id=${chainIdToExplorerChainName(chainId)}/${source.channelId}/${source.packetSeq}`}
       >
         Inspect deposit
-      </Link>
-    </Flex>
+      </a>
+    </div>
   );
 }
 

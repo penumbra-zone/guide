@@ -1,13 +1,3 @@
-import {
-  Alert,
-  AlertIcon,
-  Box,
-  Button,
-  Heading,
-  Link,
-  VStack,
-} from '@chakra-ui/react';
-
 import type {
   AddressView,
   AddressView_Decoded,
@@ -18,46 +8,45 @@ import { useAddresses, useConnect, useWalletManifests } from './hooks';
 
 const WalletInstall: React.FC = () => {
   const { data: wallets, isLoading } = useWalletManifests();
-  const { connectionLoading, connected, onConnect, onDisconnect } =
-    useConnect();
+  const { connectionLoading, connected, onConnect } = useConnect();
   const { data: addresses } = useAddresses(3);
   const isPraxInstalled =
     wallets &&
     Object.values(wallets).some((manifest) => manifest.name.includes('Prax'));
 
   return (
-    <Box py={3} display={'flex'} flexDir={'column'} gap={'2rem'}>
+    <div className="py-3 flex flex-col gap-8">
       <>
-        <Box>
+        <div>
           In order to interact with Penumbra, you need a compatible wallet. One
           such option is{' '}
-          <Link
-            textDecor={'underline'}
-            href={
-              'https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe'
-            }
+          <a
+            className="underline"
+            href="https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe"
           >
             Prax Wallet
-          </Link>
+          </a>
           . Visit the link and click Add to Chrome to install it, then come back
           to this page.
-        </Box>
+        </div>
         {!isPraxInstalled && (
-          <Button
+          <button
+            type={'button'}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => {
               location.reload();
             }}
           >
             I've installed Prax
-          </Button>
+          </button>
         )}
       </>
 
       {isPraxInstalled && (
         <>
-          <Box>Great! You've now installed the Prax Wallet extension.</Box>
+          <div>Great! You've now installed the Prax Wallet extension.</div>
 
-          <Box>
+          <div>
             Open it by clicking the extension icon in the Chrome toolbar, select
             Create a new wallet. During the guided tutorial, you'll need to set
             a passphrase to protect your wallet. The passphrase is not the same
@@ -68,47 +57,45 @@ const WalletInstall: React.FC = () => {
             passphrase and the recovery phrase securely, for example in a
             password manager. Re-enter portions of the recovery phrase when
             prompted, to confirm that you've saved it properly.
-          </Box>
+          </div>
 
-          <Box>
+          <div>
             Before you connect your wallet, websites cannot access any of your
             data. It's all stored locally and securely on your device. To give a
             site permission to access your data, click the Connect button below.
-          </Box>
+          </div>
 
           {!isLoading &&
             wallets &&
             !connected &&
             Object.entries(wallets).map(([origin, manifest]) => (
-              <Button
+              <button
+                type={'button'}
                 key={origin}
                 onClick={() => onConnect(origin)}
                 disabled={connectionLoading}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
               >
                 {connectionLoading
                   ? 'Connecting...'
                   : `Connect to ${manifest.name}`}
-              </Button>
+              </button>
             ))}
 
           {connected && (
-            <Box>
+            <div>
               You have now connected Prax to this page. This means that the
               website can access the data in your wallet, such as balances and
               transaction history. A page can never access your seedphrase.
-            </Box>
+            </div>
           )}
 
-          <VStack
-            alignItems={'start'}
-            gap={3}
-            css={
-              '& > * {text-overflow: ellipsis; max-width: 100%;}; & > * button[title="Copy"] {display: none;}'
-            }
-          >
-            <Heading size={'md'}>Here are your first 3 accounts:</Heading>
+          <div className="flex flex-col items-start gap-3 [&>*]:overflow-ellipsis [&>*]:max-w-full [&>*_button[title='Copy']]:hidden">
+            <h2 className="text-lg font-semibold">
+              Here are your first 3 accounts:
+            </h2>
             {addresses?.map((address) => (
-              <Box bg={'gray.700'} p={3} key={address.toJsonString()}>
+              <div className="bg-gray-700 p-3" key={address.toJsonString()}>
                 <AddressViewComponent
                   key={address?.toBinary().toString()}
                   addressView={
@@ -122,24 +109,26 @@ const WalletInstall: React.FC = () => {
                     } as AddressView
                   }
                 />
-              </Box>
+              </div>
             ))}
             {!connected && (
               <div>
                 Can't access accounts until you've connected your wallet
               </div>
             )}
-          </VStack>
+          </div>
 
           {connected && (
-            <Alert status="success">
-              <AlertIcon />
-              Quest complete!
-            </Alert>
+            <div
+              className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4"
+              role="alert"
+            >
+              <p className="font-bold">Quest complete!</p>
+            </div>
           )}
         </>
       )}
-    </Box>
+    </div>
   );
 };
 
