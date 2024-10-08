@@ -1,4 +1,3 @@
-import { CompleteQuest } from '@/components/CompleteQuest';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import {
   Accordion,
@@ -147,8 +146,6 @@ const Deposit: React.FC = () => {
             </Flex>
           </Alert>
         ))}
-
-      {depositedBalances.length > 0 && <CompleteQuest />}
 
       {depositsWithNotes.length > 0 && (
         <Accordion
