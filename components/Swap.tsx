@@ -176,7 +176,7 @@ function SwapMonitor() {
     ) ?? [];
 
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-stretch gap-3">
       {swapActions?.length ? (
         swapActions.map((s) => (
           <AssetSwapWithFeeMetadataComponent
@@ -202,7 +202,6 @@ function AssetSwapWithFeeMetadataComponent(props: {
   action: ActionView;
 }) {
   /*The link that's displayed when claimTx is defined doesn't work outside minifront*/
-  /* biome-ignore lint/performance/noDelete: ^ */
   delete (
     (props.action.actionView.value as SwapView).swapView
       .value as SwapView_Visible

@@ -1,15 +1,17 @@
-import { bech32mIdentityKey } from '@penumbra-zone/bech32m/penumbravalid';
+import {bech32mIdentityKey} from '@penumbra-zone/bech32m/penumbravalid';
 import type {
   ValueView,
   ValueView_KnownAssetId,
 } from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
-import { ValidatorInfo } from '@penumbra-zone/protobuf/penumbra/core/component/stake/v1/stake_pb';
-import { ValueViewComponent } from '@penumbra-zone/ui/ValueViewComponent';
+import {ValidatorInfo} from '@penumbra-zone/protobuf/penumbra/core/component/stake/v1/stake_pb';
+import {ValueViewComponent} from '@penumbra-zone/ui/ValueViewComponent';
+import {ValueComponent} from '@penumbra-zone/ui/components/value/value';
+
 import type React from 'react';
-import { useBalances, useDelegations } from './hooks';
+import {useBalances, useDelegations} from './hooks';
 
 const Staking: React.FC = () => {
-  const { data: delegations } = useDelegations();
+  const {data: delegations} = useDelegations();
   const validators =
     delegations
       ?.filter(
@@ -24,17 +26,31 @@ const Staking: React.FC = () => {
           valueView.extendedMetadata?.value as Uint8Array,
         );
       }) ?? [];
-  const { data: balances } = useBalances();
-
+  const {data: balances} = useBalances();
   const delegationTokens =
-    balances?.filter(
-      (balance) =>
-        balance?.balanceView?.valueView.case === 'knownAssetId' &&
-        balance?.balanceView?.valueView?.value?.metadata?.symbol.includes(
-          'delUM(',
-        ),
-    ) ?? [];
+    balances
+      ?.filter(
+        (balance) =>
+          balance?.balanceView?.valueView.case === 'knownAssetId' &&
+          balance?.balanceView?.valueView?.value?.metadata?.base.includes(
+            'udelegation',
+          ),
+      )
+      .map((balance) => {
+        const bal = balance;
+        // @ts-expect-error bufs for the win
+        (
+          bal.balanceView?.valueView?.value as ValueView_KnownAssetId
+        ).metadata.symbol = truncateMiddle(
+          // @ts-expect-error bufs for the win
+          (bal.balanceView?.valueView?.value as ValueView_KnownAssetId).metadata
+            .symbol,
+          30,
+        );
+        return bal;
+      }) ?? [];
 
+  console.log(delegationTokens.length, balances?.length, balances);
   return (
     <div className="py-3 flex flex-col gap-8">
       <div className="space-y-6">
@@ -116,7 +132,10 @@ const Staking: React.FC = () => {
         <div className="w-full bg-white shadow-md rounded-lg p-4">
           <div className="flex flex-row gap-3 items-center">
             <div>Waiting for a staking delegation to occur</div>
-            <div className="animate-spin h-5 w-5 border-2 border-blue-500 rounded-full border-t-transparent" />
+            <div
+              className="animate-spin h-5 w-5 border-2 border-blue-500
+            rounded-full border-t-transparent"
+            />
           </div>
         </div>
       )}
@@ -129,7 +148,10 @@ const Staking: React.FC = () => {
           >
             <p className="font-bold">Staked UM successfully!</p>
           </div>
-          <div className="flex flex-grow-0 flex-shrink-1 basis-auto px-3 items-center justify-center gap-5 mx-[-14px] [&>*]:overflow-ellipsis">
+          <div
+            className="flex  px-3
+           items-center gap-5 my-5  bg-gray-700 text-white p-3 w-full"
+          >
             {delegationTokens?.map((balance) => {
               const validator = validators?.find((validator) =>
                 (
@@ -171,12 +193,14 @@ const Staking: React.FC = () => {
                     <a href={validator?.website} className="underline">
                       {validator?.name}
                     </a>
-                    using delegation token:
+
                   </div>
 
-                  <ValueViewComponent
-                    valueView={balance.balanceView as ValueView}
-                  />
+                  {/*TODO: support ellipsis in the value view component*/}
+                  <div className={'[&_*]:text-ellipsis flex items-center gap-3 justify-center'}>
+                    using delegation token:
+                    <ValueViewComponent valueView={balance.balanceView}/>
+                  </div>
                 </div>
               );
             })}
@@ -197,5 +221,29 @@ const Staking: React.FC = () => {
     </div>
   );
 };
+
+function truncateMiddle(text: string, maxLength: number): string {
+  if (text.length <= maxLength) {
+    return text;
+  }
+
+  const start = 5;
+  const end = 5;
+  const ellipsis = '...';
+  const charsToShow = maxLength - (start + end + ellipsis.length);
+
+  if (charsToShow < 1) {
+    return text.slice(0, start) + ellipsis + text.slice(-end);
+  }
+
+  const leftChars = Math.ceil(charsToShow / 2);
+  const rightChars = Math.floor(charsToShow / 2);
+
+  return (
+    text.slice(0, start + leftChars) +
+    ellipsis +
+    text.slice(-(end + rightChars))
+  );
+}
 
 export default Staking;

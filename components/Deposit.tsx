@@ -61,20 +61,22 @@ const Deposit: React.FC = () => {
         below. Copy it using the button on the right.
       </div>
 
-      {ibcInAddress?.address && (
-        <AddressViewComponent
-          addressView={
-            new AddressView({
-              addressView: {
-                case: 'decoded',
-                value: {
-                  address: ibcInAddress.address,
+      <div className={'bg-gray-700 p-3'}>
+        {ibcInAddress?.address && (
+          <AddressViewComponent
+            addressView={
+              new AddressView({
+                addressView: {
+                  case: 'decoded',
+                  value: {
+                    address: ibcInAddress.address,
+                  },
                 },
-              },
-            })
-          }
-        />
-      )}
+              })
+            }
+          />
+        )}
+      </div>
 
       <div
         className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4"
@@ -147,17 +149,17 @@ const Deposit: React.FC = () => {
       {depositsWithNotes.length > 0 && (
         <div className="border-0">
           <details className="group">
-            <summary className="flex justify-between items-center font-medium cursor-pointer list-none text-gray-500">
+            <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
               <span>Show old deposits</span>
               <span className="transition group-open:rotate-180">
                 <svg
                   fill="none"
                   height="24"
-                  shape-rendering="geometricPrecision"
+                  shapeRendering="geometricPrecision"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
                   viewBox="0 0 24 24"
                   width="24"
                 >
@@ -165,7 +167,7 @@ const Deposit: React.FC = () => {
                 </svg>
               </span>
             </summary>
-            <div className="text-neutral-600 mt-3 group-open:animate-fadeIn">
+            <div className="śmt-3 group-open:animate-fadeIn">
               {depositsWithNotes.length > 0 &&
                 depositsWithNotes?.map((balanceWithNote) => (
                   <DepositRow
@@ -197,7 +199,10 @@ function DepositRow({
 
   const chainName = capitalize(source.sender.replace(/^(\D+).*$/, '$1'));
   return (
-    <div className="mt-3 flex gap-3 items-center" key={balance.toJsonString()}>
+    <div
+      className="mt-3 flex gap-3 items-center bg-gray-700 text-white p-3"
+      key={balance.toJsonString()}
+    >
       Deposited
       <ValueViewComponent
         key={balance.toJsonString()}
