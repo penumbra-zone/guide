@@ -99,6 +99,7 @@ export const useConnect = () => {
   return {
     connectionLoading,
     connected,
+    refetch,
     onConnect,
     onDisconnect,
   };

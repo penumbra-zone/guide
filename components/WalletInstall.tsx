@@ -70,7 +70,7 @@ const WalletInstall: React.FC = () => {
             !connected &&
             Object.entries(wallets).map(([origin, manifest]) => (
               <button
-                type={'button'}
+                // type={'button'}
                 key={origin}
                 onClick={() => onConnect(origin)}
                 disabled={connectionLoading}

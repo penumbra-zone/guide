@@ -15,13 +15,18 @@ import { ChevronRightIcon } from 'lucide-react';
 import type React from 'react';
 import {
   useBalances,
+  useConnect,
   useCurrentChainStatus,
   useEphemeralAddress,
   useNotes,
+  useWalletManifests,
 } from './hooks';
 
 const Deposit: React.FC = () => {
   const { data } = useNotes();
+  const { connected, onConnect, connectionLoading } = useConnect();
+  const { data: wallets, isLoading } = useWalletManifests();
+
   const { data: status } = useCurrentChainStatus();
   const currentBlock = BigInt(status?.syncInfo?.latestBlockHeight ?? 0);
   const depositNotes = data?.filter(
@@ -61,8 +66,25 @@ const Deposit: React.FC = () => {
         below. Copy it using the button on the right.
       </div>
 
-      <div className={'bg-gray-700 p-3'}>
-        {ibcInAddress?.address && (
+      {!isLoading &&
+        wallets &&
+        !connected &&
+        Object.entries(wallets).map(([origin, manifest]) => (
+          <button
+            // type={'button'}
+            key={origin}
+            onClick={() => onConnect(origin)}
+            disabled={connectionLoading}
+            className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+          >
+            {connectionLoading
+              ? 'Connecting...'
+              : `Connect to ${manifest.name}`}
+          </button>
+        ))}
+
+      {ibcInAddress?.address && connected && (
+        <div className={'bg-gray-700 p-3'}>
           <AddressViewComponent
             addressView={
               new AddressView({
@@ -75,8 +97,8 @@ const Deposit: React.FC = () => {
               })
             }
           />
-        )}
-      </div>
+        </div>
+      )}
 
       <div
         className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4"
