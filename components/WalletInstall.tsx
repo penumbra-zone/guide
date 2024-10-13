@@ -21,8 +21,10 @@ const WalletInstall: React.FC = () => {
           In order to interact with Penumbra, you need a compatible wallet. One
           such option is{' '}
           <a
+            target={'_blank'}
             className="underline"
             href="https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe"
+            rel="noreferrer"
           >
             Prax Wallet
           </a>

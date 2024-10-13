@@ -30,7 +30,9 @@ const Swap: React.FC = () => {
           Penumbra staking token, but you can choose to swap any pair you want.
           <a
             className="underline px-1"
+            target={'_blank'}
             href="https://stake.with.starlingcyber.net/#/swap?from=USDC&to=UM"
+            rel="noreferrer"
           >
             Click here
           </a>

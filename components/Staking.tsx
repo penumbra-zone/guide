@@ -1,17 +1,17 @@
-import {bech32mIdentityKey} from '@penumbra-zone/bech32m/penumbravalid';
+import { bech32mIdentityKey } from '@penumbra-zone/bech32m/penumbravalid';
 import type {
   ValueView,
   ValueView_KnownAssetId,
 } from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
-import {ValidatorInfo} from '@penumbra-zone/protobuf/penumbra/core/component/stake/v1/stake_pb';
-import {ValueViewComponent} from '@penumbra-zone/ui/ValueViewComponent';
-import {ValueComponent} from '@penumbra-zone/ui/components/value/value';
+import { ValidatorInfo } from '@penumbra-zone/protobuf/penumbra/core/component/stake/v1/stake_pb';
+import { ValueViewComponent } from '@penumbra-zone/ui/ValueViewComponent';
+import { ValueComponent } from '@penumbra-zone/ui/components/value/value';
 
 import type React from 'react';
-import {useBalances, useDelegations} from './hooks';
+import { useBalances, useDelegations } from './hooks';
 
 const Staking: React.FC = () => {
-  const {data: delegations} = useDelegations();
+  const { data: delegations } = useDelegations();
   const validators =
     delegations
       ?.filter(
@@ -26,7 +26,7 @@ const Staking: React.FC = () => {
           valueView.extendedMetadata?.value as Uint8Array,
         );
       }) ?? [];
-  const {data: balances} = useBalances();
+  const { data: balances } = useBalances();
   const delegationTokens =
     balances
       ?.filter(
@@ -190,16 +190,24 @@ const Staking: React.FC = () => {
                       }}
                     />{' '}
                     on
-                    <a href={validator?.website} className="underline">
+                    <a
+                      target={'_blank'}
+                      href={validator?.website}
+                      className="underline"
+                      rel="noreferrer"
+                    >
                       {validator?.name}
                     </a>
-
                   </div>
 
                   {/*TODO: support ellipsis in the value view component*/}
-                  <div className={'[&_*]:text-ellipsis flex items-center gap-3 justify-center'}>
+                  <div
+                    className={
+                      '[&_*]:text-ellipsis flex items-center gap-3 justify-center'
+                    }
+                  >
                     using delegation token:
-                    <ValueViewComponent valueView={balance.balanceView}/>
+                    <ValueViewComponent valueView={balance.balanceView} />
                   </div>
                 </div>
               );
