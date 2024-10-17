@@ -141,7 +141,7 @@ const Deposit: React.FC = () => {
       </div>
 
       {depositedBalances.length === 0 && (
-        <div className="w-full bg-white shadow-md rounded-lg p-4">
+        <div className="w-full bg-white text-black shadow-md rounded-lg p-4">
           <div className="flex flex-row gap-3 items-center">
             <div>Waiting for a deposit to occur</div>
             <div className="animate-spin h-5 w-5 border-2 border-blue-500 rounded-full border-t-transparent" />
