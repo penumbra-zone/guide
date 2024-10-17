@@ -1,20 +1,16 @@
-import type {
-  ValueView,
-  ValueView_KnownAssetId,
-} from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
+import { client } from '@/components/penumbra';
+import { ViewService } from '@penumbra-zone/protobuf';
+import { ValueView } from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
 import type { CommitmentSource_Ics20Transfer } from '@penumbra-zone/protobuf/penumbra/core/component/sct/v1/sct_pb';
 import { AddressView } from '@penumbra-zone/protobuf/penumbra/core/keys/v1/keys_pb';
-import type {
-  BalancesResponse,
-  NotesResponse,
-} from '@penumbra-zone/protobuf/penumbra/view/v1/view_pb';
+import type { NotesResponse } from '@penumbra-zone/protobuf/penumbra/view/v1/view_pb';
 import { AddressViewComponent } from '@penumbra-zone/ui/AddressViewComponent';
 import { ValueViewComponent } from '@penumbra-zone/ui/ValueViewComponent';
+import { useQuery } from '@tanstack/react-query';
 import { capitalize } from 'es-toolkit';
 import { ChevronRightIcon } from 'lucide-react';
 import type React from 'react';
 import {
-  useBalances,
   useConnect,
   useCurrentChainStatus,
   useEphemeralAddress,
@@ -29,31 +25,40 @@ const Deposit: React.FC = () => {
 
   const { data: status } = useCurrentChainStatus();
   const currentBlock = BigInt(status?.syncInfo?.latestBlockHeight ?? 0);
-  const depositNotes = data?.filter(
-    (note) => note?.noteRecord?.source?.source.case === 'ics20Transfer',
-  );
+  const depositNotes =
+    data?.filter(
+      (note) => note?.noteRecord?.source?.source.case === 'ics20Transfer',
+    ) ?? [];
 
-  const { data: balances } = useBalances();
-  const knownBalances = balances?.filter(
-    (balance) => balance.balanceView?.valueView.case === 'knownAssetId',
-  );
+  const { data: notesWithMetadata } = useQuery({
+    queryKey: ['notesWithMetadata', currentBlock.toString()],
+    staleTime: 0,
+    initialData: [],
+    queryFn: async () => {
+      return await Promise.all(
+        depositNotes.map(async (note) => {
+          const metadata = await client.service(ViewService).assetMetadataById({
+            assetId: note.noteRecord?.note?.value?.assetId!,
+          });
 
-  const depositsWithNotes =
-    (knownBalances
-      ?.map((balance) => ({
-        note: depositNotes?.find((note) =>
-          note.noteRecord?.note?.value?.assetId?.equals(
-            (balance.balanceView?.valueView?.value as ValueView_KnownAssetId)
-              ?.metadata?.penumbraAssetId,
-          ),
-        ),
-        balance,
-      }))
-      .filter(({ note }) => note !== undefined) as BalanceWithNote[]) ?? [];
+          return {
+            metadata,
+            note,
+            valueView: new ValueView({
+              valueView: {
+                case: 'knownAssetId',
+                value: {
+                  metadata: metadata.denomMetadata!,
+                  amount: note?.noteRecord?.note?.value?.amount!,
+                },
+              },
+            }),
+          };
+        }),
+      );
+    },
+  });
 
-  const depositedBalances = depositsWithNotes.filter(
-    ({ note }) => currentBlock - (note.noteRecord?.heightCreated ?? 0n) < 50,
-  );
   const { data: ibcInAddress } = useEphemeralAddress({
     index: 0,
   });
@@ -140,7 +145,7 @@ const Deposit: React.FC = () => {
         </p>
       </div>
 
-      {depositedBalances.length === 0 && (
+      {notesWithMetadata.length === 0 && (
         <div className="w-full bg-white text-black shadow-md rounded-lg p-4">
           <div className="flex flex-row gap-3 items-center">
             <div>Waiting for a deposit to occur</div>
@@ -149,26 +154,26 @@ const Deposit: React.FC = () => {
         </div>
       )}
 
-      {depositedBalances.length > 0 &&
-        depositedBalances.map(({ balance, note }) => (
+      {notesWithMetadata.length > 0 &&
+        notesWithMetadata.map(({ valueView }) => (
           <div
-            key={note.toJsonString()}
+            key={valueView.toJsonString()}
             className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4"
             role="alert"
           >
             <p className="font-bold">
               Deposit completed successfully! Received
             </p>
-            <div className="flex flex-col gap-3 px-3">
+            <div className="flex text-black flex-col gap-3 px-3">
               <ValueViewComponent
-                key={balance.toJsonString()}
-                valueView={balance.balanceView as ValueView}
+                key={valueView.toJsonString()}
+                valueView={valueView}
               />
             </div>
           </div>
         ))}
 
-      {depositsWithNotes.length > 0 && (
+      {notesWithMetadata.length > 0 && (
         <div className="border-0">
           <details className="group">
             <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
@@ -189,12 +194,13 @@ const Deposit: React.FC = () => {
                 </svg>
               </span>
             </summary>
-            <div className="śmt-3 group-open:animate-fadeIn">
-              {depositsWithNotes.length > 0 &&
-                depositsWithNotes?.map((balanceWithNote) => (
+            <div className="mt-3 group-open:animate-fadeIn">
+              {notesWithMetadata.length > 0 &&
+                notesWithMetadata?.map(({ note, valueView }) => (
                   <DepositRow
-                    key={JSON.stringify(balanceWithNote)}
-                    balanceWithNote={balanceWithNote}
+                    key={note.toJsonString()}
+                    note={note}
+                    valueView={valueView}
                   />
                 ))}
             </div>
@@ -205,15 +211,12 @@ const Deposit: React.FC = () => {
   );
 };
 
-type BalanceWithNote = {
-  note: NotesResponse;
-  balance: BalancesResponse;
-};
-
 function DepositRow({
-  balanceWithNote: { balance, note },
+  note,
+  valueView,
 }: {
-  balanceWithNote: BalanceWithNote;
+  note: NotesResponse;
+  valueView: ValueView;
 }) {
   const source = note.noteRecord?.source?.source
     ?.value as CommitmentSource_Ics20Transfer;
@@ -223,13 +226,10 @@ function DepositRow({
   return (
     <div
       className="mt-3 flex gap-3 items-center bg-gray-700 text-white p-3"
-      key={balance.toJsonString()}
+      key={note.toJsonString()}
     >
       Deposited
-      <ValueViewComponent
-        key={balance.toJsonString()}
-        valueView={balance.balanceView as ValueView}
-      />
+      <ValueViewComponent key={note.toJsonString()} valueView={valueView} />
       from {chainName}
       <ChevronRightIcon className="h-4 w-4" />
       <a
