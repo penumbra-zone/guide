@@ -228,14 +228,12 @@ export function useSwaps(blockRange: BlockRange) {
     queryKey: ['swaps', connected],
     staleTime: 0,
     queryFn: async () => {
-      console.log('fetching swaps');
       const txs = await Array.fromAsync(
         client.service(ViewService).transactionInfo({
           startHeight: BigInt(blockRange.from),
           endHeight: BigInt(blockRange.to),
         }),
       );
-      console.log(txs);
       const swaps = txs.filter((tx) =>
         tx.txInfo?.transaction?.body?.actions?.some(
           (action) =>

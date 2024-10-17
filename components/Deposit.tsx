@@ -1,4 +1,5 @@
 import { client } from '@/components/penumbra';
+import { useQuestStore } from '@/components/store';
 import { ViewService } from '@penumbra-zone/protobuf';
 import { ValueView } from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
 import type { CommitmentSource_Ics20Transfer } from '@penumbra-zone/protobuf/penumbra/core/component/sct/v1/sct_pb';
@@ -9,16 +10,21 @@ import { ValueViewComponent } from '@penumbra-zone/ui/ValueViewComponent';
 import { useQuery } from '@tanstack/react-query';
 import { capitalize } from 'es-toolkit';
 import { ChevronRightIcon } from 'lucide-react';
-import type React from 'react';
+import React, { useState } from 'react';
 import {
   useConnect,
   useCurrentChainStatus,
   useEphemeralAddress,
   useNotes,
+  useSetScanSinceBlock,
+  useSwaps,
   useWalletManifests,
 } from './hooks';
 
 const Deposit: React.FC = () => {
+  useSetScanSinceBlock();
+  const [showOld, setShowOld] = useState(false);
+
   const { data } = useNotes();
   const { connected, onConnect, connectionLoading } = useConnect();
   const { data: wallets, isLoading } = useWalletManifests();
@@ -30,12 +36,21 @@ const Deposit: React.FC = () => {
       (note) => note?.noteRecord?.source?.source.case === 'ics20Transfer',
     ) ?? [];
 
+  const { scanSinceBlockHeight } = useQuestStore();
+  console.log(showOld);
   const { data: notesWithMetadata } = useQuery({
-    queryKey: ['notesWithMetadata', currentBlock.toString()],
+    queryKey: [
+      'notesWithMetadata',
+      currentBlock.toString(),
+      showOld,
+      depositNotes,
+      connected,
+    ],
     staleTime: 0,
     initialData: [],
     queryFn: async () => {
-      return await Promise.all(
+      console.log('refetch');
+      const deposits = await Promise.all(
         depositNotes.map(async (note) => {
           const metadata = await client.service(ViewService).assetMetadataById({
             assetId: note.noteRecord?.note?.value?.assetId!,
@@ -55,6 +70,11 @@ const Deposit: React.FC = () => {
             }),
           };
         }),
+      );
+      return deposits.filter(
+        (d) =>
+          Number(d.note!.noteRecord!.heightCreated) >
+          (showOld ? 0 : scanSinceBlockHeight),
       );
     },
   });
@@ -154,59 +174,36 @@ const Deposit: React.FC = () => {
         </div>
       )}
 
-      {notesWithMetadata.length > 0 &&
-        notesWithMetadata.map(({ valueView }) => (
-          <div
-            key={valueView.toJsonString()}
-            className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4"
-            role="alert"
-          >
-            <p className="font-bold">
-              Deposit completed successfully! Received
-            </p>
-            <div className="flex text-black flex-col gap-3 px-3">
-              <ValueViewComponent
-                key={valueView.toJsonString()}
-                valueView={valueView}
-              />
-            </div>
-          </div>
-        ))}
-
       {notesWithMetadata.length > 0 && (
         <div className="border-0">
-          <details className="group">
-            <summary className="flex justify-between items-center font-medium cursor-pointer list-none">
-              <span>Show old deposits</span>
-              <span className="transition group-open:rotate-180">
-                <svg
-                  fill="none"
-                  height="24"
-                  shapeRendering="geometricPrecision"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  viewBox="0 0 24 24"
-                  width="24"
-                >
-                  <path d="M6 9l6 6 6-6"></path>
-                </svg>
-              </span>
-            </summary>
-            <div className="mt-3 group-open:animate-fadeIn">
-              {notesWithMetadata.length > 0 &&
-                notesWithMetadata?.map(({ note, valueView }) => (
-                  <DepositRow
-                    key={note.toJsonString()}
-                    note={note}
-                    valueView={valueView}
-                  />
-                ))}
-            </div>
-          </details>
+          <div className="mt-3 group-open:animate-fadeIn">
+            {notesWithMetadata.length > 0 &&
+              notesWithMetadata?.map(({ note, valueView }) => (
+                <DepositRow
+                  key={note.toJsonString()}
+                  note={note}
+                  valueView={valueView}
+                />
+              ))}
+          </div>
         </div>
       )}
+
+      <div className={'flex items-center'}>
+        <input
+          id="default-checkbox"
+          checked={showOld}
+          type={'checkbox'}
+          onChange={(e) => setShowOld((old) => !old)}
+          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+        />
+        <label
+          htmlFor="default-checkbox"
+          className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          Show old deposits
+        </label>
+      </div>
     </div>
   );
 };
