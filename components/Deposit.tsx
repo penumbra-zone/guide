@@ -37,7 +37,7 @@ const Deposit: React.FC = () => {
     ) ?? [];
 
   const { scanSinceBlockHeight } = useQuestStore();
-  console.log(showOld);
+  showOld;
   const { data: notesWithMetadata } = useQuery({
     queryKey: [
       'notesWithMetadata',
@@ -49,7 +49,7 @@ const Deposit: React.FC = () => {
     staleTime: 0,
     initialData: [],
     queryFn: async () => {
-      console.log('refetch');
+      ('refetch');
       const deposits = await Promise.all(
         depositNotes.map(async (note) => {
           const metadata = await client.service(ViewService).assetMetadataById({
@@ -96,7 +96,6 @@ const Deposit: React.FC = () => {
         !connected &&
         Object.entries(wallets).map(([origin, manifest]) => (
           <button
-            // type={'button'}
             key={origin}
             onClick={() => onConnect(origin)}
             disabled={connectionLoading}

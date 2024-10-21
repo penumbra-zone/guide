@@ -1,5 +1,5 @@
 import { bech32mIdentityKey } from '@penumbra-zone/bech32m/penumbravalid';
-import type {
+import {
   ValueView,
   ValueView_KnownAssetId,
 } from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
@@ -38,19 +38,17 @@ const Staking: React.FC = () => {
       )
       .map((balance) => {
         const bal = balance;
-        // @ts-expect-error bufs for the win
-        (
-          bal.balanceView?.valueView?.value as ValueView_KnownAssetId
-        ).metadata.symbol = truncateMiddle(
-          // @ts-expect-error bufs for the win
-          (bal.balanceView?.valueView?.value as ValueView_KnownAssetId).metadata
-            .symbol,
+
+        (bal.balanceView?.valueView?.value as ValueView_KnownAssetId)!
+          .metadata!.symbol = truncateMiddle(
+          (bal.balanceView?.valueView?.value as ValueView_KnownAssetId)!
+            .metadata!.symbol,
           30,
         );
         return bal;
       }) ?? [];
 
-  console.log(delegationTokens.length, balances?.length, balances);
+  delegationTokens.length, balances?.length, balances;
   return (
     <div className="py-3 flex flex-col gap-8">
       <div className="space-y-6">
@@ -172,22 +170,23 @@ const Staking: React.FC = () => {
                   <div className="flex items-center gap-3 justify-center">
                     Successfully staked
                     <ValueViewComponent
-                      valueView={{
-                        valueView: {
-                          // @ts-expect-error TODO: how do we tell typescript these types are correct?
-                          value: {
-                            amount: (
-                              balance?.balanceView?.valueView
-                                ?.value as ValueView_KnownAssetId
-                            )?.equivalentValues[0]?.equivalentAmount,
-                            metadata: (
-                              balance?.balanceView?.valueView
-                                ?.value as ValueView_KnownAssetId
-                            )?.equivalentValues[0]?.numeraire,
+                      valueView={
+                        new ValueView({
+                          valueView: {
+                            value: new ValueView_KnownAssetId({
+                              amount: (
+                                balance?.balanceView?.valueView
+                                  ?.value as ValueView_KnownAssetId
+                              )?.equivalentValues[0]?.equivalentAmount,
+                              metadata: (
+                                balance?.balanceView?.valueView
+                                  ?.value as ValueView_KnownAssetId
+                              )?.equivalentValues[0]?.numeraire,
+                            }),
+                            case: 'knownAssetId',
                           },
-                          case: 'knownAssetId',
-                        },
-                      }}
+                        })
+                      }
                     />{' '}
                     on
                     <a

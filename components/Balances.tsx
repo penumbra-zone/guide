@@ -7,14 +7,9 @@ export function Balances() {
   const { data: balances } = useBalances();
 
   return balances
-    ? balances
-        .map((bal) => bal.balanceView)
-        .map((balanceView) => (
-          <BalanceRow
-            key={balanceView!.toJsonString()}
-            balance={balanceView!}
-          />
-        ))
+    ? balances.map(({ balanceView }) => (
+        <BalanceRow key={balanceView!.toJsonString()} balance={balanceView!} />
+      ))
     : null;
 }
 
