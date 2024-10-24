@@ -126,7 +126,7 @@ const Staking: React.FC = () => {
       </div>
 
       {delegationTokens.length === 0 && (
-        <div className="w-full shadow-md rounded-lg p-4">
+        <div className="w-full bg-gray-700 text-white shadow-md rounded-lg p-4">
           <div className="flex flex-row gap-3 items-center">
             <div>Waiting for a staking delegation to occur</div>
             <div
