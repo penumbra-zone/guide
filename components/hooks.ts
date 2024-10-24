@@ -65,7 +65,7 @@ export const useConnect = () => {
       if (error instanceof Error && error.cause) {
         if (error.cause === PenumbraRequestFailure.Denied) {
           alert(
-            'Connection denied: you may need to un-ignore this site in your extension settings.',
+            'Connection denied: you may need to un-ignore this site in your extension settings, and reload the page afterwards.',
           );
         }
         if (error.cause === PenumbraRequestFailure.NeedsLogin) {
