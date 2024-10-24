@@ -10,14 +10,14 @@ import { ValueViewComponent } from '@penumbra-zone/ui/ValueViewComponent';
 import { useQuery } from '@tanstack/react-query';
 import { capitalize } from 'es-toolkit';
 import { ChevronRightIcon } from 'lucide-react';
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 import {
   useConnect,
   useCurrentChainStatus,
   useEphemeralAddress,
   useNotes,
   useSetScanSinceBlock,
-  useSwaps,
   useWalletManifests,
 } from './hooks';
 
@@ -37,7 +37,6 @@ const Deposit: React.FC = () => {
     ) ?? [];
 
   const { scanSinceBlockHeight } = useQuestStore();
-  showOld;
   const { data: notesWithMetadata } = useQuery({
     queryKey: [
       'notesWithMetadata',
@@ -49,7 +48,6 @@ const Deposit: React.FC = () => {
     staleTime: 0,
     initialData: [],
     queryFn: async () => {
-      ('refetch');
       const deposits = await Promise.all(
         depositNotes.map(async (note) => {
           const metadata = await client.service(ViewService).assetMetadataById({
@@ -95,6 +93,7 @@ const Deposit: React.FC = () => {
         wallets &&
         !connected &&
         Object.entries(wallets).map(([origin, manifest]) => (
+          // biome-ignore lint: no need for a type here
           <button
             key={origin}
             onClick={() => onConnect(origin)}
@@ -193,7 +192,7 @@ const Deposit: React.FC = () => {
           id="default-checkbox"
           checked={showOld}
           type={'checkbox'}
-          onChange={(e) => setShowOld((old) => !old)}
+          onChange={() => setShowOld((old) => !old)}
           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
         />
         <label

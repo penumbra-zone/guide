@@ -203,7 +203,7 @@ function AssetSwapWithFeeMetadataComponent(props: {
   txv: TransactionView;
   action: ActionView;
 }) {
-  /*The link that's displayed when claimTx is defined doesn't work outside minifront*/
+  // biome-ignore lint: The link that's displayed when claimTx is defined doesn't work outside minifront
   delete (
     (props.action.actionView.value as SwapView).swapView
       .value as SwapView_Visible

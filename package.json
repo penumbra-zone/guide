@@ -20,6 +20,7 @@
     "@penumbra-labs/registry": "^11.3.1",
     "@penumbra-zone/bech32m": "^8.0.0",
     "@penumbra-zone/client": "^18.1.0",
+    "@penumbra-zone/getters": "^19.0.0",
     "@penumbra-zone/protobuf": "^6.1.0",
     "@penumbra-zone/transport-dom": "^7.5.0",
     "@penumbra-zone/ui": "^10.0.2",

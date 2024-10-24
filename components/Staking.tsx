@@ -1,11 +1,19 @@
 import { bech32mIdentityKey } from '@penumbra-zone/bech32m/penumbravalid';
 import {
+  getMetadataFromBalancesResponse,
+  getValueViewCaseFromBalancesResponse,
+} from '@penumbra-zone/getters/balances-response';
+import {
+  getAmount,
+  getExtendedMetadata,
+  getSymbolFromValueView,
+} from '@penumbra-zone/getters/value-view';
+import {
   ValueView,
   ValueView_KnownAssetId,
 } from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
 import { ValidatorInfo } from '@penumbra-zone/protobuf/penumbra/core/component/stake/v1/stake_pb';
 import { ValueViewComponent } from '@penumbra-zone/ui/ValueViewComponent';
-import { ValueComponent } from '@penumbra-zone/ui/components/value/value';
 
 import type React from 'react';
 import { useBalances, useDelegations } from './hooks';
@@ -15,40 +23,29 @@ const Staking: React.FC = () => {
   const validators =
     delegations
       ?.filter(
-        (delegation) =>
-          delegation?.valueView?.valueView?.value?.amount?.toJsonString() !==
-          '{}',
+        (delegation) => getAmount(delegation.valueView).toJsonString() !== '{}',
       )
       .map((delegation) => {
-        const valueView = delegation.valueView?.valueView
-          ?.value as ValueView_KnownAssetId;
-        return ValidatorInfo.fromBinary(
-          valueView.extendedMetadata?.value as Uint8Array,
-        );
+        const extendedMetadata = getExtendedMetadata(delegation.valueView);
+        return ValidatorInfo.fromBinary(extendedMetadata.value as Uint8Array);
       }) ?? [];
   const { data: balances } = useBalances();
   const delegationTokens =
     balances
       ?.filter(
         (balance) =>
-          balance?.balanceView?.valueView.case === 'knownAssetId' &&
-          balance?.balanceView?.valueView?.value?.metadata?.base.includes(
-            'udelegation',
-          ),
+          getValueViewCaseFromBalancesResponse(balance) === 'knownAssetId' &&
+          getMetadataFromBalancesResponse(balance).base.includes('udelegation'),
       )
       .map((balance) => {
         const bal = balance;
+        const symbol = getSymbolFromValueView(bal.balanceView);
 
         (bal.balanceView?.valueView?.value as ValueView_KnownAssetId)!
-          .metadata!.symbol = truncateMiddle(
-          (bal.balanceView?.valueView?.value as ValueView_KnownAssetId)!
-            .metadata!.symbol,
-          30,
-        );
+          .metadata!.symbol = truncateMiddle(symbol, 30);
         return bal;
       }) ?? [];
 
-  delegationTokens.length, balances?.length, balances;
   return (
     <div className="py-3 flex flex-col gap-8">
       <div className="space-y-6">

@@ -241,7 +241,6 @@ export function useSwaps(blockRange: BlockRange) {
             action.action?.case === 'swapClaim',
         ),
       );
-      swaps;
       return swaps;
     },
   });
