@@ -126,7 +126,7 @@ const Staking: React.FC = () => {
       </div>
 
       {delegationTokens.length === 0 && (
-        <div className="w-full bg-white shadow-md rounded-lg p-4">
+        <div className="w-full shadow-md rounded-lg p-4">
           <div className="flex flex-row gap-3 items-center">
             <div>Waiting for a staking delegation to occur</div>
             <div
@@ -171,11 +171,13 @@ const Staking: React.FC = () => {
                           valueView: {
                             value: new ValueView_KnownAssetId({
                               amount:
-                                getBalanceView.pipe(getEquivalentValues)()[0]
-                                  .equivalentAmount,
+                                getBalanceView.pipe(getEquivalentValues)(
+                                  balance,
+                                )[0].equivalentAmount,
                               metadata:
-                                getBalanceView.pipe(getEquivalentValues)()[0]
-                                  .numeraire,
+                                getBalanceView.pipe(getEquivalentValues)(
+                                  balance,
+                                )[0].numeraire,
                             }),
                             case: 'knownAssetId',
                           },
