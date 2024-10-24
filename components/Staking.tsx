@@ -1,10 +1,12 @@
 import { bech32mIdentityKey } from '@penumbra-zone/bech32m/penumbravalid';
 import {
+  getBalanceView,
   getMetadataFromBalancesResponse,
   getValueViewCaseFromBalancesResponse,
 } from '@penumbra-zone/getters/balances-response';
 import {
   getAmount,
+  getEquivalentValues,
   getExtendedMetadata,
   getSymbolFromValueView,
 } from '@penumbra-zone/getters/value-view';
@@ -149,10 +151,7 @@ const Staking: React.FC = () => {
           >
             {delegationTokens?.map((balance) => {
               const validator = validators?.find((validator) =>
-                (
-                  balance?.balanceView?.valueView
-                    ?.value as ValueView_KnownAssetId
-                )?.metadata?.base?.includes(
+                getMetadataFromBalancesResponse(balance).base?.includes(
                   bech32mIdentityKey({
                     ik:
                       validator?.validator?.identityKey?.ik ?? new Uint8Array(),
@@ -171,14 +170,12 @@ const Staking: React.FC = () => {
                         new ValueView({
                           valueView: {
                             value: new ValueView_KnownAssetId({
-                              amount: (
-                                balance?.balanceView?.valueView
-                                  ?.value as ValueView_KnownAssetId
-                              )?.equivalentValues[0]?.equivalentAmount,
-                              metadata: (
-                                balance?.balanceView?.valueView
-                                  ?.value as ValueView_KnownAssetId
-                              )?.equivalentValues[0]?.numeraire,
+                              amount:
+                                getBalanceView.pipe(getEquivalentValues)()[0]
+                                  .equivalentAmount,
+                              metadata:
+                                getBalanceView.pipe(getEquivalentValues)()[0]
+                                  .numeraire,
                             }),
                             case: 'knownAssetId',
                           },

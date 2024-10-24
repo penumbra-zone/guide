@@ -1,5 +1,9 @@
 import { client } from '@/components/penumbra';
 import { useQuestStore } from '@/components/store';
+import {
+  getAmountFromRecord,
+  getAssetIdFromRecord,
+} from '@penumbra-zone/getters/spendable-note-record';
 import { ViewService } from '@penumbra-zone/protobuf';
 import { ValueView } from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
 import type { CommitmentSource_Ics20Transfer } from '@penumbra-zone/protobuf/penumbra/core/component/sct/v1/sct_pb';
@@ -51,7 +55,7 @@ const Deposit: React.FC = () => {
       const deposits = await Promise.all(
         depositNotes.map(async (note) => {
           const metadata = await client.service(ViewService).assetMetadataById({
-            assetId: note.noteRecord?.note?.value?.assetId!,
+            assetId: getAssetIdFromRecord(note.noteRecord),
           });
 
           return {
@@ -62,7 +66,7 @@ const Deposit: React.FC = () => {
                 case: 'knownAssetId',
                 value: {
                   metadata: metadata.denomMetadata!,
-                  amount: note?.noteRecord?.note?.value?.amount!,
+                  amount: getAmountFromRecord(note.noteRecord),
                 },
               },
             }),
