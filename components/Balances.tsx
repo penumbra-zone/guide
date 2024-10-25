@@ -2,19 +2,13 @@ import { useBalances } from '@/components/hooks';
 import type { ValueView } from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
 import { ValueViewComponent } from '@penumbra-zone/ui/ValueViewComponent';
 import type React from 'react';
-
 export function Balances() {
   const { data: balances } = useBalances();
 
-  return balances
-    ? balances
-        .map((bal) => bal.balanceView)
-        .map((balanceView) => (
-          <BalanceRow
-            key={balanceView!.toJsonString()}
-            balance={balanceView!}
-          />
-        ))
+  return balances?.every((b) => b.balanceView !== undefined)
+    ? balances.map(({ balanceView }) => (
+        <BalanceRow key={balanceView!.toJsonString()} balance={balanceView!} />
+      ))
     : null;
 }
 

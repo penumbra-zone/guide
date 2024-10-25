@@ -71,8 +71,8 @@ const WalletInstall: React.FC = () => {
             wallets &&
             !connected &&
             Object.entries(wallets).map(([origin, manifest]) => (
+              // biome-ignore lint: we don't want or need a type here
               <button
-                // type={'button'}
                 key={origin}
                 onClick={() => onConnect(origin)}
                 disabled={connectionLoading}

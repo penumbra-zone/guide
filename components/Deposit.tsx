@@ -1,5 +1,9 @@
 import { client } from '@/components/penumbra';
 import { useQuestStore } from '@/components/store';
+import {
+  getAmountFromRecord,
+  getAssetIdFromRecord,
+} from '@penumbra-zone/getters/spendable-note-record';
 import { ViewService } from '@penumbra-zone/protobuf';
 import { ValueView } from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
 import type { CommitmentSource_Ics20Transfer } from '@penumbra-zone/protobuf/penumbra/core/component/sct/v1/sct_pb';
@@ -10,14 +14,14 @@ import { ValueViewComponent } from '@penumbra-zone/ui/ValueViewComponent';
 import { useQuery } from '@tanstack/react-query';
 import { capitalize } from 'es-toolkit';
 import { ChevronRightIcon } from 'lucide-react';
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 import {
   useConnect,
   useCurrentChainStatus,
   useEphemeralAddress,
   useNotes,
   useSetScanSinceBlock,
-  useSwaps,
   useWalletManifests,
 } from './hooks';
 
@@ -37,7 +41,6 @@ const Deposit: React.FC = () => {
     ) ?? [];
 
   const { scanSinceBlockHeight } = useQuestStore();
-  console.log(showOld);
   const { data: notesWithMetadata } = useQuery({
     queryKey: [
       'notesWithMetadata',
@@ -49,11 +52,10 @@ const Deposit: React.FC = () => {
     staleTime: 0,
     initialData: [],
     queryFn: async () => {
-      console.log('refetch');
       const deposits = await Promise.all(
         depositNotes.map(async (note) => {
           const metadata = await client.service(ViewService).assetMetadataById({
-            assetId: note.noteRecord?.note?.value?.assetId!,
+            assetId: getAssetIdFromRecord(note.noteRecord),
           });
 
           return {
@@ -64,7 +66,7 @@ const Deposit: React.FC = () => {
                 case: 'knownAssetId',
                 value: {
                   metadata: metadata.denomMetadata!,
-                  amount: note?.noteRecord?.note?.value?.amount!,
+                  amount: getAmountFromRecord(note.noteRecord),
                 },
               },
             }),
@@ -95,8 +97,8 @@ const Deposit: React.FC = () => {
         wallets &&
         !connected &&
         Object.entries(wallets).map(([origin, manifest]) => (
+          // biome-ignore lint: no need for a type here
           <button
-            // type={'button'}
             key={origin}
             onClick={() => onConnect(origin)}
             disabled={connectionLoading}
@@ -166,7 +168,7 @@ const Deposit: React.FC = () => {
       </div>
 
       {notesWithMetadata.length === 0 && (
-        <div className="w-full bg-white text-black shadow-md rounded-lg p-4">
+        <div className="w-full bg-gray-700 text-white shadow-md rounded-lg p-4">
           <div className="flex flex-row gap-3 items-center">
             <div>Waiting for a deposit to occur</div>
             <div className="animate-spin h-5 w-5 border-2 border-blue-500 rounded-full border-t-transparent" />
@@ -194,7 +196,7 @@ const Deposit: React.FC = () => {
           id="default-checkbox"
           checked={showOld}
           type={'checkbox'}
-          onChange={(e) => setShowOld((old) => !old)}
+          onChange={() => setShowOld((old) => !old)}
           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
         />
         <label

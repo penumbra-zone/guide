@@ -188,7 +188,7 @@ function SwapMonitor() {
           />
         ))
       ) : (
-        <div className="w-full p-4 bg-white shadow rounded">
+        <div className="w-full p-4 bg-gray-700 text-white shadow rounded">
           <div className="flex flex-row gap-3">
             <span>Waiting for a swap to occur</span>
             <div className="animate-spin h-5 w-5 border-2 border-blue-500 rounded-full border-t-transparent" />
@@ -203,7 +203,7 @@ function AssetSwapWithFeeMetadataComponent(props: {
   txv: TransactionView;
   action: ActionView;
 }) {
-  /*The link that's displayed when claimTx is defined doesn't work outside minifront*/
+  // biome-ignore lint: The link that's displayed when claimTx is defined doesn't work outside minifront
   delete (
     (props.action.actionView.value as SwapView).swapView
       .value as SwapView_Visible
