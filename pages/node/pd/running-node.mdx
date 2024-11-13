@@ -63,7 +63,7 @@ cp penumbra.service cometbft.service /etc/systemd/system/
 systemctl daemon-reload
 ```
 
-Follow the guide to [install pd and cometbft](../node/pd/install.md) from their respective
+Follow the guide to [install pd and cometbft](./install.mdx) from their respective
 release pages. You should be able to run `pd --version` and see <code>{PENUMBRA_VERSION}</code>
 displayed. 
 
@@ -99,7 +99,7 @@ journalctl -af -u penumbra
 ```
 
 The final command will display logs from the `pd` process. In a short while, you should see
-blocks streaming in. If not, see the [debugging steps](../node/pd/debugging.md)
+blocks streaming in. If not, see the [debugging steps](./debugging.md)
 to figure out what went wrong.
 
 [pcli]: ../pcli.md
