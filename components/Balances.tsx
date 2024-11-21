@@ -1,5 +1,5 @@
 import { useBalances, useAddresses } from '@/components/hooks';
-import type { AddressView } from '@penumbra-zone/protobuf/penumbra/core/keys/v1/keys_pb';
+import { AddressView } from '@penumbra-zone/protobuf/penumbra/core/keys/v1/keys_pb';
 import { ValueViewComponent } from '@penumbra-zone/ui/ValueViewComponent';
 import { AddressViewComponent } from '@penumbra-zone/ui/AddressViewComponent';
 import type React from 'react';
@@ -16,7 +16,7 @@ export function Balances() {
 
   if (!filteredBalances?.length || !addresses?.length) return null;
 
-  const addressView: AddressView = {
+  const addressView = new AddressView({
     addressView: {
       case: 'decoded',
       value: {
@@ -27,7 +27,7 @@ export function Balances() {
         }
       }
     }
-  };
+  });
 
   return (
     <div className="p-4">
