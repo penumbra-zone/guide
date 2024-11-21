@@ -1,5 +1,5 @@
 import { useBalances, useAddresses } from '@/components/hooks';
-import type { ValueView, AddressView } from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
+import type { AddressView } from '@penumbra-zone/protobuf/penumbra/core/keys/v1/keys_pb';
 import { ValueViewComponent } from '@penumbra-zone/ui/ValueViewComponent';
 import { AddressViewComponent } from '@penumbra-zone/ui/AddressViewComponent';
 import type React from 'react';
