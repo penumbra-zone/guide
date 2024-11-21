@@ -1,6 +1,11 @@
 import WalletInstallSteps from '@/components/WalletInstallSteps';
 import {Balances} from '@/components/Balances';
+import Deposit from "@/components/Deposit";
 import { Callout, Steps } from 'nextra/components'
+import Swap from "@/components/Swap";
+import Staking from "@/components/Staking";
+import Disconnect from "@/components/Disconnect";
+
 
 <Steps>
 
@@ -17,33 +22,40 @@ Connected sites, like this one, can view your addresses and balances:
 
 ### Shield Funds
 
-Test
+Transfers into Penumbra shield funds, recording them privately. 
 
+<Deposit/>
+
+### Swap
+
+<Swap/>
+
+### Stake
+
+<Staking/>
+
+### Sending Tokens
+
+Use the [Send](https://stake.with.starlingcyber.net/#/send) page to send tokens privately within Penumbra.
+
+Penumbra transactions include a shielded memo describing the purpose of the transaction. The memo is only visible to the sender and receiver of the transaction.
+
+You can test sending tokens to one of your other sub-accounts by using the arrows on the account selector in the extension popup to select a different sub-account.
+
+### Vote
+
+UM stakers can participate in governance using [https://void.vote/](https://void.vote/).
+This frontend allows viewing proposals, and voting on them through the Prax wallet.
+
+### Disconnecting Frontends
+
+To revoke a site's access to your data, navigate to the Settings page in
+Prax Wallet, click Connected Sites, and click the trash button next to
+the site's URL. 
+
+You can do this now to `https://guide.penumbra.zone` to verify that
+disconnection cuts off this page's access to your data.
+
+<Disconnect/>
 
 </Steps>
-
-(Old Content)
-
-Penumbra's web tooling is designed to support a decentralized ecosystem of
-frontends.  This allows different frontends to focus on different user
-profiles and ensures that no single frontend deployment or codebase has control
-over users' access to the protocol.
-
-Penumbra wallets like [Prax] sync, scan, decrypt, and locally index user data.
-When users connect to a frontend, the wallet acts as a "personal RPC", granting
-that frontend access to the user's private data.  Prax is the first browser
-wallet for Penumbra, and is open-source software that runs entirely on your
-computer.
-
-This chapter has guides on using Prax together with a Penumbra frontend to
-perform various actions:
-
-- [Prax Wallet](./web/prax.md) describes how to use Prax to generate a wallet.
-- [Viewing Balances](./web/balances.md) describes how to view balances.
-- [Shielding Funds](./web/ibc-transfers.md) describes how to shield transactions via IBC transfers.
-- [Sending Funds](./web/send.md) describes how to send funds.
-- [Swapping Tokens](./web/swap.md) describes how to perform token swaps.
-- [Staking](./web/stake.md) describes how to stake tokens.
-- [Governance](./web/vote.md) describes how to participate in governance.
-
-[Prax]: https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe
