@@ -7,13 +7,6 @@ const Disconnect: React.FC = () => {
 
   return (
     <div className="py-3 flex flex-col gap-8">
-      <div>
-        Once you are done working with a page, you can disconnect your wallet.
-        To do this in Prax. You can go to the Settings, click Connected sites,
-        and click the trash button next to the site URL. This will disconnect
-        the extension from the site, after which the site can no longer access
-        your data.
-      </div>
       {connected && (
         <div className="w-full bg-white shadow-md rounded-lg p-4">
           <div className="flex flex-row gap-3 items-center">
