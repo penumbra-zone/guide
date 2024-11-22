@@ -156,9 +156,8 @@ const Staking: React.FC = () => {
             >
               <p className="font-bold">Info</p>
               <p>
-                Delegation tokens are liquid - you can swap them the same way you
-                would other assets. They will also show up under your Balances in
-                frontends.
+                Delegation tokens are liquid - their value increases over time as you earn staking rewards.
+                They will also show up under your Balances in frontends.
               </p>
             </div>
           </div>
