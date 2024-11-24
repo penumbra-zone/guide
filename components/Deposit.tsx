@@ -85,6 +85,13 @@ const Deposit: React.FC = () => {
     destAssetDenom: 'ibc/F082B65C88E4B6D5EF1DB243CDA1D331D002759E938A0F5CD3FFDC5D53B3E349'
   };
 
+  const filter = {
+    destination: {
+      'penumbra-1': undefined,
+    }
+  }
+
+
   return (
     <div className="py-3 flex flex-col gap-8">
       <div>
@@ -107,6 +114,7 @@ const Deposit: React.FC = () => {
           theme="dark"
           brandColor="#3B82F6"
           defaultRoute={defaultRoute}
+          filter={filter}
         />
       </div>
 
