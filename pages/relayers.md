@@ -45,7 +45,7 @@ For the most part, you can follow the [official Hermes docs on configuration](ht
 There are two Penumbra-specific exceptions: 1) key support; and 2) on-disk view database support.
 
 ### Penumbra spend keys
-The Penumbra integration does Hermes does not support the [`hermes keys add`](https://hermes.informal.systems/documentation/commands/keys/index.html)
+The Penumbra integration does not support the [`hermes keys add`](https://hermes.informal.systems/documentation/commands/keys/index.html)
 flow for Penumbra chains. Instead, you should add the Penumbra wallet spendkey directly to the generated `config.toml` file, like so:
 
 ```toml
