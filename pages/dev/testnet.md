@@ -25,6 +25,15 @@ cargo run --release --bin pd -- network unsafe-reset-all
 cargo run --release --bin pd -- network join http://testnet.plinfra.net:26657
 ```
 
+That `network join` command will initialize node state directories locally.
+Then fetch the most recent snapshot to backfill blocks from before the most
+recent testnet chain upgrade:
+
+```
+curl -O https://artifacts.plinfra.net/penumbra-testnet-phobos-2/penumbra-node-archive-latest.tar.gz
+tar -xzf penumbra-node-archive-latest.tar.gz -C ~/.penumbra/network_data/node0/
+```
+
 After that, if you've set up the [Penumbra developer environment](./dev-env.md),
 you can run a fullnode locally via:
 
