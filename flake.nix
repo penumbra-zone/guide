@@ -18,6 +18,7 @@
             buildInputs = [ 
                 firebase-tools
                 just
+                nodejs_20
                 pnpm
             ];
           };
