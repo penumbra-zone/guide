@@ -36,6 +36,15 @@ configs to a network data directory (by default, `~/.penumbra/network_data`).
 If any data exists in the network data directory, this command will fail.  See
 the section above on resetting node state.
 
+Finally, if the network you're joining has undergone a chain upgrade before,
+you'll need to fetch historical blocks from an archive. Here's an example for
+how to do that for the `penumbra-1` chain:
+
+```shell
+curl -O https://artifacts.plinfra.net/penumbra-1/penumbra-node-archive-latest.tar.gz
+tar -xzf penumbra-node-archive-latest.tar.gz -C ~/.penumbra/network_data/node0/
+```
+
 ### Running `pd` and `cometbft`
 
 Copy the systemd service configs into place from the [project git repo](https://github.com/penumbra-zone/penumbra):
