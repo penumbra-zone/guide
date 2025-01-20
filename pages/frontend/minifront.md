@@ -20,7 +20,7 @@ privacy.
 
 The [minifront deployer repo](https://github.com/penumbra-zone/minifront-deployer) has a github action
 that can manage minifront's the build+deployment steps on a schedule. Using this will allow you to
-always host the latest code commited to [@penumbra-zone/web](https://github.com/penumbra-zone/web).
+always host the latest code committed to [@penumbra-zone/web](https://github.com/penumbra-zone/web).
 Simply fork, add environment variables to your repo, and make customizations for your particular host.
 
 ### Manual deploys
