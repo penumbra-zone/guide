@@ -23,6 +23,10 @@ discussion there.
 These talks were given at various conferences and events,
 describing different aspects of the Penumbra ecosystem.
 
+* [Cosmos Spaces presents: Decoded with Penumbra](https://x.com/i/spaces/1ZkKzRjVplaKv)
+* [Privacy Tech: The Undervalued Layer for Adoption](https://www.youtube.com/watch?v=ym7U_wAvhfI)
+* [DeCC Day X Shielding Summit: Penumbra and the Dream of Electronic Cash](https://www.youtube.com/watch?v=7jpcAQsNDuQ)
+* [Women in Privacy panel x Ethereum Cypherpunk Congress](https://www.youtube.com/watch?v=qTKKrOGxzGA)
 * [DevCon 2022: Building a Private DEX with ZKPs and Threshold Cryptography](https://archive.devcon.org/archive/watch/6/penumbra-building-a-private-dex-with-zkps-and-threshold-cryptography/?tab=YouTube)
 * [ZK8: How to build a private DEX](https://www.youtube.com/watch?v=-ap9ja36EYU)
 * [ZK8: Tiered Merkle Topiary in Rust](https://www.youtube.com/watch?v=mHoe7lQMcxU)
