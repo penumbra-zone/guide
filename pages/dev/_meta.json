@@ -1,5 +1,5 @@
 {
-  "dev-env": "Developer environment",
+  "build": "Compiling from source",
   "devnet-quickstart": "Devnet quickstart",
   "testnet": "Testnet",
   "sql": "Working with SQLite",
@@ -9,5 +9,5 @@
   "parameter_setup": "Zero-knowledge proofs",
   "rpc": "RPC access",
   "ibc": "Testing IBC",
-  "build": "Compiling from source"
+  "dev-env": "Developer environment"
 }
