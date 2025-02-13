@@ -1,1 +1,32 @@
 # The Penumbra DEX
+
+Penumbra's decentralized exchange (DEX) is a state of the art DEX engine,
+enabling private, high-performance trading of any IBC asset.
+
+## What makes the Penumbra DEX unique?
+
+The Penumbra DEX features a batched swap/intent system and enables fine-grained control over liquidity positions for liquidity providers (LPs).
+
+### Batch execution
+
+The incoming order flow of swap intents are batched together by trading pair and executed at the end of each block. Penumbra's fast block time of 5 seconds still enables fast execution.
+
+<picture>
+  <img src="./images/dex-batch-execution.png" />
+</picture>
+
+### Optimal Routing
+
+Penumbra's DEX automatically finds the best trading path across all available liquidity.
+
+At the end of a block, for each trading pair, the chain searches for the mathematically optimal trading path across the available liquidity, and then executes the batch of swap intents for that trading pair.
+
+This optimal execution means that the DEX provides the best prices for swappers, routing your trade through the most efficient path, including splitting swaps across multiple pools.
+
+### Privacy
+
+Privacy is at the core of Penumbra, including its DEX.
+
+Swap intents are submitted anonymously, and the swap output values are never revealed to the network - they are minted completely privately, directly into Penumbra's shielded pool.
+
+Users can also provide liquidity by creating anonymous concentrated liquidity positions. These positions disclose only the amount of liquidity and the trading function, without linking to any identity. This allows users to privately approximate arbitrary trading functions without revealing their specific price views. This enables truly *private* trading, preventing others from copying your proprietary trading strategies.
