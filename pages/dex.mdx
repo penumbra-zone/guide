@@ -38,9 +38,7 @@ The phased two-block execution of the `Swap` and `SwapClaim` transactions is ill
 
 ### Concentrated Liquidity Positions
 
-Penumbra's DEX supports concentrated liquidity positions.
-
-Each liquidity position in Penumbra is essentially a constant-sum individual Automated Market Maker (AMM). Fees are set on a per-position basis, instead of fee tiers. This enables market forces to set fees.
+Penumbra's DEX supports concentrated liquidity positions. Each liquidity position in Penumbra is essentially a constant-sum individual Automated Market Maker (AMM). Fees are set on a per-position basis, instead of fee tiers. This enables market forces to set fees.
 
 By creating an arbitrary number of these concentrated liquidity positions, market makers can approximate any trading function:
 
@@ -52,9 +50,9 @@ This enables fine-grained control over liquidity provisioning. The positions the
 
 ### DEX Execution and Optimal Routing
 
-Penumbra's DEX automatically finds the *best* trading path across all available liquidity. You can consider each liquidity position as a road connecting two assets, at a specified price. The DEX engine acts like a smart GPS, finding the best route to trade your input asset into your output asset. Sometimes the best route might be direct, but often it will involve multiple liquidity positions to get you the best price.
+Penumbra's DEX automatically finds the *best* trading path across all available liquidity. You can consider each liquidity position as a road connecting two assets, at a specified price. The DEX engine acts like a smart GPS, finding the best route to trade your input asset into your output asset. Sometimes the best route might be direct, but often it will involve multiple liquidity positions to get you the best price. This is all done transparently to the user.
 
-We call the collection of all liquidity positions the *liquidity graph*, as it can be thought of as a graph of nodes and edges, and we traverse the graph to find the best path for your trade.
+We call the collection of all liquidity positions the *liquidity graph*, as it can be thought of as a graph of nodes and edges, and the Penumbra DEX engine traverses the graph to find the best path for your trade.
 
 <picture>
   <img src="./images/dex-optimal-routing.png" />
@@ -73,6 +71,6 @@ This optimal execution means that the DEX provides the best prices for swaps, ro
 
 Privacy is at the core of Penumbra, including its DEX.
 
-Swap intents are submitted anonymously, and the swap output values are never revealed to the network - they are minted completely privately, directly into Penumbra's shielded pool.
+Swap intents are submitted anonymously, and the claimed swap output values are never revealed to the network - they are minted completely privately, directly into Penumbra's shielded pool.
 
-Users can also provide liquidity by creating anonymous concentrated liquidity positions. These positions disclose only the amount of liquidity and the trading function, without linking to any identity. This enables truly *private* trading, preventing others from copying your proprietary trading strategies.
+Market makers provide liquidity by creating anonymous concentrated liquidity positions. These positions disclose only the amount of liquidity and the trading function, without linking to any identity. This enables truly *private* trading, preventing others from copying your proprietary trading strategies.
