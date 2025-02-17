@@ -8,7 +8,7 @@ The Penumbra DEX features a batched swap/intent system and enables fine-grained 
 
 ### Batch execution
 
-The incoming order flow of swap intents are batched together by trading pair and executed at the end of each block. Trades get executed approximately every 5 seconds - Penumbra's block time.
+The incoming order flow of swap intents are batched together by trading pair and executed at the end of each block. The batching of swap intents means that in Penumbra, there is no intra-block ordering of swap intents that can be manipulated by traders. Trades get executed approximately every 5 seconds - Penumbra's block time.
 
 <picture>
   <img src="./images/dex-batch-execution.png" />
@@ -46,7 +46,9 @@ By creating an arbitrary number of these concentrated liquidity positions, marke
   <img src="./images/dex-concentrated-liquidity.png" />
 </picture>
 
-This enables fine-grained control over liquidity provisioning. The positions themselves are public, but anonymous. For further details on liquidity positions, see the [Providing Liquidity](/lp) page.
+This enables fine-grained control over liquidity provisioning. Active market makers can adjust prices as often as once per block.
+
+The positions themselves are public, but anonymous. For further details on liquidity positions, see the [Providing Liquidity](/lp) page.
 
 ### DEX Execution and Optimal Routing
 
