@@ -1,27 +1,73 @@
 # The Penumbra DEX
 
-Penumbra's decentralized exchange (DEX) is a state of the art DEX engine,
-enabling private, high-performance trading of any IBC asset.
+Penumbra's decentralized exchange (DEX) is a state of the art DEX engine, enabling private, high-performance trading of any IBC asset. Using Penumbra's DEX, users can swap between assets *without* leaving Penumbra's shielded pool.
 
 ## What makes the Penumbra DEX unique?
 
-The Penumbra DEX features a batched swap/intent system and enables fine-grained control over liquidity positions for liquidity providers (LPs).
+The Penumbra DEX features a batched swap/intent system and enables fine-grained control over liquidity positions for liquidity providers (LPs). In this section, we'll dive into some of the key features of the Penumbra DEX.
 
 ### Batch execution
 
-The incoming order flow of swap intents are batched together by trading pair and executed at the end of each block. Penumbra's fast block time of 5 seconds still enables fast execution.
+The incoming order flow of swap intents are batched together by trading pair and executed at the end of each block. Trades get executed approximately every 5 seconds - Penumbra's block time.
 
 <picture>
   <img src="./images/dex-batch-execution.png" />
 </picture>
 
-### Optimal Routing
+Each block, the Penumbra protocol:
 
-Penumbra's DEX automatically finds the best trading path across all available liquidity.
+1. Receives swap inputs from users submitting Penumbra `Swap` transactions. These swap intents describe the desired input and output assets, as well as the amount of the input asset the user would like to swap. The `Swap` transaction essentially burns the input funds, which are in the Penumbra shielded pool.
+2. Batches, or sums, together all the swap intents for each trading pair. The result is a single batch. For example, if Alice, Bob, and Charlie each submit a swap intent to swap 1, 2, and 3 ETH respectively - each into UM - the batch swap will consist of 6 ETH to swap into UM.
+3. Executes the batch swap against Penumbra's DEX engine (described in more detail below). This is done on a per-trading pair basis. The batch swap can succeed or fail, for example the batch swap can fail if there is insufficient liquidity to fill the batch. The batch swap result gets written to the public chain state.
 
-At the end of a block, for each trading pair, the chain searches for the mathematically optimal trading path across the available liquidity, and then executes the batch of swap intents for that trading pair.
+Finally, in subsequent blocks, users can mint the outputs of the batch swap directly into the Penumbra shielded pool. This is done via a `SwapClaim` transaction, which takes the batch swap result, and mints that user's swap output funds directly into Penumbra's shielded pool. The minted output funds for a specific user will be their pro-rata contribution to the batch swap, or it can be the original swap inputs if the batch swap failed.
 
-This optimal execution means that the DEX provides the best prices for swappers, routing your trade through the most efficient path, including splitting swaps across multiple pools.
+For example, in the output above where Charlie submitted an intent to swap 3 ETH into UM, and he contributed half of the batch swap input funds in that block and trading pair:
+* if the batch swap succeeds, the `SwapClaim` transaction will mint half of the batch swap output funds to Charlie.
+* if the batch swap fails, the `SwapClaim` transaction will mint 3 ETH to Charlie.
+
+One important feature of the `SwapClaim` transaction is that it can be *automatically* performed by wallets, since:
+* the fees are pre-paid in the original `Swap` transaction
+* the `SwapClaim` is pre-authorized by the `Swap` transaction, so does not require any additional signatures from the user
+
+The phased two-block execution of the `Swap` and `SwapClaim` transactions is illustrated below:
+
+<picture>
+  <img src="./images/dex-swap-claim.png" />
+</picture>
+
+### Concentrated Liquidity Positions
+
+Penumbra's DEX supports concentrated liquidity positions.
+
+Each liquidity position in Penumbra is essentially a constant-sum individual Automated Market Maker (AMM). Fees are set on a per-position basis, instead of fee tiers. This enables market forces to set fees.
+
+By creating an arbitrary number of these concentrated liquidity positions, market makers can approximate any trading function:
+
+<picture>
+  <img src="./images/dex-concentrated-liquidity.png" />
+</picture>
+
+This enables fine-grained control over liquidity provisioning. The positions themselves are public, but anonymous. For further details on liquidity positions, see the [Providing Liquidity](/lp) page.
+
+### DEX Execution and Optimal Routing
+
+Penumbra's DEX automatically finds the *best* trading path across all available liquidity. You can consider each liquidity position as a road connecting two assets, at a specified price. The DEX engine acts like a smart GPS, finding the best route to trade your input asset into your output asset. Sometimes the best route might be direct, but often it will involve multiple liquidity positions to get you the best price.
+
+We call the collection of all liquidity positions the *liquidity graph*, as it can be thought of as a graph of nodes and edges, and we traverse the graph to find the best path for your trade.
+
+<picture>
+  <img src="./images/dex-optimal-routing.png" />
+</picture>
+
+Each block, the DEX engine executes in four steps:
+
+1. Add newly opened liquidity positions to the liquidity graph.
+2. Execute batched trades for each trading pair. This is done by searching the liquidity graph for the mathematically optimal trading path across the available liquidity, and then executing the batch of swap intents for that trading pair.
+3. Perform optimal arbitrage to ensure prices are consistent between liquidity pools.
+4. Remove closed liquidity positions from the liquidity graph.
+
+This optimal execution means that the DEX provides the best prices for swaps, routing your trade through the most efficient path, including splitting swaps across multiple pools.
 
 ### Privacy
 
@@ -29,4 +75,4 @@ Privacy is at the core of Penumbra, including its DEX.
 
 Swap intents are submitted anonymously, and the swap output values are never revealed to the network - they are minted completely privately, directly into Penumbra's shielded pool.
 
-Users can also provide liquidity by creating anonymous concentrated liquidity positions. These positions disclose only the amount of liquidity and the trading function, without linking to any identity. This allows users to privately approximate arbitrary trading functions without revealing their specific price views. This enables truly *private* trading, preventing others from copying your proprietary trading strategies.
+Users can also provide liquidity by creating anonymous concentrated liquidity positions. These positions disclose only the amount of liquidity and the trading function, without linking to any identity. This enables truly *private* trading, preventing others from copying your proprietary trading strategies.
