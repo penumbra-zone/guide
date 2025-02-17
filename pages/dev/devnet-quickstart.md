@@ -83,7 +83,7 @@ To run the smoke tests:
 1. Make sure you have a devnet running (see previous steps)
 2. Run integration tests:
 ```shell
-PENUMBRA_NODE_PD_URL=http://127.0.0.1:8080 PCLI_UNLEASH_DANGER=yes cargo test --package pcli -- --ignored --test-threads 1
+PENUMBRA_NODE_PD_URL="http://127.0.0.1:8080" cargo test --release --features sct-divergence-check,download-proving-keys --package pcli -- --ignored --test-threads 1 --nocapture
 ```
 
 You can also run the entire smoke test suite with an automatic fullnode. If you do so, 
