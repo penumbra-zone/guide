@@ -1,1 +1,30 @@
 # Selective Disclosure
+
+## Privacy by Default
+
+On Penumbra, your activity is private by default. For example, when you send funds in a transaction, from the perspective of the blockchain, it simply looks like an encrypted random blob of data. Only the recipient, and you, will be able to download and decrypt it to determine the value of the transfer.
+
+This is one reason why syncing the Penumbra blockchain is more complex than other chains: it requires downloading and attempting to decrypt all these blobs of data, to see which blobs are intended for you. This private scanning is crucial as it ensures that your activity is private.
+
+## Key Hierarchy
+
+Traditional transparent blockchains have a single private key. Whoever you disclose this key to can spend your funds, so you must keep this key private.
+
+Penumbra is different: it has multiple keys, that have different capabilities. You choose to disclose keys based on your privacy needs.
+
+### Spending Key
+
+The spending key is used for authorizing the spending of funds. If a user discloses their spending key to another party, that party can spend the user's funds, so in general the spending key should be kept private.
+
+Recall that you can derive many shielded addresses from your spending key, and each shielded address is completely independent: no one can link together two shielded addresses as being associated with the same user.
+
+### Full Viewing Key
+
+The full viewing key is used only for decrypting and viewing transactions. In the syncing and scanning process, the full viewing key is used to decrypt the transactions and check if they are intended for the user.
+
+![Key Hierarchy](/images/selective-disclosure-key-hierarchy.png)
+
+Optionally, a Penumbra user can select to disclose their full viewing key to a third-party service. This will allow the service to decrypt and view the user's transactions, crucially without the user's spending key. The user gives up their privacy to this third party - but the third party is unable to spend the user's funds.
+
+A user might do this if they need to disclose their transactions for compliance reasons (for example, to a tax authority), or alternatively if they are using a device with limited computational resources that cannot decrypt the volume of transactions on the Penumbra blockchain.
+
