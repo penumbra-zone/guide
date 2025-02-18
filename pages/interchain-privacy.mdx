@@ -12,7 +12,7 @@ across chains.
 ### Deposit
 
 To deposit tokens into Penumbra's shielded pool, users initiate an ordinary IBC
-transfer from any connected chain, with a Penumbra address as the receiver. 
+transfer from any connected chain, with a Penumbra address as the receiver.
 
 ### Transact Privately
 
@@ -42,8 +42,8 @@ Here's what you need to know:
 
 Penumbra transactions are end-to-end encrypted, visible only to the sender and
 receiver (and anyone they choose to disclose to), but not to the public.  Instead of executing transactions on-chain, user data like an account balance is
-updated locally, then submitted to the chain encrypted, with client-side ZK
-proving to ensure the encrypted updates are correct.  
+updated locally, then submitted to the chain encrypted, with client-side zero-knowledge (ZK)
+proving to ensure the encrypted updates are correct.
 
 But this means there's no RPC that can tell you what your balance is, as that
 information is visible only to you.  So Penumbra is designed to enable
@@ -56,7 +56,7 @@ ultralight node.
 
 ### Wallets, Accounts, Addresses
 
-On a transparent chain, each signing key controls one account with one address.
+On a transparent chain, each signing key typically controls one account with one address.
 This means that giving out an address doesn't just let someone send you funds.
 It also means giving them the ability to view all of your token balances and all
 of your past and future transaction history.
