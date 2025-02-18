@@ -36,12 +36,6 @@
     }
   },
   "web": "Using Penumbra on the web",
-  "lp": {
-    "title": "Providing Liquidity",
-    "theme": {
-      "breadcrumb": false
-    }
-  },
   "pcli": "Using Penumbra from the command line",
   "node": "Running a node",
   "frontend": "Running a frontend",

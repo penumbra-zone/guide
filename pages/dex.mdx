@@ -6,7 +6,7 @@ Penumbra's decentralized exchange (DEX) is a state of the art DEX engine, enabli
 
 The Penumbra DEX features a batched swap/intent system and enables fine-grained control over liquidity positions for liquidity providers (LPs). In this section, we'll dive into some of the key features of the Penumbra DEX.
 
-### Batch execution
+### Batch Execution
 
 The incoming order flow of swap intents are batched together by trading pair and executed at the end of each block. The batching of swap intents means that in Penumbra, there is no intra-block ordering of swap intents that can be manipulated by traders. Trades get executed approximately every 5 seconds - Penumbra's block time.
 
@@ -38,7 +38,9 @@ The phased two-block execution of the `Swap` and `SwapClaim` transactions is ill
 
 ### Concentrated Liquidity Positions
 
-Penumbra's DEX supports concentrated liquidity positions. Each liquidity position in Penumbra is essentially a constant-sum individual Automated Market Maker (AMM). Fees are set on a per-position basis, instead of fee tiers. This enables market forces to set fees.
+*Market makers* are users who provide liquidity by agreeing to buy and sell a specific trading pair at a price they specify. They do this by creating a *liquidity position* in Penumbra.
+
+Penumbra's DEX supports concentrated [liquidity positions](/dex/lp). Each liquidity position in Penumbra is essentially a constant-sum individual [Automated Market Maker (AMM)](https://www.gemini.com/cryptopedia/amm-what-are-automated-market-makers#section-automated-market-maker-variations). Fees are set on a per-position basis, instead of fee tiers. This enables market forces to set fees.
 
 By creating an arbitrary number of these concentrated liquidity positions, market makers can approximate any trading function:
 
@@ -48,7 +50,7 @@ By creating an arbitrary number of these concentrated liquidity positions, marke
 
 This enables fine-grained control over liquidity provisioning. Active market makers can adjust prices as often as once per block.
 
-The positions themselves are public, but anonymous. For further details on liquidity positions, see the [Providing Liquidity](/lp) page.
+The positions themselves are public, but anonymous. For further details on liquidity positions, see the [Providing Liquidity](/dex/lp) page.
 
 ### DEX Execution and Optimal Routing
 
