@@ -45,12 +45,6 @@
       "breadcrumb": false
     }
   },
-  "lp": {
-    "title": "Providing Liquidity",
-    "theme": {
-      "breadcrumb": false
-    }
-  },
   "dev": "Development",
   "resources": {
     "title": "Resources",
