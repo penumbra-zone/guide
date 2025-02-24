@@ -35,6 +35,12 @@
       "breadcrumb": false
     }
   },
+  "privacy": {
+    "title": "Privacy Features",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
   "web": "Using Penumbra on the web",
   "pcli": "Using Penumbra from the command line",
   "node": "Running a node",
