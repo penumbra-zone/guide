@@ -11,6 +11,12 @@
       "breadcrumb": false
     }
   },
+  "disclosure": {
+    "title": "Selective Disclosure",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
   "dex": {
     "title": "The Penumbra DEX",
     "theme": {
@@ -25,12 +31,6 @@
   },
   "gov": {
     "title": "Decentralized Governance",
-    "theme": {
-      "breadcrumb": false
-    }
-  },
-  "disclosure": {
-    "title": "Selective Disclosure",
     "theme": {
       "breadcrumb": false
     }
