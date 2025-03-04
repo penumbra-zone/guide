@@ -1,1 +1,37 @@
 # Shielded Staking
+
+Penumbra's innovative shielded staking design enables privacy for delegators while preserving accountability for validators. Penumbra integrates privacy with proof-of-stake: participants can secure the network, participate in governance, and receive monetary rewards, without sacrificing privacy through Penumbra's non-custodial, permissionless staking design.
+
+## How Delegation Works
+
+### Delegation Pools
+
+Each validator maintains a delegation pool that determines their voting power. The total stake in each validator's pool is public. Delegations are anonymous, and associate the quantity of UM tokens to be staked with the specific validator.
+
+### Delegation Tokens
+
+When a delegator delegates the UM staking token to a validator, they receive **delegation tokens** in return. These tokens represent shares in a specific validator's delegation pool, and can be traded similar to liquid staking tokens on other chains.
+
+The chain tracks the exchange rate between each validator's delegation token and staking tokens, capturing the earned staking rewards for that validator. A delegator can undelegate to receive both their original staking tokens (if the validator was not [slashed](#slashing)) and their earned rewards. Note that there is an unbonding delay before the earned rewards can be converted back to staking tokens, see [Unbonding Delay](#unbonding-delay) below for more details.
+
+### Slashing
+
+If a validator misbehaves, it is **slashed**. This means that the validator's delegation token is converted to staking tokens at a reduced exchange rate, penalizing the validator's stake.
+
+### Unbonding Delay
+
+To prevent validators from escaping slashing penalties by quickly withdrawing their stake, the chain imposes an unbonding delay.
+
+When a delegator undelegates, their delegation tokens first convert to **unbonding tokens**. These unbonding tokens are tied to the validator identity, such that they remain exposed to slashing penalties if validator misbehavior occurs. After the unbonding delay, the unbonding tokens can finally be converted back to staking tokens, taking into account the earned staking rewards using that validator's exchange rate.
+
+<picture>
+  <img src="./images/staking-token-flow.png" />
+</picture>
+
+The unbonding delay is currently set to 120,960 blocks, or approximately 7 days on mainnet (set via the `unbondingDelay` chain parameter).
+
+One advantage of this approach is that unbonding tokens can be transferred or traded. Users can elect to exit early by selling the tokens at a discount. Slashing risk stays with the unbonding tokens, so market prices will capture information about the validator's risk profile.
+
+## Validator Selection
+
+The active set of validators consists of the top 100 validators by stake, as measured by the total UM staking tokens delegated to them (this is set via the `activeValidatorLimit` chain parameter).
