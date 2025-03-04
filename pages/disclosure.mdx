@@ -1,1 +1,63 @@
 # Selective Disclosure
+
+## Privacy by Default
+
+On Penumbra, your activity is private by default. When you send funds in a transaction, to everyone else on the network, it simply looks like an encrypted random blob of data. Only the sender and recipient will be able to download and decrypt it to determine the value of the transfer, and which parties were transacting.
+
+This is one reason why syncing the Penumbra blockchain is more complex than other chains: it requires downloading and attempting to decrypt all these blobs of data, to see which blobs are intended for you. This scanning is crucial as it ensures that your activity is private. But what do you do if you want to disclose your activity to someone else?
+
+## Key Hierarchy
+
+Traditional transparent blockchains have a single private key. Whoever you disclose this key to can spend your funds, so you must keep this key private.
+
+Penumbra is different: it has multiple keys, that have different capabilities. You choose to disclose keys based on your privacy needs.
+
+### Spending Key
+
+The spending key is used for authorizing the spending of funds. If a user discloses their spending key to another party, that party can spend the user's funds, so in general the spending key should be kept private.
+
+Each **wallet** in Penumbra has a single spending key. You can have multiple **accounts** in that wallet, and many shielded addresses for each account. **Accounts** simply let you organize your funds into logical buckets. Each shielded address is completely unlinkable: no observer can connect two shielded addresses are associated with the same user.
+
+This is the essence of Penumbra's private design: given a shielded address, an observer is unable to determine the balance in the account it corresponds to, or the history of shielded transfers for that address. You control who gets to see your activity.
+
+### Full Viewing Key
+
+The full viewing key is used only for decrypting and viewing transactions. In the syncing and scanning process, the full viewing key is used to decrypt the transactions and check if they are intended for the user.
+
+![Key Hierarchy](/images/selective-disclosure-key-hierarchy.png)
+
+Optionally, a Penumbra user can select to disclose their full viewing key to a third-party service. This will allow the service to decrypt and view the user's transactions. The user gives up their privacy to this third party - but the third party is unable to spend the user's funds. This does enable the third party to see *all* past and future activity.
+
+A user might do this if they need to disclose their transactions for compliance reasons (for example, to a tax authority), or alternatively if they are using a device with limited computational resources that cannot decrypt the volume of transactions on the Penumbra blockchain. They may delegate the decryption to a third party service.
+
+## Transaction Plans, Perspectives, and Views
+
+The Penumbra protocol also provides even finer-grained control over privacy beyond disclosure of the full viewing key.
+
+First, let's discuss how transactions are prepared in Penumbra.
+
+The **Transaction Plan** contains a description of everything the user wants to do, for example:
+- How much they're sending
+- Who they're sending it to
+- Swaps or other actions
+- Contents of the memo
+
+This is in plaintext and designed to be understandable by a human. Penumbra users can examine this plan to understand what the effects of the planned transaction will be, and can approve it before they sign and submit a transaction.
+
+After the user approves the planned transaction, adds their signature, and the client-side proofs are generated, the **Transaction** is assembled and sent to the network. At this point, the transaction is opaque: the contents of most actions, e.g. shielded transfers, are encrypted and private.
+
+![Transaction](/images/selective-disclosure-transaction1.png)
+
+The Penumbra protocol provides privacy controls that enable selective disclosure of transaction content. This is done via the **Transaction Perspective**.
+
+A transaction perspective is a bundle of scoped data that can be provided to enable the decryption of targeted content in a specific transaction. The data includes the transaction-specific keys needed to decrypt the targeted content. This enables selective disclosure of transaction content without requiring the disclosure of the user's full viewing key.
+
+For example, a user might want to disclose only one of the output notes in a transaction, while keeping the rest of the transaction private. They could provide a transaction perspective that includes only the key for the output they want to disclose.
+
+The transaction perspective lets one generate a **Transaction View**, showing the transaction that has been decrypted and filtered according to the transaction perspective.
+
+![Transaction View](/images/selective-disclosure-transaction2.png)
+
+This protocol feature enables downstream wallets to provide rich privacy controls to their users.
+
+For further technical details about transaction plans, see the documentation on [Transaction Signing](https://protocol.penumbra.zone/main/transactions/signing.html) in Penumbra's protocol specification. For more information about how selective disclosure is built into the protocol, see [this blog post](https://penumbra.zone/blog/how-to-see-in-the-dark).
