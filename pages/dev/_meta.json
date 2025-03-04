@@ -9,6 +9,5 @@
   "parameter_setup": "Zero-knowledge proofs",
   "rpc": "RPC access",
   "ibc": "Testing IBC",
-  "build": "Compiling from source",
-  "privacy": "Privacy"
+  "build": "Compiling from source"
 }

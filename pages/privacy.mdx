@@ -1,0 +1,105 @@
+import { Callout, FileTree, Steps, Cards, Card, Tabs } from 'nextra/components'
+
+# Privacy Features
+
+This document describes the privacy features of the Penumbra protocol for typical user actions.
+
+## Transfers within Penumbra
+
+Transfers within Penumbra's shielded pool do not reveal:
+
+<Callout type="info" emoji="🔒">Asset Type</Callout>
+
+<Callout type="info" emoji="💰">Amount</Callout>
+
+<Callout type="info" emoji="👤">Sender or Recipient Identity</Callout>
+
+Transfers are also unlinkable to each other.
+
+## Submitting swap intents
+
+Initiating a swap does not reveal:
+
+<Callout type="info" emoji="👤">Identity of the swapper</Callout>
+
+<Callout type="info" emoji="💰">Pre-paid claim fee</Callout>
+
+A swap does reveal:
+
+<Callout type="warning" emoji="💰">Input assets and amounts in the swap</Callout>
+
+<Callout type="warning" emoji="💰">Output assets and amounts in the swap</Callout>
+
+## Claiming swap outputs
+
+Claiming a swap does not reveal:
+
+<Callout type="info" emoji="💰">Amounts minted of each asset type in the trading pair</Callout>
+
+<Callout type="info" emoji="👤">Identity of the claimant</Callout>
+
+An observer of the chain will see that an anonymous account minted shielded outputs of a swap in a specific trading pair, but those outputs can't be linked to the claimant.
+
+## Providing liquidity to the DEX
+
+Market makers that open liquidity positions reveal:
+
+<Callout type="warning" emoji="💰">Amount of liquidity provided</Callout>
+
+<Callout type="warning" emoji="💰">Bounds in which the liquidity is concentrated</Callout>
+
+The liquidity positions are not linked to:
+
+<Callout type="info" emoji="👤">Identity of the market maker</Callout>
+
+If a market maker opens multiple positions they wish to be unlinkable, they can do so by opening multiple positions across different transactions.
+
+## Delegator Voting
+
+A delegator vote does not reveal:
+
+<Callout type="info" emoji="👤">Address of the voter</Callout>
+
+A delegator vote does reveal:
+
+<Callout type="warning" emoji="💰">Voting power (the amount and asset type of the staked note that's used for voting)</Callout>
+
+<Callout type="warning" emoji="👤">Vote</Callout>
+
+<Callout type="warning" emoji="💻">Identity of the validator (equivalent to the asset type)</Callout>
+
+<Callout type="warning" emoji="👤">Proposal being voted on</Callout>
+
+## Staking
+
+Delegating does not reveal:
+
+<Callout type="info" emoji="👤">Address of the delegator</Callout>
+
+Delegating does reveal:
+
+<Callout type="warning" emoji="💻">Identity of the validator being delegated to (equivalent to the asset type)</Callout>
+
+<Callout type="warning" emoji="💰">Delegation amount</Callout>
+
+## IBC Transfers
+
+Inbound IBC transfers reveal:
+
+<Callout type="warning" emoji="🔗">Source chain of the funds</Callout>
+
+<Callout type="warning" emoji="💰">Amount and denomination of the funds</Callout>
+
+<Callout type="warning" emoji="🔗">Deposit address on the Penumbra chain</Callout>
+
+The boundary between Penumbra's private shielded pool and the public transparent ecosystem is the boundary between the Penumbra zone and the rest of the Cosmos ecosystem. IBC transfers into Penumbra effectively disappear into the shielded pool via the IBC deposit address. Since Penumbra shielded addresses are not linkable, the IBC deposit address is not linked to any other address in Penumbra. Clients should generate a new IBC deposit address for each IBC transfer to a Penumbra shielded address to prevent linking multiple IBC transfers.
+
+Outbound IBC withdrawals reveal:
+
+<Callout type="warning" emoji="💰">Amount and denomination of the withdrawal</Callout>
+
+<Callout type="warning" emoji="🔗">Address on the destination chain that the withdrawal is sent to</Callout>
+
+<Callout type="warning" emoji="👤">Sender/return address on the Penumbra chain (in case the funds need to be returned to the user)</Callout>
+
+The return address is typically configured to be a one-time only Penumbra shielded address. Alternatively, Penumbra transparent addresses can be used for the return address for maximum compatibility with Cosmos chains. However, multiple IBC withdrawals that use a Penumbra transparent return address can be linked due to there being a single transparent address per Penumbra wallet. Users can avoid this privacy leak by using a new wallet for each IBC transfer to a Penumbra transparent address.
