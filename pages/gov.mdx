@@ -2,8 +2,8 @@
 
 Penumbra has a decentralized governance system intended to help the community of
 Penumbra users and stakeholders coordinate and express their opinions about the
-future of the protocol.  As a decentralized protocol, no single entity is in
-control of the network.  Penumbra's governance system does not have control over
+future of the protocol. As a decentralized protocol, no single entity is in
+control of the network. Penumbra's governance system does not have control over
 the network either, and acts as a coordination and signaling mechanism for the
 community.
 
@@ -11,33 +11,58 @@ Penumbra's governance system is modeled after the design of the Cosmos SDK:
 validators cast default votes on behalf of their delegators, which delegators
 can permissionlessly override.
 
+## Proposals
+
+Anyone can submit a governance proposal by depositing the required deposit of tokens. This permissionless model enables all stakeholders to participate in the governance process.
+
+### Deposit
+
+A proposal submitter must submit an escrow deposit. This deposit may be claimed after the voting concludes whether or not the proposal passes, or if the proposal is withdrawn.
+
+The deposit cannot be returned if the number of no votes exceeds the network's current proposal slash threshold parameter. The current required proposal deposit is 10 UM (set by the `proposalDepositAmount` parameter)
+
 ### Proposal Types
 
 There are several types of proposal:
 
 - **Signaling**: the primary type of proposal, which has no effect on the chain.  Signaling proposals allow collecting community sentiment as part of the process for reaching consensus.
 - **Upgrade**: a special kind of signaling proposal that also coordinates a chain halt.  Once the chain halts, full node operators can choose whether to apply an upgrade to a new software version.
-- **Emergency**: a special kind of signaling proposal that also coordinates a chain halt.  Emergency proposals have special acceptance criteria but limited powers, described below.
+- **Emergency**: a special kind of signaling proposal that also optionally coordinates a chain halt.  Emergency proposals have special acceptance criteria but limited powers, described below.
 - **Parameter Change**: adjusts technical parameters for the chain's operation.
 - **(Un)Freeze IBC Client**: allows (un)freezing an IBC client for a counterparty chain, e.g., in the event the community determines that a counterparty chain was compromised.
 - **Community Pool Spend**: spends funds from the community pool. _Currently disabled via chain parameter pending community consensus around the role of the community pool and to minimize protocol risk_.
 
-To deter spam, proposal submission requires posting a deposit, which can be
-slashed if the community rejects the proposal with an overwhelming margin (on
-mainnet, >80% rejection).
-
-### Voting
+## Voting
 
 Both delegators and validators can vote on proposals. Validator votes are
-public, and act as default votes for their delegators.  Delegator votes are
-private, and override the validator's vote.  Delegators can vote only if they
-held their delegation tokens when the proposal was submitted.
+public, attributable, and act as default votes for their delegators.  Delegator votes are
+anonymous, and override their portion of the validator's vote.  Delegators can vote only if they
+held delegation tokens to active validators when the proposal was submitted.
+
+### Vote Types
+
+There are three types of vote:
+* `Yes`
+* `No`
+* `Abstain`
+
+Penumbra does not have a `NoWithVeto` vote type. Proposal deposits will be slashed if the number of no votes exceeds the network's current proposal slash threshold parameter (80% by default, set by the `proposalSlashThreshold` parameter). The slashing mechanism exists to deter spam proposals.
+
+Votes cannot be changed after they are cast.
+
+### Pass Criteria
+
+At the end of the voting period, a proposal passes, fails, or is slashed. The proposal can also be withdrawn before the voting period ends. A withdrawn proposal can still be slashed. This diagram illustrates the proposal lifecycle:
+
+<picture>
+  <img src="./images/governance-diagram.png" />
+</picture>
 
 Non-emergency proposals pass as long as they achieve:
 
-- **Duration**: voting ends after a specified period, allowing delegators to vote (initially 48h);
-- **Quorum**: the minimum percentage of staked tokens that must have voted (40% on mainnet);
-- **Threshold**: the percentage of YES votes out of all votes must be above this threshold (67% on mainnet).
+- **Duration**: voting ends after a specified period, allowing delegators to vote (initially 48h, set by the `proposalVotingBlocks` parameter);
+- **Quorum**: the minimum percentage of staked tokens that must have voted (40% on mainnet, set by the `proposalValidQuorum` parameter);
+- **Threshold**: the percentage of YES votes out of all votes must be above this threshold (67% on mainnet, set by the `proposalPassThreshold` parameter).
 
 Emergency proposals have special criteria: they pass immediately as soon as
 1/3+1 of the stake weight votes YES, without waiting for delegator votes.
