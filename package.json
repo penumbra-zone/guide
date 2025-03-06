@@ -11,7 +11,6 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "type": "module",
   "dependencies": {
     "@biomejs/biome": "^1.9.3",
     "@connectrpc/connect": "^1.5.0",
