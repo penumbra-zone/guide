@@ -2,7 +2,9 @@ import { Callout } from 'nextra/components'
 
 # Viewing Balances
 
-## Viewing Balances in Prax
+In this section, we'll look at how to view your accounts and balances in Prax Wallet and the default Penumbra frontend.
+
+## Viewing Balances in Prax Wallet
 
 Prax Wallet displays your balance per account. Simply click the Prax icon in the Chrome toolbar and you will see your **Main Account**:
 
@@ -16,11 +18,21 @@ By clicking the arrow to the right, you can view the balances and default addres
 
 ![Prax Balances Account 1](/images/prax-balances-account1.png)
 
+## IBC Deposit Addresses in Prax Wallet
+
 You also have a toggle for generating a IBC deposit address for the account:
 
 ![Prax Balances IBC Deposit Address](/images/prax-balances-account1-ibc.png)
 
 This is an important feature for privacy when making IBC transfers in and out of Penumbra. Because an IBC deposit is initiated on the (public) counterparty chain, it reveals the destination Penumbra address. This could allow linking different inbound transfers if the same address was used multiple times. Instead, Prax Wallet will generate a fresh IBC deposit address every time you toggle the "IBC Deposit Address" option. You can try this by toggling it multiple times, and you'll notice a new address each time.
+
+## Validating Addresses in Prax Wallet
+
+Sometimes you might have a Penumbra address saved, but you're not sure if it's yours, or which account it's from. You can check this by pasting it into the *Validate Address* tool:
+
+![Prax Validate Address](/images/prax-validate-address.png)
+
+This will show you if the address is yours, and if so, which account the address belongs to.
 
 ## Viewing Balances in the Frontend
 
@@ -28,7 +40,7 @@ The default Penumbra frontend, [app.penumbra.zone](https://app.penumbra.zone), a
 
 ![Frontend Balances](/images/frontend-balances.png)
 
-## Inspecting Transactions in the frontend
+## Inspecting Transactions in the Frontend
 
 You can also inspect transactions in the frontend by clicking on the transactions tab:
 
@@ -44,4 +56,5 @@ This shows the transaction's private details, as well as the public details, whi
 
 You can see in this simple send transaction, the public details don't reveal anything other than the transaction fee.
 
-<Callout type="warning" emoji="ℹ️">The transaction fee being public in transfers is why we recommend using the UM staking token for privacy. By using other assets to pay fees, you may not blend in with other Penumbra users.</Callout>
+<Callout type="warning" emoji="ℹ️">Since transaction fees are public, using the UM staking token for fees provides the strongest privacy guarantees, as it helps transactions blend in with other Penumbra users. Using other assets for fees may make transactions more distinguishable.</Callout>
+
