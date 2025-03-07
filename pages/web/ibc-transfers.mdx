@@ -1,0 +1,55 @@
+# Shielding Funds
+
+In this section, we'll describe how to get your funds into Penumbra. This is done via an IBC transfer from a public chain in the Cosmos ecosystem.
+
+As soon as you transfer into Penumbra, your funds are shielded. All other transfers you do within the Penumbra zone are also shielded.
+
+## Skip App
+
+An easy way to transfer funds into Penumbra is to use Skip. You can visit [their app directly](https://go.skip.build), you can use the Skip widget on our [quickstart page](/quickstart), or you can use the [Skip integration in the default frontend](https://app.penumbra.zone/#/deposit/skip).
+
+Either way, you'll see an interface like this:
+
+![Skip App](/images/skip-app.png)
+
+From there, you choose first the asset type you want to transfer (e.g. USDC, ATOM, etc.) and the source chain.
+
+Then you'll select the destination chain, which is Penumbra (`penumbra-1`).
+
+For example, if you want to transfer ATOM from the Cosmos Hub into Penumbra, you'll select ATOM as the asset, and Cosmos Hub as the source chain.
+
+Then you'll select Penumbra as the destination chain.
+
+![Skip - Setup](/images/skip-transfer-1.png)
+
+The app will ask you for the destination address: this is the address on the Penumbra chain.
+
+![Skip - Destination address](/images/skip-destination-address.png)
+
+Then, Skip will launch Prax Wallet so it can get an IBC deposit address. You'll see a popup asking you to authorize the connection:
+
+![Prax Wallet - Address](/images/skip-authorize.png)
+
+Then, you can confirm the details of the transfer, and submit it:
+
+![Skip - Confirm](/images/skip-confirm.png)
+
+This will also launch the wallet (e.g. Keplr or similar) to authorize the transfer. We do not show this here as it depends on what wallet you use for the source assets.
+
+## Manual Deposit
+
+You can also use the [default frontend](https://app.penumbra.zone/#/deposit/manual) to deposit funds.
+
+Select the chain you wish to transfer from:
+
+![Manual Deposit - Select Chain](/images/manual-shield.png)
+
+Then, connect your wallet:
+
+![Manual Deposit - Connect Wallet](/images/manual-wallet.png)
+
+From there, you can select the asset and amount you wish to shield:
+
+![Manual Deposit - Select Asset](/images/manual-shield-keplr.png)
+
+You will see a popup from your wallet asking you to approve the transfer. From there, you should see your balance update.
