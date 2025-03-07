@@ -59,7 +59,7 @@ const Staking: React.FC = () => {
           <a
             className="underline px-1"
             target={'_blank'}
-            href="https://stake.with.starlingcyber.net/#/staking"
+            href="https://app.penumbra.zone//#/staking"
             rel="noreferrer"
           >
             Stake page
