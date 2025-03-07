@@ -1,0 +1,50 @@
+{
+    "prax": {
+        "title": "Installing Prax",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "ibc-transfers": {
+        "title": "Shielding Funds",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "balances": {
+        "title": "Viewing Balances",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "send": {
+        "title": "Sending Funds",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "swap": {
+        "title": "Swapping",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "stake": {
+        "title": "Staking",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "vote": {
+        "title": "Governance",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "disconnect": {
+        "title": "Disconnecting Prax",
+        "theme": {
+            "breadcrumb": false
+        }
+    }
+}

@@ -47,6 +47,7 @@
       "breadcrumb": false
     }
   },
+  "web": "Using Penumbra from a web browser",
   "pcli": "Using Penumbra from the command line",
   "node": "Running a node",
   "frontend": "Running a frontend",
