@@ -1,4 +1,63 @@
-# Prax Wallet
+# Installing Prax Wallet
 
-Prax wallet is a browser extension that allows you to manage your Penumbra account data.
+Prax Wallet is a browser extension that allows you to manage your Penumbra account data. It's free and completely open source.
 
+## Installing Prax
+
+Prax Wallet is a browser extension that only supports the Google Chrome web browser.
+
+Visit the [Prax Wallet](https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe) page in the Chrome Web Store, and click **Add to Chrome** to install it.
+
+## Generating a wallet
+
+When you first open the extension, you'll be offered to import a pre-existing wallet. If you don't already have one, choose **Create a new wallet**.
+
+This will guide you through the process of creating a **recovery seed phrase**. This is a list of 12 or 24 words that can be used to restore your wallet in case you:
+
+* forget your Prax password,
+* switch to a new machine, or
+* delete the extension.
+
+You'll also need to set a password to protect your wallet. The password
+is *not* the same as the recovery seed phrase. The password is used to restrict access to the web wallet
+on your computer.
+
+Make sure to store both the password and the recovery seed phrase securely, for example in a password manager.
+
+Re-enter portions of the recovery seed phrase when prompted, to confirm that you've saved it properly.
+
+## Selecting a preferred RPC endpoint
+
+Prax Wallet needs a way to connect to the blockchain. This is done by selecting a **RPC endpoint**, which is the URL the extension uses to sync with the network. These are hosted by the community (including yourself, if you like), and those provided in the UI are typically offered by known validators.
+
+By default, Prax Wallet will select a public RPC endpoint. You can change the endpoint at any time, by clicking on the Prax Wallet extension icon in the Chrome toolbar, and selecting the Settings menu in the upper left corner. Then, select **RPC**:
+
+![Prax Wallet Settings](/images/prax-settings.png)
+
+From there, you can select a default endpoint, or choose **Custom RPC** to specify your own endpoint, whether that is a community provider not provided as a default option, or hosted on a node you run yourself.
+
+![Prax Wallet RPC](/images/prax-rpc.png)
+
+## Select your preferred frontend
+
+By default, Prax Wallet will select a frontend app to use with the wallet. This is a web interface that you will use together with your Prax Wallet to interact with the blockchain.
+
+The provided options are community-hosted frontends, and you may also provide your own custom frontend URL. You can change the frontend app at any time, by clicking on the Prax Wallet extension icon in the Chrome toolbar, and selecting the Settings menu in the upper left corner. Then, select **Default Frontend**:
+
+![Prax Wallet Settings](/images/prax-settings.png)
+
+This will take you to a page where you can select a default frontend, or choose **Custom frontend** to specify your own frontend URL.
+
+![Prax Wallet Frontend](/images/prax-frontend.png)
+
+## Updating to a new version of the extension
+
+The extension should be automatically updated every time a new version is released.
+You can view the latest version of the extension on the [Prax Wallet](https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe) page at the Chrome Web Store. To force a check for updates:
+Chrome Web Store. To force a check for updates:
+
+1. Click the three-dot icon in the top right corner of the browser.
+2. From the drop-down menu, choose **Extensions -> Manage Extensions**.
+3. Select **Update** on the top panel.
+
+After updating the extension manually, it may be helpful to [clear the local cache](https://support.google.com/accounts/answer/32050?hl=en&co=GENIE.Platform%3DDesktop).
