@@ -1,0 +1,43 @@
+# Sending Funds
+
+Use the [Send](https://app.penumbra.zone/#/send) page on the frontend to send funds to another Penumbra address. This can be done to send funds between your accounts, or to send to another person's wallet.
+
+First, you select the asset you wish to send, and the destination address.
+
+![Send](/images/send.png)
+
+From there, you can confirm the details of the transfer, and submit it:
+
+![Send Approve](/images/send-approve.png)
+
+You will see a popup indicating that the transaction has been submitted:
+
+![Send Tx Success](/images/send-tx-success.png)
+
+## Memos
+
+You can optionally add some memo text to the transaction to describe the purpose of the transfer. This field is private, and it is only visible to the sender and the recipient(s) of the transaction.
+
+For example, in the above transaction, the memo is "Thanks for the coffee!":
+
+![Send Memo](/images/send-memo.png)
+
+The memo field also will by default include the sender's return address. This also is private, and it is only visible to the sender and recipient(s).
+
+## Fee Tiers
+
+There are three fee tiers for sending transactions. You should select the tier that describes how quickly you need the transaction to be included in a block:
+
+![Send Fee Tiers](/images/send-fee-tiers.png)
+
+Fees can be paid using the UM staking token, or alternative fee tokens such as OSMO. Since transaction fees are public, using the UM staking token for fees provides the strongest privacy guarantees, as it helps transactions blend in with other Penumbra users. Using other assets for fees may make transactions more distinguishable.
+
+## Public View
+
+You can confirm what the public view of a transaction will be using the "Public View" tab:
+
+![Send Public View](/images/send-public-view.png)
+
+This will show which fields are visible to an observer, and which are opaque.
+
+The sender can decrypt all the private fields, and the recipient can decrypt the parts of the transaction that they are a party to. For example, if a transaction spends 5 UM, and sends 2 UM to Bob, and 3 UM to Alice, the public view reveals only that there was a spend, but not the amount, asset, or recipient. The recipient can see the part of the transaction relevant to them: in this example, Bob can see that he received 2 UM, and Alice can see that she received 3 UM. Alice can't see that Bob received 2 UM.
