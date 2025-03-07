@@ -10,7 +10,7 @@ const Disconnect: React.FC = () => {
       {connected && (
         <div className="w-full bg-white shadow-md rounded-lg p-4">
           <div className="flex flex-row gap-3 items-center">
-            <div>
+            <div className="text-gray-700">
               Waiting for extension to disconnect. Refresh the page once
               disconnected.
             </div>

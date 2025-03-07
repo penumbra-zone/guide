@@ -135,9 +135,9 @@ const Deposit: React.FC = () => {
         ))}
 
       {notesWithMetadata.length === 0 && (
-        <div className="w-full bg-gray-900/20 border-2 border-gray-700 rounded-lg p-4">
+        <div className="w-full bg-gray-900/40 border-2 border-gray-700 rounded-lg p-4">
           <div className="flex flex-row gap-3 items-center">
-            <div className="text-gray-300">Waiting for a deposit to occur</div>
+            <div className="text-gray-600">Waiting for a deposit to occur</div>
             <div className="animate-spin h-5 w-5 border-2 border-blue-500 rounded-full border-t-transparent" />
           </div>
         </div>
@@ -168,7 +168,7 @@ const Deposit: React.FC = () => {
         />
         <label
           htmlFor="default-checkbox"
-          className="ms-2 text-sm font-medium text-gray-300"
+          className="ms-2 text-sm font-medium text-gray-500"
         >
           Show old deposits
         </label>
@@ -191,11 +191,12 @@ function DepositRow({
 
   return (
     <div
-      className="mt-3 flex gap-3 items-center bg-gray-900/20 border-2 border-gray-700 p-3 rounded-lg"
+      className="mt-3 flex gap-3 items-center bg-gray-900/40 border-2 border-gray-700 p-3 rounded-lg"
       key={note.toJsonString()}
     >
       Deposited
-      <ValueViewComponent key={note.toJsonString()} valueView={valueView} />
+      <ValueViewComponent key={note.toJsonString()} valueView={valueView}
+      />
       from {chainName}
       <ChevronRightIcon className="h-4 w-4" />
       <a

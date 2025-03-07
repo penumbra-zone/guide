@@ -31,7 +31,7 @@ export function Balances() {
 
   return (
     <div className="p-4">
-      <div className="flex flex-wrap gap-4 items-center">
+      <div className="flex flex-wrap gap-4 bg-gray-900/60 border-2 border-gray-700 p-3 rounded-lg items-center">
         <AddressViewComponent addressView={addressView} />
         {filteredBalances.map(({ balanceView }) => (
           <ValueViewComponent
