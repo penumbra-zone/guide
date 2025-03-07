@@ -26,7 +26,7 @@ const Swap: React.FC = () => {
           <a
             className="underline px-1"
             target={'_blank'}
-            href="https://stake.with.starlingcyber.net/#/swap?from=USDC&to=UM"
+            href="https://app.penumbra.zone/#/swap?from=USDC&to=UM"
             rel="noreferrer"
           >
             Swap page
