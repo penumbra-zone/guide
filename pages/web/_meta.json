@@ -23,6 +23,12 @@
             "breadcrumb": false
         }
     },
+    "receive": {
+        "title": "Receiving Funds",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
     "swap": {
         "title": "Swapping",
         "theme": {
