@@ -41,7 +41,12 @@
       "breadcrumb": false
     }
   },
-  "web": "Getting Started",
+  "quickstart": {
+    "title": "Getting Started",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
   "pcli": "Using Penumbra from the command line",
   "node": "Running a node",
   "frontend": "Running a frontend",
