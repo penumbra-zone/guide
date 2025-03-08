@@ -1,29 +1,26 @@
+import React, { useState } from 'react';
+import { Widget } from '@skip-go/widget';
 import { client } from '@/components/penumbra';
 import { useQuestStore } from '@/components/store';
-import {
-  getAmountFromRecord,
-  getAssetIdFromRecord,
-} from '@penumbra-zone/getters/spendable-note-record';
 import { ViewService } from '@penumbra-zone/protobuf';
 import { ValueView } from '@penumbra-zone/protobuf/penumbra/core/asset/v1/asset_pb';
 import type { CommitmentSource_Ics20Transfer } from '@penumbra-zone/protobuf/penumbra/core/component/sct/v1/sct_pb';
-import { AddressView } from '@penumbra-zone/protobuf/penumbra/core/keys/v1/keys_pb';
 import type { NotesResponse } from '@penumbra-zone/protobuf/penumbra/view/v1/view_pb';
-import { AddressViewComponent } from '@penumbra-zone/ui/AddressViewComponent';
 import { ValueViewComponent } from '@penumbra-zone/ui/ValueViewComponent';
 import { useQuery } from '@tanstack/react-query';
 import { capitalize } from 'es-toolkit';
 import { ChevronRightIcon } from 'lucide-react';
-import type React from 'react';
-import { useState } from 'react';
 import {
   useConnect,
   useCurrentChainStatus,
-  useEphemeralAddress,
   useNotes,
   useSetScanSinceBlock,
   useWalletManifests,
 } from './hooks';
+import {
+  getAmountFromRecord,
+  getAssetIdFromRecord,
+} from '@penumbra-zone/getters/spendable-note-record';
 
 const Deposit: React.FC = () => {
   useSetScanSinceBlock();
@@ -81,91 +78,61 @@ const Deposit: React.FC = () => {
     },
   });
 
-  const { data: ibcInAddress } = useEphemeralAddress({
-    index: 0,
-  });
+  const defaultRoute = {
+    srcChainId: 'noble-1',
+    srcAssetDenom: 'uusdc',
+    destChainId: 'penumbra-1',
+    destAssetDenom: 'ibc/F082B65C88E4B6D5EF1DB243CDA1D331D002759E938A0F5CD3FFDC5D53B3E349'
+  };
+
+  const filter = {
+    destination: {
+      'penumbra-1': undefined,
+    }
+  }
+
 
   return (
     <div className="py-3 flex flex-col gap-8">
       <div>
-        Now it's time to shield your funds and transfer them into Penumbra.
-        We've displayed one of your IBC Deposit addresses for you convenience
-        below. Copy it using the button on the right.
+        The&nbsp;
+        <a
+          href="https://go.skip.build/"
+          className="font-medium text-blue-400 hover:text-blue-300 underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Skip App
+        </a>
+        &nbsp;makes it easy to deposit funds into Penumbra.
+        Select a source asset and chain (e.g., USDC) and set Penumbra as the destination chain.
+        Or use the widget below to start your deposit:
+      </div>
+
+      <div className="px-8">
+        <Widget
+          theme="dark"
+          brandColor="#3B82F6"
+          defaultRoute={defaultRoute}
+          filter={filter}
+        />
       </div>
 
       {!isLoading &&
         wallets &&
         !connected &&
         Object.entries(wallets).map(([origin, manifest]) => (
-          // biome-ignore lint: no need for a type here
           <button
             key={origin}
             onClick={() => onConnect(origin)}
             disabled={connectionLoading}
-            className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+            className="bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
           >
             {connectionLoading
               ? 'Connecting...'
               : `Connect to ${manifest.name}`}
           </button>
         ))}
-
-      {ibcInAddress?.address && connected && (
-        <div className={'bg-gray-700 p-3'}>
-          <AddressViewComponent
-            addressView={
-              new AddressView({
-                addressView: {
-                  case: 'decoded',
-                  value: {
-                    address: ibcInAddress.address,
-                  },
-                },
-              })
-            }
-          />
-        </div>
-      )}
-
-      <div
-        className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4"
-        role="alert"
-      >
-        <p className="font-bold">Info</p>
-        <p>
-          IBC Deposit addresses exist because source chains record the deposit
-          address. They serve as an additional layer of anonymity to not link
-          your deposit and actual addresses.
-        </p>
-      </div>
-
-      <div>
-        We will use&nbsp;
-        <a
-          href="https://go.skip.build/"
-          className="font-medium underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Skip Protocol
-        </a>
-        &nbsp; to bridge funds into Penumbra. Go to the Skip app, and input your
-        IBC Deposit address. Select your source chain and asset (we recommend
-        USDC, but any common asset is fine) and select Penumbra and USDC as the
-        destination chain. Then initiate the deposit and come back to this page.
-      </div>
-
-      <div
-        className="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4"
-        role="alert"
-      >
-        <p className="font-bold">Info</p>
-        <p>
-          Penumbra supports paying fees in multiple tokens, including USDC. Prax
-          will always choose the best token to pay fees with depending on your
-          balances.
-        </p>
-      </div>
 
       {notesWithMetadata.length === 0 && (
         <div className="w-full bg-gray-700 text-white shadow-md rounded-lg p-4">
@@ -191,17 +158,17 @@ const Deposit: React.FC = () => {
         </div>
       )}
 
-      <div className={'flex items-center'}>
+      <div className="flex items-center">
         <input
           id="default-checkbox"
           checked={showOld}
-          type={'checkbox'}
+          type="checkbox"
           onChange={() => setShowOld((old) => !old)}
           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
         />
         <label
           htmlFor="default-checkbox"
-          className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          className="ms-2 text-sm font-medium text-gray-500"
         >
           Show old deposits
         </label>
@@ -220,19 +187,20 @@ function DepositRow({
   const source = note.noteRecord?.source?.source
     ?.value as CommitmentSource_Ics20Transfer;
   const chainId = source.sender.replace(/^(\D+)(\d).*$/, '$1-$2');
-
   const chainName = capitalize(source.sender.replace(/^(\D+).*$/, '$1'));
+
   return (
     <div
-      className="mt-3 flex gap-3 items-center bg-gray-700 text-white p-3"
+      className="mt-3 flex gap-3 items-center bg-gray-900/40 border-2 border-gray-700 p-3 rounded-lg"
       key={note.toJsonString()}
     >
       Deposited
-      <ValueViewComponent key={note.toJsonString()} valueView={valueView} />
+      <ValueViewComponent key={note.toJsonString()} valueView={valueView}
+      />
       from {chainName}
       <ChevronRightIcon className="h-4 w-4" />
       <a
-        className="underline"
+        className="text-blue-400 hover:text-blue-300 underline"
         target="_blank"
         rel="noopener noreferrer"
         href={`https://ibc.range.org/ibc/status?id=${chainIdToExplorerChainName(chainId)}/${source.channelId}/${source.packetSeq}`}

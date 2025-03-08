@@ -1,0 +1,33 @@
+import { Callout } from 'nextra/components'
+
+# Withdrawing Funds
+
+This section describes how to withdraw funds from Penumbra to another chain. This is done via an IBC transfer to a public chain in the Cosmos ecosystem.
+
+<Callout type="warning" emoji="⚠️">
+Be aware that once you leave the Penumbra zone, your funds are no longer shielded, and your activity is now public.
+</Callout>
+
+To withdraw funds using the default frontend, go to the [Withdraw](https://app.penumbra.zone/#/withdraw) page (via **Shield Funds** and then clicking the **Withdraw** tab).
+
+![Withdraw unfilled](/images/withdraw-unfilled.png)
+
+From there, you select:
+
+* The chain you want to withdraw to,
+* The amount and asset you want to withdraw,
+* The destination address you want to withdraw to - this is not your Penumbra address, but the address on the destination chain you want to send the funds to.
+
+![Withdraw](/images/withdraw.png)
+
+Then click **Unshield Assets**.
+
+You will see a popup from Prax Wallet asking you to approve the transaction:
+
+![Withdraw confirm](/images/withdraw-confirm.png)
+
+After you approve the transaction, you will see a popup indicating that the transaction has been submitted:
+
+![Withdraw success](/images/withdraw-success.png)
+
+You should now check the wallet on the destination chain to see that the funds have arrived.

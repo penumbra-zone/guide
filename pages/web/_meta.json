@@ -1,9 +1,62 @@
 {
-  "prax": "Prax Wallet",
-  "balances": "Viewing Balances",
-  "ibc-transfers": "Shielding Funds",
-  "send": "Sending Funds",
-  "swap": "Swapping Tokens",
-  "stake": "Staking",
-  "vote": "Governance"
+    "prax": {
+        "title": "Installing Prax",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "ibc-transfers": {
+        "title": "Shielding Funds",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "balances": {
+        "title": "Viewing Balances",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "send": {
+        "title": "Sending Funds",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "receive": {
+        "title": "Receiving Funds",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "swap": {
+        "title": "Swapping",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "stake": {
+        "title": "Staking",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "vote": {
+        "title": "Governance",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "withdraw": {
+        "title": "Withdrawing Funds",
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "disconnect": {
+        "title": "Disconnecting Prax",
+        "theme": {
+            "breadcrumb": false
+        }
+    }
 }
