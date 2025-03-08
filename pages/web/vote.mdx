@@ -1,2 +1,67 @@
+import { Callout } from 'nextra/components'
+
 # Governance
 
+Penumbra users and stakeholders coordinate through the governance process to express their opinions on the future of the protocol. Anyone who holds UM can submit a proposal, and only users with staked UM can vote on proposals. Users must have had staked UM *at the time of proposal submission* to vote on a proposal.
+
+<Callout type="info" emoji="ℹ️">
+  Explore Penumbra's governance system design and read about the types of proposals you can submit in the [Governance](../gov.mdx) page.
+</Callout>
+
+## Voting Frontend
+
+Penumbra has a community-built governance frontend at [void.vote](https://void.vote).
+
+<Callout type="info" emoji="ℹ️">
+  Only delegators can use [void.vote](https://void.vote). Validators must use [`pcli`](../pcli.mdx) to submit validator votes.
+</Callout>
+
+### Proposals
+
+This frontend displays all historical proposals and all current proposals:
+
+![Proposals](/images/void_vote_proposal_list.png)
+
+It displays whether or not the proposal passed for historical proposals. It also displays the full text of each proposal, as well as details such as the voting period in block height and the deposit provided:
+
+![Proposal Details](/images/void_vote_proposal_detail.png)
+
+This deposit amount is refunded to the proposer, unless the proposal is slashed.
+
+### Connecting
+
+You can connect your wallet to the frontend by clicking the **Connect Wallet** button in the top left corner:
+
+![Connect Wallet](/images/void_vote_connect_wallet.png)
+
+You will need to approve this action in Prax Wallet:
+
+![Approve Connection](/images/void_vote_approval.png)
+
+After approving, if you held staked UM at the time of proposal submission, you will be able to vote on that proposal.
+
+### Voting
+
+There are three vote options:
+
+* Yes
+* No
+* Abstain
+
+<Callout type="info" emoji="ℹ️">
+  If you do not vote on a proposal, the vote of the validator you delegated to will be used.
+</Callout>
+
+<Callout type="warning" emoji="⚠️">
+  There is no "No With Veto" option in Penumbra. Instead, if a proposal gets more than 80% no votes, it will be slashed, and the proposal will lose the deposit they used to submit the proposal.
+</Callout>
+
+You vote by clicking the vote option you want to select in the **Vote** section. You cannot change your vote after you have submitted it!
+
+You can see the current tally of votes on a proposal in the **Vote Tally** section:
+
+![Voting Tally](/images/void_vote_tally.png)
+
+After voting, you will receive a special token, called a voting receipt, that will be displayed in the frontend in the **Your Voting Receipt Tokens** section. If you didn't vote on a specific proposal, you will see:
+
+![Voting Receipt](/images/void_vote_receipts.png)
