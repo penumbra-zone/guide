@@ -77,7 +77,7 @@ function SwapMonitor() {
           />
         ))
       ) : (
-        <div className="w-full p-4 bg-gray-700 text-white shadow rounded">
+        <div className="w-full bg-gray-700 text-white shadow-md rounded-lg p-4">
           <div className="flex flex-row gap-3">
             <span>Waiting for a swap to occur</span>
             <div className="animate-spin h-5 w-5 border-2 border-blue-500 rounded-full border-t-transparent" />
