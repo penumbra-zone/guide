@@ -1,2 +1,70 @@
+import { Callout } from 'nextra/components'
+
 # Swapping
 
+This section describes how to swap between assets in Penumbra using the default frontend. Penumbra offers a built-in decentralized exchange (DEX) that allows you to swap tokens privately and with optimal trade execution.
+
+<Callout type="info" emoji="💡">
+A new frontend, Veil, for using Penumbra's built-in DEX is currently in alpha. You can try it out at [dex.penumbra.zone](https://dex.penumbra.zone/). This frontend allows you to swap as well as open liquidity positions.
+</Callout>
+
+To swap using the default frontend, go to the [Swap](https://app.penumbra.zone/#/swap) page.
+
+![Swap](/images/swap.png)
+
+You can select the asset you want to swap from and to, and the amount you want to swap. The left-hand side specifies the input token, and the right-hand side specifies the output token.
+
+<Callout type="info" emoji="💡">
+You are guaranteed to get the best market execution for your swap. Learn more about Penumbra's state of the art DEX design [here](/dex).
+</Callout>
+
+## Instant Swaps
+
+Instant swaps are the simplest form of swap. This is the default mode of the swap page. You can also configure it manually by setting the **Speed** slider all the way to the left-hand side to the **Instant Price** option.
+
+![Swap Speed slider](/images/swap-speed-slider.png)
+
+The **Instant Swap** panel will estimate how your swap will be executed:
+
+![Instant Swap](/images/swap-instant-swap.png)
+
+This panel shows an estimation of:
+* How much of the output token you will receive,
+* The routes that will be used to execute the swap, and
+* The price impact of executing your swap.
+
+You can click **Estimate** to get an updated estimate.
+
+Once you are happy with the estimated execution, you can click **Swap** to execute your swap. In the Prax Wallet confirmation screen, you will see the swap:
+
+![Swap Confirmation](/images/swap-confirm.png)
+
+Once you approve the transaction, the swap will be executed, and you will see a notification:
+
+![Swap Notification](/images/swap-success.png)
+
+You will notice that a `SwapClaim` is being generated automatically. This is done after the swap is executed to mint the output tokens privately into Penumbra's shielded pool. After a moment, you should see:
+
+![Swap Claim](/images/swapclaim-success.png)
+
+At this point, you will see the output tokens in your balance!
+
+## Gradual Dutch Auctions
+
+Penumbra's DEX also supports gradual Dutch auctions. This is a more advanced form of swap that allows you to perform price discovery based on market demand, by offering your input swap assets over a period of time at dimishing prices until all tokens are sold.
+
+You configure Gradual Dutch Auctions by moving the **Speed** slider on the swap page to the right. Play with the slider to view how different time scales affect the number of auctions that will be created. By moving the slider to the right, the auction will take place over a greater amount of time, leading to tokens being sold at more price points.
+
+![Speed slider](/images/gda-speed-slider.png)
+
+The **Gradual Dutch Auction** panel will show you an estimate of the price execution of the auction:
+
+![Gradual Dutch Auction](/images/gda-estimate.png)
+
+As above with the instant swap, click **Estimate** to get an updated estimate. You should set the **Maximum** and **Minimum** prices in this panel to ensure you get the best price for your tokens.
+
+Click **Start auctions** to begin. The Prax Wallet approval screen will appear similar to the instant swap but will show auctions being created:
+
+![Gradual Dutch Auction Confirmation](/images/gda-confirm.png)
+
+The auctions conclude when all the input tokens are sold or when the auction duration expires, whichever comes first.
