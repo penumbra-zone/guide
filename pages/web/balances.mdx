@@ -12,7 +12,9 @@ Other Penumbra wallets may handle account display differently. This guide focuse
 
 Prax Wallet displays your balance per account. Simply click the Prax icon in the Chrome toolbar and you will see your **Main Account**:
 
-![Prax Balances Default Account](/images/prax-balances.png)
+<div className="flex justify-center">
+  ![Prax Balances Default Account](/images/prax-balances.png)
+</div>
 
 The balances are displayed by asset type. For example, here we see the balance of the main account includes Penumbra's staking token UM, as well as ATOM.
 
@@ -20,13 +22,17 @@ The balances are displayed by asset type. For example, here we see the balance o
 
 By clicking the arrow to the right, you can view the balances and default addresses, of the other accounts in your wallet:
 
-![Prax Balances Account 1](/images/prax-balances-account1.png)
+<div className="flex justify-center">
+  ![Prax Balances Account 1](/images/prax-balances-account1.png)
+</div>
 
 ## IBC Deposit Addresses in Prax Wallet
 
 You also have a toggle for generating a IBC deposit address for the account:
 
-![Prax Balances IBC Deposit Address](/images/prax-balances-account1-ibc.png)
+<div className="flex justify-center">
+  ![Prax Balances IBC Deposit Address](/images/prax-balances-account1-ibc.png)
+</div>
 
 This is an important feature for privacy when making IBC transfers in and out of Penumbra. Because an IBC deposit is initiated on the (public) counterparty chain, it reveals the destination Penumbra address. This could allow linking different inbound transfers if the same address was used multiple times. Instead, Prax Wallet will generate a fresh IBC deposit address every time you toggle the "IBC Deposit Address" option. You can try this by toggling it multiple times, and you'll notice a new address each time.
 
@@ -34,7 +40,9 @@ This is an important feature for privacy when making IBC transfers in and out of
 
 Sometimes you might have a Penumbra address saved, but you're not sure if it's yours, or which account it's from. You can check this by pasting it into the *Validate Address* tool:
 
-![Prax Validate Address](/images/prax-validate-address.png)
+<div className="flex justify-center">
+  ![Prax Validate Address](/images/prax-validate-address.png)
+</div>
 
 This will show you if the address is yours, and if so, which account the address belongs to.
 
@@ -42,21 +50,29 @@ This will show you if the address is yours, and if so, which account the address
 
 The default Penumbra frontend, [app.penumbra.zone](https://app.penumbra.zone), also displays your balances in a similar way to Prax Wallet. Each account is displayed along with its assets below:
 
-![Frontend Balances](/images/frontend-balances.png)
+<div className="flex justify-center">
+  ![Frontend Balances](/images/frontend-balances.png)
+</div>
 
 ## Inspecting Transactions in the Frontend
 
 You can also inspect transactions in the frontend by clicking on the transactions tab:
 
-![Frontend Transactions](/images/frontend-transactions.png)
+<div className="flex justify-center">
+  ![Frontend Transactions](/images/frontend-transactions.png)
+</div>
 
 This will take you to the transaction history for your wallet. Each transaction in the list involved one of your wallet's accounts. By clicking on a transaction, you can view more details:
 
-![Frontend Transaction - Private view](/images/frontend-tx-private.png)
+<div className="flex justify-center">
+  ![Frontend Transaction - Private view](/images/frontend-tx-private.png)
+</div>
 
 This shows the transaction's private details, as well as the public details, which are visible to everyone. If you want to see how your transaction looks to others, you can toggle to the public view:
 
-![Frontend Transaction - Public view](/images/frontend-tx-public.png)
+<div className="flex justify-center">
+  ![Frontend Transaction - Public view](/images/frontend-tx-public.png)
+</div>
 
 You can see in this simple send transaction, the public details don't reveal anything other than the transaction fee.
 
