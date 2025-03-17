@@ -11,7 +11,7 @@ const Disconnect: React.FC = () => {
         <div className="w-full bg-white shadow-md rounded-lg p-4">
           <div className="flex flex-row gap-3 items-center">
             <div className="text-gray-700">
-              Waiting for extension to disconnect. Refresh the page once
+              Waiting for the extension to disconnect. Refresh the page once
               disconnected.
             </div>
             <div className="animate-spin h-5 w-5 border-2 border-blue-500 rounded-full border-t-transparent" />
