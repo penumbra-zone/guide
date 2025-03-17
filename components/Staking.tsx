@@ -87,45 +87,35 @@ const Staking: React.FC = () => {
             >
               <p className="font-bold">Staked UM successfully!</p>
             </div>
-            <div
-              className="flex  px-3
-           items-center gap-5 my-5  bg-gray-700 text-white p-3 w-full"
-            >
+            <div className="flex flex-col px-3 items-start gap-5 my-5 bg-gray-700 text-white p-3 w-full">
               {delegationTokens?.map((balance) => {
                 const validator = validators?.find((validator) =>
                   getMetadataFromBalancesResponse(balance).base?.includes(
                     bech32mIdentityKey({
-                      ik:
-                        validator?.validator?.identityKey?.ik ?? new Uint8Array(),
+                      ik: validator?.validator?.identityKey?.ik ?? new Uint8Array(),
                     }),
                   ),
                 )?.validator;
                 return (
                   <div
-                    className="flex flex-col gap-3 items-start justify-center"
+                    className="flex flex-col gap-3 w-full border-b border-gray-600 last:border-b-0 pb-4 last:pb-0"
                     key={balance.toJsonString()}
                   >
-                    <div className="flex items-center gap-3 justify-center">
+                    <div className="flex flex-wrap items-center gap-3">
                       Successfully staked
                       <ValueViewComponent
                         valueView={
                           new ValueView({
                             valueView: {
                               value: new ValueView_KnownAssetId({
-                                amount:
-                                  getBalanceView.pipe(getEquivalentValues)(
-                                    balance,
-                                  )[0].equivalentAmount,
-                                metadata:
-                                  getBalanceView.pipe(getEquivalentValues)(
-                                    balance,
-                                  )[0].numeraire,
+                                amount: getBalanceView.pipe(getEquivalentValues)(balance)[0].equivalentAmount,
+                                metadata: getBalanceView.pipe(getEquivalentValues)(balance)[0].numeraire,
                               }),
                               case: 'knownAssetId',
                             },
                           })
                         }
-                      />{' '}
+                      />
                       on
                       <a
                         target={'_blank'}
@@ -137,12 +127,7 @@ const Staking: React.FC = () => {
                       </a>
                     </div>
 
-                    {/*TODO: support ellipsis in the value view component*/}
-                    <div
-                      className={
-                        '[&_*]:text-ellipsis flex items-center gap-3 justify-center'
-                      }
-                    >
+                    <div className="flex flex-wrap items-center gap-3">
                       using delegation token:
                       <ValueViewComponent valueView={balance.balanceView} />
                     </div>
