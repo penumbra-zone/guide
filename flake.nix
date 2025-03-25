@@ -16,8 +16,10 @@
         {
           devShells.default = mkShell {
             buildInputs = [ 
+                fd
                 firebase-tools
                 just
+                markdown-link-check
                 nodejs_20
                 pnpm
             ];
