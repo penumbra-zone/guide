@@ -18,7 +18,7 @@ mdbook serve
 The [Rust API docs][rustdoc] are maintained in the [protocol repo], and
 can be built with `./deployments/scripts/rust-docs`. Notably, the rust docs
 require the use of a nightly rust toolchain, which isn't currently provided via the
-[dev env](dev-env.md). You should install the nightly toolchain on your host machine,
+[dev env](dev-env.mdx). You should install the nightly toolchain on your host machine,
 if you need to build the rustdocs locally.
 
 The landing page, the top-level `index.html`, is handled as a special case.

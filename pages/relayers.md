@@ -82,7 +82,7 @@ You'll need to communicate the channels that you maintain to the community. How 
 
 ## Performing upgrades
 
-When a [Penumbra chain upgrade](./node/pd/chain-upgrade.md) is performed, relayer operators must [configure an archive node](./node/pd/indexing-events.md#running-an-archive-node)
+When a [Penumbra chain upgrade](./node/pd/chain-upgrade.mdx) is performed, relayer operators must [configure an archive node](./node/pd/indexing-events.md#running-an-archive-node)
 on the pre-upgrade version of `pd`, and use that archive node, as well as an upgraded Penumbra node, to bridge the upgrade boundary via the relayer.
 See the [genesis-restart](https://hermes.informal.systems/advanced/troubleshooting/genesis-restart.html?highlight=genesis%20restart#updating-a-client-after-a-genesis-restart-without-ibc-upgrade-proposal) functionality in the Hermes docs.
 In order to perform this step, you'll need the following information:

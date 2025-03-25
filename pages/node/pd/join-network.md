@@ -11,7 +11,7 @@ of the consensus set.
 
 ## Generating configs
 
-To join a network as a fullnode, [install the most recent version of `pd`](install.md), run
+To join a network as a fullnode, [install the most recent version of `pd`](install.mdx), run
 `pd network join` to generate configs, then use those configs to run `pd` and
 `cometbft`.
 

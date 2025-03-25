@@ -38,7 +38,7 @@ pcli: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.33' not found (required 
 ```
 
 If you see that message, you must either switch to a supported platform, or else
-[build the software from source](../dev/build.md). If you need to use Windows,
+[build the software from source](../dev/build.mdx). If you need to use Windows,
 consider using [WSL].
 
 [WSL]: https://learn.microsoft.com/en-us/windows/wsl/install

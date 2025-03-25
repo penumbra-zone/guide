@@ -1,6 +1,6 @@
 # Devnet quickstart
 
-This page assumes you've set up a [Penumbra developer environment](./dev-env.md),
+This page assumes you've set up a [Penumbra developer environment](./dev-env.mdx),
 as it references several commands like `cometbft` in order to work.
 It describes how to run a Penumbra fullnode on your local workstation, for building
 and testing Penumbra and related services.
