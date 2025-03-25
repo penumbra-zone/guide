@@ -1,0 +1,28 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://(x|twitter).com"
+    },
+    {
+      "pattern": "^http://localhost"
+    },
+    {
+      "pattern": "^http://127.0.0.1"
+    },
+    {
+      "pattern": "images/pvf-linear.png"
+    },
+    {
+      "pattern": "images/governance-light.png"
+    },
+    {
+      "pattern": "https://accounts.hetzner.com"
+    }
+  ],
+  "replacementPatterns": [
+    {
+      "pattern": "^/images/(?<filename>.*)",
+      "replacement": "../public/images/$<filename>"
+    }
+  ]
+}

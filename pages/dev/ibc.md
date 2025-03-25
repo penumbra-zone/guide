@@ -51,7 +51,7 @@ You can view account history for the shared Osmosis testnet account here:
 Change the address at the end of the URL to your account to confirm that your test transfer worked.
 
 ## Updating Hermes config for a new testnet
-See the [relayer config guide](../node/relayer/hermes.md) for up to date information.
+See the [relayer config guide](../relayers.md) for up to date information.
 
 Use the [IBC user docs](../pcli/transaction.md#ibc-withdrawals) to make a test transaction,
 to ensure that relaying is working. In the future, we should consider posting the newly created

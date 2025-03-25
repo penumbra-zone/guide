@@ -34,14 +34,14 @@ curl -O https://artifacts.plinfra.net/penumbra-testnet-phobos-2/penumbra-node-ar
 tar -xzf penumbra-node-archive-latest.tar.gz -C ~/.penumbra/network_data/node0/
 ```
 
-After that, if you've set up the [Penumbra developer environment](./dev-env.md),
+After that, if you've set up the [Penumbra developer environment](./dev-env.mdx),
 you can run a fullnode locally via:
 
 ```shell
 just dev
 ```
 
-For a more persistent setup, consult the [tutorial on running a node](../node/pd/running-node.md).
+For a more persistent setup, consult the [tutorial on running a node](../node/pd/running-node.mdx).
 
 ## Running `pcli`
 

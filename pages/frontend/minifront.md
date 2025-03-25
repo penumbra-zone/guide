@@ -91,7 +91,7 @@ pnpm dev
 
 ## Frontend embedded in fullnode
 
-If you're already [running a fullnode](./running-node.md), then you don't need to do anything else:
+If you're already [running a fullnode](../node/pd/running-node.mdx), then you don't need to do anything else:
 a bundled version of the frontend code is available at `https://<YOUR_NODE_URL>/app`. Simply navigate
 to that site after installing [Prax], and authorize the web extension to connect to it.
 

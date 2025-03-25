@@ -25,7 +25,7 @@ To prevent validators from escaping slashing penalties by quickly withdrawing th
 When a delegator undelegates, their delegation tokens first convert to **unbonding tokens**. These unbonding tokens are tied to the validator identity, such that they remain exposed to slashing penalties if validator misbehavior occurs. After the unbonding delay, the unbonding tokens can finally be converted back to staking tokens, taking into account the earned staking rewards using that validator's exchange rate.
 
 <picture>
-  <img src="./images/staking-token-flow.png" />
+  <img src="/images/staking-token-flow.png" />
 </picture>
 
 The unbonding delay is currently set to 120,960 blocks, or approximately 7 days on mainnet (set via the `unbondingDelay` chain parameter).

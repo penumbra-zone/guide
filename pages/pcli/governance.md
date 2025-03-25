@@ -14,7 +14,7 @@ in mind, here are some quick links:
 - [I want to submit a new proposal.](#submitting-a-proposal)
 - [I submitted a proposal and I want to withdraw it before voting concludes.](#withdrawing-a-proposal)
 - [Voting has concluded on a proposal I submitted and I want to claim my deposit.](#claiming-a-proposal-deposit)
-- [I want to contribute funds to the Community Pool.](#contributing-to-the-community-pool)
+- [I want to propose spending funds from the Community Pool.](#making-a-community-pool-spend-transaction-plan)
 
 ## Getting Proposal Information
 
@@ -108,8 +108,8 @@ from being slashed. This is usually used when a proposal has been superseded by 
 alternative.
 
 <picture>
-  <source srcset="../images/governance-dark.png" media="(prefers-color-scheme: dark)" />
-  <img src="../images/governance-light.png" />
+  <source srcset="/images/governance-dark.png" media="(prefers-color-scheme: dark)" />
+  <img src="/images/governance-light.png" />
 </picture>
 
 In the above, rounded grey boxes are actions submitted by the proposal author, rectangular colored

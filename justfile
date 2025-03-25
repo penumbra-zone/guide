@@ -12,7 +12,7 @@ dev:
 
 # run linters, checking for valid links
 lint:
-  fd -t f -e md -e mdx -X markdown-link-check
+  fd -t f -e md -e mdx -X markdown-link-check --config .markdown-link-check.json
 
 # run dev env via firebase, for a more prod-like local editing experience
 firebase-dev:

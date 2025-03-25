@@ -11,7 +11,7 @@ The Penumbra DEX features a batched swap/intent system and enables fine-grained 
 The incoming order flow of swap intents are batched together by trading pair and executed at the end of each block. The batching of swap intents means that in Penumbra, there is no intra-block ordering of swap intents that can be manipulated by traders. Trades get executed approximately every 5 seconds - Penumbra's block time.
 
 <picture>
-  <img src="./images/dex-batch-execution.png" />
+  <img src="/images/dex-batch-execution.png" />
 </picture>
 
 Each block, the Penumbra protocol:
@@ -33,24 +33,24 @@ One important feature of the `SwapClaim` transaction is that it can be *automati
 The phased two-block execution of the `Swap` and `SwapClaim` transactions is illustrated below:
 
 <picture>
-  <img src="./images/dex-swap-claim.png" />
+  <img src="/images/dex-swap-claim.png" />
 </picture>
 
 ### Concentrated Liquidity Positions
 
 *Market makers* are users who provide liquidity by agreeing to buy and sell a specific trading pair at a price they specify. They do this by creating a *liquidity position* in Penumbra.
 
-Penumbra's DEX supports concentrated [liquidity positions](/dex/lp). Each liquidity position in Penumbra is essentially a constant-sum individual [Automated Market Maker (AMM)](https://www.gemini.com/cryptopedia/amm-what-are-automated-market-makers#section-automated-market-maker-variations). Fees are set on a per-position basis, instead of fee tiers. This enables market forces to set fees.
+Penumbra's DEX supports concentrated [liquidity positions](./dex/lp.mdx). Each liquidity position in Penumbra is essentially a constant-sum individual [Automated Market Maker (AMM)](https://www.gemini.com/cryptopedia/amm-what-are-automated-market-makers#section-automated-market-maker-variations). Fees are set on a per-position basis, instead of fee tiers. This enables market forces to set fees.
 
 By creating an arbitrary number of these concentrated liquidity positions, market makers can approximate any trading function:
 
 <picture>
-  <img src="./images/dex-concentrated-liquidity.png" />
+  <img src="/images/dex-concentrated-liquidity.png" />
 </picture>
 
 This enables fine-grained control over liquidity provisioning. Active market makers can adjust prices as often as once per block.
 
-The positions themselves are public, but anonymous. For further details on liquidity positions, see the [Providing Liquidity](/dex/lp) page.
+The positions themselves are public, but anonymous. For further details on liquidity positions, see the [Providing Liquidity](./dex/lp.mdx) page.
 
 ### DEX Execution and Optimal Routing
 
@@ -59,7 +59,7 @@ Penumbra's DEX automatically finds the *best* trading path across all available 
 We call the collection of all liquidity positions the *liquidity graph*, as it can be thought of as a graph of nodes and edges, and the Penumbra DEX engine traverses the graph to find the best path for your trade.
 
 <picture>
-  <img src="./images/dex-optimal-routing.png" />
+  <img src="/images/dex-optimal-routing.png" />
 </picture>
 
 Each block, the DEX engine executes in four steps:
