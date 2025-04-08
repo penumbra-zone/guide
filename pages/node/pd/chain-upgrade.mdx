@@ -32,4 +32,4 @@ so that your node state is recoverable.
 4. Apply the migration with `pd migrate --home PD_HOME --comet-home COMETBFT_HOME`.  If using the default home locations (from `pd network join`), you can omit the paths and just run `pd migrate`.
 
 Finally, restart the node, e.g. `sudo systemctl restart penumbra cometbft`. Check the logs, and you should see the chain progressing
-past the halt height `n`. If you also run a relayer, see the docs on [relayer maintenance during an upgrade](../../relayers.md#performing-upgrade).
+past the halt height `n`. If you also run a relayer, see the docs on [relayer maintenance during an upgrade](../../relayers.md#performing-upgrades).
