@@ -79,7 +79,7 @@ planned upgrade. The process then becomes:
 1. Restore node state from backup.
 2. Ensure you're using the appropriate `pd` and `cometbft` versions for the associated state.
 3. Run `pd migrate --ready-to-start` to permit `pd` to start up.
-4. Move aside the the archive node's CometBFT addressbook, if present: `mv ~/.penumbra/node0/cometbft/config/addrbook.json{,.bak}`.
+4. Move aside the the archive node's CometBFT addressbook, if present: `mv ~/.penumbra/network_data/node0/cometbft/config/addrbook.json{,.bak}`.
 5. Run CometBFT with extra options: `--p2p.pex=false --p2p.seeds='' --p2p.persistent_peers='' --p2p.laddr="tcp://127.0.0.1:26656" --moniker archive-node-1`
 6. Run `pd` and `cometbft` as normal, taking care to use the appropriate versions.
 
