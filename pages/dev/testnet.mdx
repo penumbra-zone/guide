@@ -1,7 +1,20 @@
+import { Callout } from 'nextra-theme-docs'
+
 # Testnet
 
 There's a long-running testnet chain available, intended for developers
 to test code and practice integrating their software with the Penumbra stack.
+
+<Callout type="default" emoji="🚧">
+  The PL-run testnet was chain was reset on 2025-04-15.
+  See notes below on compatibility.
+</Callout>
+
+## Compatibility
+The current testnet chain `penumbra-testnet-phobos-3` was created on 2025-04-15.
+It is running a candidate protocol upgrade related to [LQT], and as such, as is not compatible with mainnet.
+In order to interact with the testnet, developers should build client software from the 
+[`protocol/lqt_branch`](https://github.com/penumbra-zone/penumbra/tree/protocol/lqt_branch) for compatibility.
 
 ## Services available
 
@@ -68,22 +81,5 @@ to create transactions, as an empty wallet will lack funds to pay gas fees.
 
 There's currently no faucet running for the Penumbra testnet chain, but check back soon for details.
 
-<!--
-TODO:
-There's no instance of Galileo running yet, but there could be.
-
-To obtain funds for your testnet wallet, first gather the address:
-
-```shell
-cargo run --release --bin pcli -- --home ~/.local/share/pcli-testnet view address
-```
-
-Then visit the `#testnet-faucet` channel in the project Discord, and paste your address.
-A bot will send a small amount of funds to your address, which should be visible within a few minutes, via:
-
-```shell
-cargo run --release --bin pcli -- --home ~/.local/share/pcli-testnet view balance
-```
--->
-
 [protocol repo]: https://github.com/penumbra-zone/penumbra
+[LQT]: https://github.com/penumbra-zone/penumbra/issues/5010
