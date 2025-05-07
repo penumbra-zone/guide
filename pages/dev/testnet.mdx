@@ -77,9 +77,21 @@ You'll be able to run queries like `pcli query validator list`, but by default y
 to create transactions, as an empty wallet will lack funds to pay gas fees.
 
 
-## Using the testnet faucet
+## Obtaining funds on the testnet
 
-There's currently no faucet running for the Penumbra testnet chain, but check back soon for details.
+Typically projects will provide a "faucet" bot that distributes testnet tokens for developers to use.
+Penumbra works a bit differently. Given how central IBC connections to other chains are in Penumbra,
+the recommended procedure to get funds on the testnet is to bridge in assets via IBC:
+
+1. Install [Keplr]. It's OK to use the same seed phrase as on the Penumbra testnet.
+2. View the [Noble testnet in Keplr](https://testnet.keplr.app/chains/noble-testnet) and click **Deposit**. Copy the address that's displayed to your clipboard.
+3. Visit the [Circle testnet faucet](https://faucet.circle.com/), select **Noble Testnet**, paste your address, and submit.
+4. Install [Prax](../web/prax.mdx). Configure the RPC endpoint to be `https://testnet.plinfra.net`.
+5. Within Prax, click **Shield Funds**, choose **Deposit (Manual)**, and follow the prompts to transfer in the funds you received from the faucet.
+6. After seeing a confirmation message, check **Assets** to see your newly bridged in assets.
+
+You now have a balance on the testnet! You can try [swapping the asset](../web/swap.mdx) for other tokens.
 
 [protocol repo]: https://github.com/penumbra-zone/penumbra
 [LQT]: https://github.com/penumbra-zone/penumbra/issues/5010
+[Keplr]: https://www.keplr.app/get
