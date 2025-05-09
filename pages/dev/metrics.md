@@ -63,3 +63,34 @@ A minimal metrics setup will be automatically provisioned as part of the [devnet
 
 To add new Grafana visualizations, open [http://127.0.0.1:3000](http://127.0.0.1:3000) and edit the existing dashboards.
 When you're happy with what you've got, follow the [Backing up Grafana](./metrics.md#backing-up-grafana) instructions above to save your work.
+
+## Generating traffic
+
+In order to confirm that the metrics are wired up correctly, it's useful to generate network traffic against a `pd` endpoint.
+There's a barebones `measure` tool in the [protocol repo], which can be used for this purpose.
+
+To stream compact-blocks and view stats on the fetching:
+
+```
+❯ cargo run -q --release --bin measure -- --node http://127.0.0.1:8080 stream-blocks
+[14s] ██████████████████████████████████████████████████ 4873332/4873332 325097/s ETA: 0s
+Fetched at least 229.7 MB
+Fetched 4873333 compact blocks, containing:
+        481965 nullifiers
+        649353 state payloads, containing:
+                521087 note payloads
+                42804 swap payloads
+                85462 rolled up payloads
+```
+
+To perform a full sync across multiple client connections concurrently:
+
+```
+cargo run --release --bin measure -- --node http://127.0.0.1:8080 open-connections --num-connections 50 --full-sync
+```
+
+If you want to maintain open connections, rather than exiting on completion, use `open-connections-active`.
+
+Please be respectful of community-run RPCs; you should only run this tool against endpoints you control.
+
+[protocol repo]: https://github.com/penumbra-zone/penumbra
