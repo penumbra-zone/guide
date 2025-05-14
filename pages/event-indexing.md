@@ -1,7 +1,7 @@
 # Indexing ABCI events
 
-The [`pd`](./node/pd) software emits ABCI events while processing blocks. By default,
-these blocks are stored in CometBFT's key-value database locally, but node operators
+The [`pd`](./node/pd) software emits ABCI events while processing blocks.
+By default, these blocks are stored in CometBFT's key-value database locally, but node operators
 can opt-in to writing the events to an external PostgreSQL database.
 Furthermore, the [`pindexer`](./event-indexing/pindexer.md) software can be used to take these raw ABCI events,
 and produce Penumbra-specific "app views" with rich formatted data.
