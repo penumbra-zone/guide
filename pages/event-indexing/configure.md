@@ -14,6 +14,7 @@ CometBFT to use an external database:
 
 The format for `DATABASE_URL` is specified in the [Postgres docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING-URIS).
 After the node is running, check the logs for errors. Query the database with `SELECT height FROM blocks ORDER BY height DESC LIMIT 10;`
+(you can connect to the database to run queries like this one using `psql -d <DATABASE_URL>`)
 and confirm you're seeing the latest blocks being added to the database.
 
 Typically an operator sets up PostgreSQL event ingestion as a precursor to the more dev-friendly
