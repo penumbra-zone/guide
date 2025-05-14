@@ -9,5 +9,6 @@
   "parameter_setup": "Zero-knowledge proofs",
   "rpc": "RPC access",
   "ibc": "Testing IBC",
+  "abci-events": "Querying ABCI events",
   "dev-env": "Developer environment"
 }

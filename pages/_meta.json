@@ -57,6 +57,12 @@
       "breadcrumb": false
     }
   },
+  "event-indexing": {
+    "title": "Running an event indexer",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
   "dev": "Development",
   "resources": {
     "title": "Resources",

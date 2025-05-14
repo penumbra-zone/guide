@@ -82,7 +82,7 @@ You'll need to communicate the channels that you maintain to the community. How 
 
 ## Performing upgrades
 
-When a [Penumbra chain upgrade](./node/pd/chain-upgrade.mdx) is performed, relayer operators must [configure an archive node](./node/pd/indexing-events.md#running-an-archive-node)
+When a [Penumbra chain upgrade](./node/pd/chain-upgrade.mdx) is performed, relayer operators must [configure an archive node](#running-an-archive-node)
 on the pre-upgrade version of `pd`, and use that archive node, as well as an upgraded Penumbra node, to bridge the upgrade boundary via the relayer.
 See the [genesis-restart](https://hermes.informal.systems/advanced/troubleshooting/genesis-restart.html?highlight=genesis%20restart#updating-a-client-after-a-genesis-restart-without-ibc-upgrade-proposal) functionality in the Hermes docs.
 In order to perform this step, you'll need the following information:
@@ -90,14 +90,33 @@ In order to perform this step, you'll need the following information:
 * The chain id of counterparty chain, for `--host-chain`.
 * The halt height of penumbra chain for `--restart-height`, visible in the governance proposal for the chain upgrade.
 * The IBC client id for the relayer on the counterparty chain, for `--client`.
-* The [archive node](./node/pd/indexing-events.md#running-an-archive-node) URL for `--archive-address`.
+* The [archive node](#running-an-archive-node) URL for `--archive-address`.
 
-1. Set up an archive node on the pre-upgrade chain, with the pre-upgrade version of pd, [as described here](./node/pd/indexing-events.md#running-an-archive-node).
+1. Set up an archive node on the pre-upgrade chain, with the pre-upgrade version of pd, [as described here](#running-an-archive-node).
 2. Stop the `hermes` service, so that the relayer is not running.
 3. Run a one-off invocation to bridge the upgrade boundary, pointing at the archive node: `hermes --config /etc/hermes/config-penumbra-noble.toml update client --archive-address http://localhost:26657/ --restart-height 222200 --host-chain grand-1 --client 07-tendermint-257` (as described here https://hermes.informal.systems/advanced/troubleshooting/genesis-restart.html)
 4. Then restart the hermes service.
 
 After that, the relayer instance should be running properly on the post-upgrade chain, and the archive node can be shut down.
+
+## Running an archive node
+
+If you are joining the network after a chain upgrade, the events behind the upgrade boundary
+will not be available to your node for syncing while catching up to current height. To emit
+historical events, you will need access to archives of CometBFT state created before (each)
+planned upgrade. The process then becomes:
+
+1. Restore node state from backup.
+2. Ensure you're using the appropriate `pd` and `cometbft` versions for the associated state.
+3. Run `pd migrate --ready-to-start` to permit `pd` to start up.
+4. Move aside the the archive node's CometBFT addressbook, if present: `mv ~/.penumbra/network_data/node0/cometbft/config/addrbook.json{,.bak}`
+5. Run CometBFT with extra options: `--p2p.pex=false --p2p.seeds='' --p2p.persistent_peers='' --p2p.laddr="tcp://127.0.0.1:26656" --moniker archive-node-1`
+6. Run `pd` and `cometbft` as normal, taking care to use the appropriate versions.
+
+The node can now be used as an `--archive-address` for performing a [genesis restart via Hermes](#performing-upgrades).
+If you need additional historical events, consult the [reindexer docs](./event-indexing/reindexer.md)
+Then [configure another node with indexing support](./event-indexing/configure.md), as described above, and join the second
+node to the archive node. As it streams blocks, the ABCI events will be recorded in the database.
 
 [Cosmos]: https://cosmos.network
 [IBC]: https://ibc.cosmos.network
