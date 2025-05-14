@@ -27,6 +27,16 @@
         "source": "/node/pd/join-testnet.html",
         "destination": "/node/pd/join-network.html",
         "type": 302
+      },
+      {
+        "source": "/node/pd/indexing-events",
+        "destination": "/event-indexing",
+        "type": 302
+      },
+      {
+        "source": "/node/pd/indexing-events.md#running-an-archive-node",
+        "destination": "/relayers#running-an-archive-node",
+        "type": 302
       }
     ]
   }
