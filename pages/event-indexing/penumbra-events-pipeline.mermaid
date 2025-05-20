@@ -1,0 +1,121 @@
+%%{
+  init: {
+    'theme': 'base',
+    'themeVariables': {
+      'primaryColor': '#ad6c02',
+      'primaryTextColor': '#0a0a0a',
+      'primaryBorderColor': '#2a6359',
+      'lineColor': '#2a6359',
+      'secondaryColor': '#18352e',
+      'tertiaryColor': '#0c0c0c'
+    },
+    'themeCSS': '* { color: #e0e0e0 !important; } div.mermaid { background: #0a0a0a !important; } .node rect, .node circle, .node ellipse, .node polygon, .node path { fill: #0a0a0a; stroke: #2a6359; } .label { color: #e0e0e0; } .label text { fill: #e0e0e0 !important; } .cluster rect { fill: #0a0a0a !important; stroke: #2a6359 !important; } .edgeLabel { background-color: #0a0a0a !important; color: #e0e0e0 !important; }'
+  }
+}%%
+
+graph TD
+    subgraph PenumbraIndexingNode["Penumbra Indexing Node"]
+        style PenumbraIndexingNode fill:#0a0a0a,stroke:#2a6359,stroke-width:2px,color:#e0e0e0
+
+        subgraph PenumbraNode["Penumbra Node"]
+            style PenumbraNode fill:#0f0f0f,stroke:#ad6c02,stroke-width:1.5px,color:#e0e0e0
+
+            pd["pd (Penumbra Daemon)"]
+            style pd fill:#ad6c02,stroke:#2a6359,stroke-width:1px,color:#0a0a0a
+
+            cometbft["CometBFT"]
+            style cometbft fill:#ad6c02,stroke:#2a6359,stroke-width:1px,color:#0a0a0a
+
+            pd --> |"emits ABCI events"| cometbft
+
+            note_pd["Note: newly-joining nodes only have events<br/>from when they joined the network"]
+            style note_pd fill:#0a0a0a,stroke:#ad6c02,stroke-width:1px,color:#ad6c02
+        end
+
+        subgraph PostgreSQL["PostgreSQL Server"]
+            style PostgreSQL fill:#121212,stroke:#2a6359,stroke-width:1.5px,color:#e0e0e0
+
+            pgCometBFT[(cometbft DB)]
+            style pgCometBFT fill:#18352e,stroke:#ad6c02,stroke-width:2px,color:#e0e0e0
+            note_psql["Note: the psql database can be hosted externally"]
+            style note_psql fill:#0a0a0a,stroke:#ad6c02,stroke-width:1px,color:#ad6c02
+
+            pgPindexer[(pindexer DB)]
+            style pgPindexer fill:#18352e,stroke:#ad6c02,stroke-width:2px,color:#e0e0e0
+        end
+
+        subgraph PindexerComponent["Pindexer Component"]
+            style PindexerComponent fill:#121212,stroke:#2a6359,stroke-width:1.5px,color:#e0e0e0
+            pindexer["<code>pindexer</code>"]
+            style pindexer fill:#ad6c02,stroke:#2a6359,stroke-width:1px,color:#0a0a0a
+            note_pindexer["Note: pindexer never contacts a full node,<br/> it only communicates with postgres"]
+            style note_pindexer fill:#0a0a0a,stroke:#ad6c02,stroke-width:1px,color:#ad6c02
+        end
+
+        subgraph PenumbraReindexer["Penumbra Reindexer"]
+            style PenumbraReindexer fill:#121212,stroke:#2a6359,stroke-width:1.5px,color:#e0e0e0
+
+            sqlite[(SQLite database)]
+            style sqlite fill:#18352e,stroke:#ad6c02,stroke-width:2px,color:#e0e0e0
+
+            reindexer["<code>penumbra-reindexer</code>"]
+            style reindexer fill:#ad6c02,stroke:#2a6359,stroke-width:1px,color:#0a0a0a
+
+            reindexer --> |"maintains"| sqlite
+        end
+
+    end
+
+    subgraph PublicStateArchives["Public state archives"]
+        style PublicStateArchives fill:#0c0c0c,stroke:#ad6c02,stroke-width:1.5px,color:#e0e0e0
+
+        nodeState[[Historical node state, e.g.<br/>pd/rocksdb/ and cometbft/data/ dirs]]
+        %%nodeState[(Historical node state)]
+        style nodeState fill:#18352e,stroke:#ad6c02,stroke-width:2px,color:#e0e0e0
+
+        historical[(Historical SQLite backup)]
+        style historical fill:#18352e,stroke:#ad6c02,stroke-width:2px,color:#e0e0e0
+    end
+
+    subgraph FrontendApplications["Frontend applications"]
+        style FrontendApplications fill:#0c0c0c,stroke:#2a6359,stroke-width:2px,color:#e0e0e0
+
+        note_frontend["Note: not all applications require event data, but these examples do"]
+        %% note_frontend["Note: not all applications require event data,<br/> but these examples do"]
+        style note_frontend fill:#0a0a0a,stroke:#ad6c02,stroke-width:1px,color:#ad6c02
+
+        blockExplorer["Block explorer"]
+        style blockExplorer fill:#ad6c02,stroke:#2a6359,stroke-width:1px,color:#0a0a0a
+
+        dexInterface["DEX trading interface"]
+        style dexInterface fill:#ad6c02,stroke:#2a6359,stroke-width:1px,color:#0a0a0a
+
+        insightsDashboard["Insights dashboard"]
+        style insightsDashboard fill:#ad6c02,stroke:#2a6359,stroke-width:1px,color:#0a0a0a
+    end
+
+
+    %% Connections
+    cometbft --> |"records ABCI events"| pgCometBFT
+    cometbft <-.-> |"polls API to stream blocks"| reindexer
+    sqlite -.-> |"can regenerate postgres"| pgCometBFT
+    historical --> |"downloaded to backfill events"| sqlite
+    nodeState --> |"bootstrap new nodes"| PenumbraNode
+
+    %% The `~~~` denotes an "invisible connection", which helps to provide layout hints.
+    %% Without this link, the pindexer content gets shoved downward in the graph,
+    %% hurting readability.
+    PenumbraReindexer ~~~ PindexerComponent
+    %% PenumbraNode ~~~ PindexerComponent
+    PindexerComponent ~~~ FrontendApplications
+
+    %% pindexer --> |"reads from"| pgCometBFT
+    pgCometBFT --> |"reads from"| pindexer
+    pindexer --> |"writes to"| pgPindexer
+
+    pgPindexer --> |"provides data to"| blockExplorer
+    pgPindexer --> |"provides data to"| dexInterface
+    pgPindexer --> |"provides data to"| insightsDashboard
+
+    %% Styling all links
+    linkStyle default stroke:#2a6359,stroke-width:1.5px,color:#e0e0e0

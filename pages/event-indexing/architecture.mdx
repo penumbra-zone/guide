@@ -1,0 +1,23 @@
+import architectureDiagram from './penumbra-events-pipeline.mermaid';
+
+# Penumbra events pipeline
+
+Here's an architecture diagram, describing how ABCI Events work in Penumbra.
+<br/>
+
+```mermaid
+${architectureDiagram}
+```
+
+## Software components
+
+There are several components in play:
+
+* [pd](../node/pd/), the Penumbra daemon
+* [pindexer](./pindexer.md), used to enrich event data with Penumbra-specific AppViews
+* [penumbra-reindexer](./reindexer.md), used to collect historical event data
+* Databases in both PostgreSQL and SQLite formats
+
+How you host these services is up you. If the application you intend to support requires
+event data, then you'll need to provide [pindexer](./pindexer.md). Running the [reindexer](./reindexer.md)
+is optional, but will provide a more resilient service over time.

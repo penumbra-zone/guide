@@ -12,4 +12,11 @@ export default withNextra({
   images: {
     unoptimized: true,
   },
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.mermaid$/,
+      use: 'raw-loader',
+    });
+    return config;
+  },
 });

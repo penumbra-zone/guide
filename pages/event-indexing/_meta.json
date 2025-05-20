@@ -1,4 +1,5 @@
 {
+  "architecture": "Understanding the architecture",
   "configure": "Configuring event emission",
   "pindexer": "Enriching event data via pindexer",
   "reindexer": "Acquiring historical events"
