@@ -68,3 +68,7 @@ Thumbs.db
 
 # Firebase static site hosting
 .firebase/
+
+# Exported architecture diagrams
+pages/event-indexing/*.png
+pages/event-indexing/*.svg

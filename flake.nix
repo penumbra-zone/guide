@@ -15,11 +15,12 @@
         with pkgs;
         {
           devShells.default = mkShell {
-            buildInputs = [ 
+            buildInputs = [
                 fd
                 firebase-tools
                 just
                 markdown-link-check
+                mermaid-cli
                 nodejs_20
                 pnpm
             ];
