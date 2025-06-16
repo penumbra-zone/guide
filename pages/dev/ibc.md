@@ -11,8 +11,7 @@ See the [IBC user docs](../pcli/transaction.md#ibc-withdrawals) for how to use
 
 Transferring from Osmosis to Penumbra requires making an Osmosis transaction.
 The `osmosisd` CLI tooling unfortunately does not work for IBC transfers.
-To move funds from a Penumbra chain to an Osmosis testnet, use the `hermes` binary
-from the [Penumbra fork](https://github.com/penumbra-zone/hermes). What you'll need:
+To move funds from a Penumbra chain to an Osmosis testnet, use the [hermes] binary.
 
 * a local checkout of Hermes
 * your own osmosis wallet, with funds from the testnet faucet
@@ -71,8 +70,7 @@ creates lingering state on that counterparty chain. Be respectful.
 
 1. [Create a devnet](./devnet-quickstart.md). Make note of the randomly
 generated chain id emitted in the logs, as we'll need it to configure Hermes.
-2. [Checkout the Penumbra fork of Hermes](https://github.com/penumbra-zone/hermes),
-and build it with `cargo build --release`.
+2. Checkout the [hermes] repo, and build it with `cargo build --release`.
 3. Edit the `config-devnet-osmosis.toml` file to use the chain id for your newly created devnet.
 4. Add Osmosis key material to Hermes. Look up the Osmosis recovery phrase
 stored in shared 1Password, then:
@@ -124,3 +122,5 @@ cargo run --release --bin pcli -- -n http://localhost:8080 tx withdraw --to osmo
 ```
 
 See the [IBC pcli docs](../pcli/transaction.md#ibc-withdrawals) for more details.
+
+[hermes]: https://github.com/informalsystems/hermes
