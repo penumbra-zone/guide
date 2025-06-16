@@ -9,21 +9,6 @@ permissionless. Some examples of relayer software are:
 
 This guide provides a tutorial for setting up Hermes for use with Penumbra.
 
-Penumbra-compatibility exists in a fork of the Hermes software, available at:
-[https://github.com/penumbra-zone/hermes](https://github.com/penumbra-zone/hermes).
-To build and install it:
-
-```shell
-git clone https://github.com/penumbra-zone/hermes
-cd hermes
-cargo build --release
-cp -v ./target/release/hermes /usr/local/bin/hermes
-```
-
-Use the latest commit in that repo.
-Eventually the necessary changes will be upstreamed to the parent repo.
-Until that happens, use the forked version.
-
 ## Prerequisites
 
 In order to run a Hermes instance for Penumbra, you'll need to prepare the following:
