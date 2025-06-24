@@ -66,5 +66,5 @@ GROUP BY type
 ORDER BY count DESC;
 ```
 
-[pindexer]: ../event-indexing/pindexer.md
+[pindexer]: ../network/event-indexing/pindexer.md
 [cometindex]: https://github.com/penumbra-zone/penumbra/tree/main/crates/util/cometindex

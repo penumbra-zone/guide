@@ -38,7 +38,7 @@ the `--grpc-auto-https <DOMAIN>` option. See `pd start --help` for more info.
 
 ## Custody considerations
 
-Validators should review the [pcli key custody](../../pcli/wallet.md#validator-custody) recommendations
+Validators should review the [pcli key custody](../../../using-penumbra/pcli/wallet.md#validator-custody) recommendations
 for protecting the validator identity.
 
 ## CometBFT settings
@@ -92,7 +92,7 @@ Other community solutions include:
 You should consult these configurations as a reference, and write your own
 scripts to maintain your node.
 
-Consider [joining the Penumbra Discord](../../resources.md#discord) to receive announcements
+Consider [joining the Penumbra Discord](../../../resources.md#discord) to receive announcements
 about new versions and required actions by node operators.
 
 [Cosmos Operator]: https://github.com/strangelove-ventures/cosmos-operator/

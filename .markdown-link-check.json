@@ -22,7 +22,7 @@
   "replacementPatterns": [
     {
       "pattern": "^/images/(?<filename>.*)",
-      "replacement": "../public/images/$<filename>"
+      "replacement": "../../public/images/$<filename>"
     }
   ]
 }
