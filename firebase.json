@@ -10,12 +10,12 @@
       },
       {
         "regex": "/main/pd(?P<page>.*)",
-        "destination": "/node/pd:page",
+        "destination": "/network/node/pd:page",
         "type": 302
       },
       {
         "regex": "/main/pclientd(?P<page>.*)",
-        "destination": "/node/pclientd:page",
+        "destination": "/network/node/pclientd:page",
         "type": 302
       },
       {
@@ -25,17 +25,82 @@
       },
       {
         "source": "/node/pd/join-testnet.html",
-        "destination": "/node/pd/join-network.html",
+        "destination": "/network/node/pd/join-network.html",
         "type": 302
       },
       {
         "source": "/node/pd/indexing-events",
-        "destination": "/event-indexing",
+        "destination": "/network/event-indexing",
         "type": 302
       },
       {
         "source": "/node/pd/indexing-events.md#running-an-archive-node",
-        "destination": "/relayers#running-an-archive-node",
+        "destination": "/network/relayers#running-an-archive-node",
+        "type": 302
+      },
+      {
+        "regex": "/event-indexing(?P<page>.*)",
+        "destination": "/network/event-indexing:page",
+        "type": 302
+      },
+      {
+        "regex": "/frontend(?P<page>.*)",
+        "destination": "/network/frontend:page",
+        "type": 302
+      },
+      {
+        "regex": "/node(?P<page>.*)",
+        "destination": "/network/node:page",
+        "type": 302
+      },
+      {
+        "source": "/relayers",
+        "destination": "/network/relayers",
+        "type": 302
+      },
+      {
+        "source": "/dex",
+        "destination": "/overview/dex",
+        "type": 302
+      },
+      {
+        "regex": "/dex(?P<page>.*)",
+        "destination": "/overview/dex:page",
+        "type": 302
+      },
+      {
+        "source": "/disclosure",
+        "destination": "/overview/disclosure",
+        "type": 302
+      },
+      {
+        "source": "/gov",
+        "destination": "/overview/gov",
+        "type": 302
+      },
+      {
+        "source": "/interchain-privacy",
+        "destination": "/overview/interchain-privacy",
+        "type": 302
+      },
+      {
+        "source": "/privacy",
+        "destination": "/overview/privacy",
+        "type": 302
+      },
+      {
+        "source": "/staking",
+        "destination": "/overview/staking",
+        "type": 302
+      },
+      {
+        "regex": "/pcli(?P<page>.*)",
+        "destination": "/using-penumbra/pcli:page",
+        "type": 302
+      },
+      {
+        "regex": "/web(?P<page>.*)",
+        "destination": "/using-penumbra/web:page",
         "type": 302
       }
     ]
