@@ -1,0 +1,16 @@
+{
+  "node": "Running a node",
+  "frontend": "Running a frontend",
+  "relayers": {
+    "title": "Running relayers",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "event-indexing": {
+    "title": "Running an event indexer",
+    "theme": {
+      "breadcrumb": false
+    }
+  }
+}

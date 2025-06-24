@@ -1,0 +1,20 @@
+{
+  "web": {
+    "title": "From a web browser",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "pcli": {
+    "title": "From the command line",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "lp": {
+    "title": "Providing liquidity",
+    "theme": {
+      "breadcrumb": false
+    }
+  }
+}

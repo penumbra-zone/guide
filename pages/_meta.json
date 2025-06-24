@@ -5,64 +5,20 @@
       "breadcrumb": false
     }
   },
-  "interchain-privacy": {
-    "title": "Interchain Privacy",
-    "theme": {
-      "breadcrumb": false
-    }
-  },
-  "disclosure": {
-    "title": "Selective Disclosure",
-    "theme": {
-      "breadcrumb": false
-    }
-  },
-  "dex": {
-    "title": "The Penumbra DEX",
-    "theme": {
-      "breadcrumb": false
-    }
-  },
-  "staking": {
-    "title": "Shielded Staking",
-    "theme": {
-      "breadcrumb": false
-    }
-  },
-  "gov": {
-    "title": "Decentralized Governance",
-    "theme": {
-      "breadcrumb": false
-    }
-  },
-  "privacy": {
-    "title": "Privacy Features",
-    "theme": {
-      "breadcrumb": false
-    }
-  },
   "quickstart": {
     "title": "Getting Started",
     "theme": {
       "breadcrumb": false
     }
   },
-  "web": "Using Penumbra from a web browser",
-  "pcli": "Using Penumbra from the command line",
-  "node": "Running a node",
-  "frontend": "Running a frontend",
-  "relayers": {
-    "title": "Running relayers",
+  "overview": {
+    "title": "Overview",
     "theme": {
       "breadcrumb": false
     }
   },
-  "event-indexing": {
-    "title": "Running an event indexer",
-    "theme": {
-      "breadcrumb": false
-    }
-  },
+  "using-penumbra": "Using Penumbra",
+  "network": "Network",
   "dev": "Development",
   "resources": {
     "title": "Resources",

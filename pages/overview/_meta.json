@@ -1,0 +1,38 @@
+{
+  "interchain-privacy": {
+    "title": "Interchain Privacy",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "disclosure": {
+    "title": "Selective Disclosure",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "dex": {
+    "title": "The Penumbra DEX",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "staking": {
+    "title": "Shielded Staking",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "gov": {
+    "title": "Decentralized Governance",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "privacy": {
+    "title": "Privacy Features",
+    "theme": {
+      "breadcrumb": false
+    }
+  }
+}
