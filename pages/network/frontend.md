@@ -20,8 +20,8 @@ endpoint, but it can also be hosted standalone.
 - [**Void.Vote**](./frontend/void-vote.mdx): a governance-focused frontend that
 allows viewing and voting on governance proposals.
 
-- [**Cuiloa**](./frontend/cuiloa.mdx): a developer-focused block explorer showing raw block, transaction, and event data.
+- [**Veil**](./frontend/veil.mdx): a DEX-focused trading interface
 
-- [**DEX Explorer**](./frontend/dex-explorer.mdx): a DEX-focused explorer rendering DEX data.
+- [**Noctis**](./frontend/noctis.mdx): a comprehensive block explorer
 
-[Prax]: https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe
+[Prax]: https://praxwallet.com

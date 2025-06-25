@@ -23,7 +23,7 @@ const WalletInstall: React.FC = () => {
           <a
             target={'_blank'}
             className="underline"
-            href="https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe"
+            href="https://praxwallet.com"
             rel="noreferrer"
           >
             Prax Wallet
