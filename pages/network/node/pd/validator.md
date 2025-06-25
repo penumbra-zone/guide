@@ -23,11 +23,11 @@ update the configuration for a validator.
 a production validator, you _definitely_ should use a secure custody setup for the wallet which
 backs the identity key. Strongly consider using the `threshold` backend of `pcli` for this purpose.
 More details about validator custody can be found under the [validator
-custody](../../../using-penumbra/pcli/wallet.md#validator-custody) section of the `pcli` guide.
+custody](../../../usage/pcli/wallet.md#validator-custody) section of the `pcli` guide.
 
 #### Creating a template definition
 
-First, make sure you've [installed `pcli`](../../../using-penumbra/pcli/install.md).
+First, make sure you've [installed `pcli`](../../../usage/pcli/install.md).
 To create a template configuration, use `pcli validator definition template`:
 
 ```shell
@@ -84,7 +84,7 @@ Note that by default the `enabled` field is set to false and will need to be
 enabled in order to activate one's validator.
 
 In the default template, there is a funding stream declared to [contribute funds to the
-Community Pool](../../../using-penumbra/pcli/governance.md#contributing-to-the-community-pool). This is not required, and may be altered or
+Community Pool](../../../usage/pcli/governance.md#contributing-to-the-community-pool). This is not required, and may be altered or
 removed if you wish.
 
 #### Setting the consensus key

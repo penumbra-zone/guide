@@ -38,7 +38,7 @@ the `--grpc-auto-https <DOMAIN>` option. See `pd start --help` for more info.
 
 ## Custody considerations
 
-Validators should review the [pcli key custody](../../../using-penumbra/pcli/wallet.md#validator-custody) recommendations
+Validators should review the [pcli key custody](../../../usage/pcli/wallet.md#validator-custody) recommendations
 for protecting the validator identity.
 
 ## CometBFT settings

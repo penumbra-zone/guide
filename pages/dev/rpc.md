@@ -1,7 +1,7 @@
 # Working with gRPC for Penumbra
 
 The Penumbra [`pd`](../network/node/pd.md) application exposes a [gRPC] service for integration
-with other tools, such as [`pcli`](../using-penumbra/pcli.md) or the [web extension](../using-penumbra/web.mdx).
+with other tools, such as [`pcli`](../usage/pcli.md) or the [web extension](../usage/web.mdx).
 A solid understanding of how the gRPC methods work is helpful when
 building software that interoperates with Penumbra.
 

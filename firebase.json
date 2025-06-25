@@ -95,12 +95,12 @@
       },
       {
         "regex": "/pcli(?P<page>.*)",
-        "destination": "/using-penumbra/pcli:page",
+        "destination": "/usage/pcli:page",
         "type": 302
       },
       {
         "regex": "/web(?P<page>.*)",
-        "destination": "/using-penumbra/web:page",
+        "destination": "/usage/web:page",
         "type": 302
       }
     ]
