@@ -4,7 +4,7 @@ This guide explains how to work with IBC functionality
 while developing Penumbra.
 
 ## Making Penumbra -> Osmosis outbound transfers, via pcli
-See the [IBC user docs](../pcli/transaction.md#ibc-withdrawals) for how to use
+See the [IBC user docs](../usage/pcli/transaction.md#ibc-withdrawals) for how to use
 `pcli` to make an outbound IBC withdrawal, to a different testnet.
 
 ## Making Osmosis -> Penumbra inbound transfers, via hermes
@@ -50,9 +50,9 @@ You can view account history for the shared Osmosis testnet account here:
 Change the address at the end of the URL to your account to confirm that your test transfer worked.
 
 ## Updating Hermes config for a new testnet
-See the [relayer config guide](../relayers.md) for up to date information.
+See the [relayer config guide](../network/relayers.md) for up to date information.
 
-Use the [IBC user docs](../pcli/transaction.md#ibc-withdrawals) to make a test transaction,
+Use the [IBC user docs](../usage/pcli/transaction.md#ibc-withdrawals) to make a test transaction,
 to ensure that relaying is working. In the future, we should consider posting the newly created
 channel to the IBC docs guide, so community members can use it.
 
@@ -121,6 +121,6 @@ cargo run --release --bin pcli -- -n http://localhost:8080 view balance
 cargo run --release --bin pcli -- -n http://localhost:8080 tx withdraw --to osmo1kh0fwkdy05yp579d8vczgharkcexfw582zj488 --channel 0 --timeout-height 5-2900000 100penumbra
 ```
 
-See the [IBC pcli docs](../pcli/transaction.md#ibc-withdrawals) for more details.
+See the [IBC pcli docs](../usage/pcli/transaction.md#ibc-withdrawals) for more details.
 
 [hermes]: https://github.com/informalsystems/hermes

@@ -9,7 +9,7 @@ import { Callout, Steps } from 'nextra/components'
 Penumbra's DEX is built around order-book-style concentrated liquidity.
 Liquidity positions are constant-sum AMMs, offering to trade between assets at a
 fixed price.  Each position is its own independent AMM with its own fee tier,
-and as described in the [DEX chapter](../dex.mdx), the DEX engine indexes active
+and as described in the [DEX chapter](../overview/dex.mdx), the DEX engine indexes active
 liquidity positions and sorts them by price, then traverses the liquidity graph
 to optimally fill trades. 
 
@@ -220,7 +220,7 @@ This section is incomplete. You can help by expanding it!
 </Callout>
 
 Programmatic access to a wallet's private state and transaction construction is
-possible using `pclientd`. See the [`pclientd` section](../node/pclientd.md) of
+possible using `pclientd`. See the [`pclientd` section](../network/node/pclientd.md) of
 the guide for details. This allows client software to work only with a local
 GRPC endpoint and not have to worry about any Penumbra-specific cryptography or
 ZK proving.

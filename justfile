@@ -12,7 +12,10 @@ dev:
 
 # run linters, checking for valid links
 lint:
+  # check for broken links in markdown source docs
   fd -t f -e md -e mdx -X markdown-link-check --config .markdown-link-check.json
+  # check for broken image includes
+  ./scripts/check-images.sh
 
 # generate PNG and SVG images of the architecture diagrams
 architecture-diagrams:

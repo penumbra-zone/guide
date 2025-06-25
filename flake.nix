@@ -18,6 +18,7 @@
             buildInputs = [
                 fd
                 firebase-tools
+                gum
                 just
                 markdown-link-check
                 mermaid-cli
