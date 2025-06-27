@@ -96,7 +96,5 @@ a bundled version of the frontend code is available at `https://<YOUR_NODE_URL>/
 to that site after installing [Prax], and authorize the web extension to connect to it.
 
 [Minifront]: https://github.com/penumbra-zone/web/tree/main/apps/minifront
-
-[Prax]: https://chromewebstore.google.com/detail/prax-wallet/lkpmkhpnhknhmibgnmmhdhgdilepfghe
-
+[Prax]: https://praxwallet.com
 [Penumbra]: https://penumbra.zone
