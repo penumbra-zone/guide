@@ -71,6 +71,10 @@ Each block, the DEX engine executes in four steps:
 
 This optimal execution means that the DEX provides the best prices for swaps, routing your trade through the most efficient path, including splitting swaps across multiple pools.
 
+### Automatic arbitrage
+
+At the end of every block, the DEX performs automatic arbitrage to maintain consistent prices across all trading pairs. Since swaps can deplete liquidity in certain pools, price discrepancies may emerge between different trading routes for the same asset pairs. To correct this, the protocol systematically attempts to profit from these discrepancies by swapping UM for various assets and then converting those assets back to UM. Any profit generated through this process is burned, effectively eliminating the price inconsistencies and restoring equilibrium across all pools.
+
 ### Privacy
 
 Privacy is at the core of Penumbra, including its DEX.
