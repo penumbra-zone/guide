@@ -10,5 +10,6 @@
   "rpc": "RPC access",
   "ibc": "Testing IBC",
   "abci-events": "Querying ABCI events",
-  "dev-env": "Developer environment"
+  "dev-env": "Developer environment",
+  "release": "Releasing"
 }
