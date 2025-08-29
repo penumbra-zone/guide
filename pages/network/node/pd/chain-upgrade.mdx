@@ -33,3 +33,52 @@ so that your node state is recoverable.
 
 Finally, restart the node, e.g. `sudo systemctl restart penumbra cometbft`. Check the logs, and you should see the chain progressing
 past the halt height `n`. If you also run a relayer, see the docs on [relayer maintenance during an upgrade](../../relayers.md#performing-upgrades).
+
+## Performing an IBC client recovery upgrade
+
+### Context
+
+Tendermint clients are underpinning the security of IBC channels. These clients need to be updated frequently by relayers. If enough time elapses without an update or withdrawal, a client expires. This means that it can no longer be used safely.
+
+As a result, no IBC message can be processed, including deposits or withdrawals. To fix this, the expired client needs to be recovered.
+
+In Penumbra, recovering expired clients cannot be done via governance. Instead, it requires an upgrade. This avoids making funds safety load-bearing on the governance component or participation. Though it comes at the cost of increased coordination. However, expired clients should be an extremely rare occurrence.
+
+### High-level process
+
+At a high-level, the process breaks down in five phases:
+
+1. A new healthy client with similar trust parameters is created and updated by a relayer 
+2. An upgrade proposal is created and ratified
+3. Optionally, a backup is created by the node runner (mandatory if you are going to do relayer maintenance).
+4. The IBC recovery command is run by validators and full node runners (`pd migrate ibc-recovery`)
+5. The chain restarts.
+
+At a technical level, this is accomplished by migrating the state of a healthy client into the expired client's.
+
+For example, given an old client `07-tendermint-0` (expired) and a new client `07-tendermint-1`, the node runner will execute: `pd migrate ibc-recover --old-client=07-tendermint-0 --new-client=07-tendermint-1`
+
+### Step-by-step guide
+
+Fundamentally, IBC client recoveries are chain upgrades. This is why the process is very similar to the one described in the [previous section](#performing-a-chain-upgrade).
+
+There are two differences:
+- it requires creating a healthy client beforehand
+- it uses a different command: `pd migrate ibc-recover --old-client OLD --new-client NEW [--target-app-version=<APP>]`
+
+As a result, the step by step guide is similar, like for an ordinary upgrade, **[consider performing a backup as a preliminary step](#performing-a-chain-upgrade)**:
+
+1. Stop both `pd` and `cometbft`. Depending on how you run Penumbra, this could mean `sudo systemctl stop penumbra cometbft`.
+2. Download the latest version of `pd` and install it. Run `pd --version` and confirm you see the correct version.
+3. Optionally, use `pd export` to create a snapshot of the `pd` state.
+4. Apply the migration with `pd migrate --home PD_HOME --comet-home COMETBFT_HOME ibc-recover --old-client=<OLD> --new-client=<NEW> [--target-app-version=APP]`
+
+Arguments:
+- `<OLD>`: the expired client e.g, `07-tendermint-0`
+- `<NEW>`: the newer healthy client e.g, `07-tendermint-1`
+- `--target-app-version=<APP>`: can be optional or mandatory, depending on the upgrade. If the `APP_VERSION` is bumped, then it is mandatory. Otherwise it can be omitted.
+
+Finally, restart the node, e.g. `sudo systemctl restart penumbra cometbft`. Check the logs, and you should see the chain progressing
+past the halt height `n`.
+
+Note: Once this process is completed, [relayer maintenance](../../relayers.md#performing-upgrades) still needs to occur before the channel using the formerly expired client can be used.
